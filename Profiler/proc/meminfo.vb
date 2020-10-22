@@ -67,10 +67,10 @@ Namespace proc
                                   Return Val(a.Value.Split.First)
                               End Function)
             Dim mem As Object = New meminfo
-            Dim writer = Schema(Of ColumnAttribute).GetSchema(GetType(meminfo), explict:=True)
+            Dim writer = Schema(Of ColumnAttribute).GetSchema(GetType(meminfo), Function(c) c.Name, explict:=True)
 
             For Each [property] As BindProperty(Of ColumnAttribute) In writer.Fields
-
+                [property].SetValue(mem, table([property].Identity))
             Next
 
             Return mem

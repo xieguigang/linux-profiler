@@ -108,7 +108,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rscript.vb" />
+    <Compile Include="Rscript\Report.vb" />
+    <Compile Include="Rscript\Rscript.vb" />
     <Compile Include="proc\meminfo.vb" />
     <Compile Include="ProfilerReport.vb" />
     <Compile Include="Commands\uptime.vb" />
@@ -155,8 +156,6 @@
       <Name>47-dotnet_Microsoft.VisualBasic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Rscript\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

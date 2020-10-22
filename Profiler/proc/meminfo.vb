@@ -1,9 +1,12 @@
 ﻿Imports System.Data.Linq.Mapping
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
+Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Interop.CType
 
 Namespace proc
 
-    Public Class meminfo
+    Public Class meminfo : Implements ICTypeList
 
         Public Property MemTotal As Double
         Public Property MemFree As Double
@@ -76,5 +79,20 @@ Namespace proc
             Return mem
         End Function
 
+        Public Function toList() As list Implements ICTypeList.toList
+            Dim reader = Schema(Of ColumnAttribute).GetSchema(GetType(meminfo), Function(c) c.Name, explict:=True)
+            Dim data As New Dictionary(Of String, Object)
+            Dim [double] As RType = RType.GetRSharpType(GetType(Double))
+            Dim value As Double()
+
+            For Each [property] As BindProperty(Of ColumnAttribute) In reader.Fields
+                value = {DirectCast([property].GetValue(Me), Double)}
+                data([property].Identity) = New vector(value, [double]) With {
+                    .unit = New unit("KB")
+                }
+            Next
+
+            Return New list With {.slots = data}
+        End Function
     End Class
 End Namespace

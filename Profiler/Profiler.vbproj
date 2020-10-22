@@ -65,6 +65,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Rscript.vb" />
     <Compile Include="proc\meminfo.vb" />
     <Compile Include="ProfilerReport.vb" />
     <Compile Include="Commands\uptime.vb" />

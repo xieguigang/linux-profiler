@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Linq.Mapping
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
 
 Namespace proc
 
@@ -55,8 +56,24 @@ Namespace proc
         Public Property DirectMap2M As Double
         Public Property DirectMap1G As Double
 
-        Public Shared Function Parse(stdout As String) As meminfo
+        Friend Shared Function Parse(stdout As String) As meminfo
+            Dim outputLines As String() = stdout.LineTokens
+            Dim table As Dictionary(Of String, Double) = outputLines _
+                .Select(Function(line)
+                            Return line.GetTagValue(":", trim:=True)
+                        End Function) _
+                .ToDictionary(Function(a) a.Name,
+                              Function(a)
+                                  Return Val(a.Value.Split.First)
+                              End Function)
+            Dim mem As Object = New meminfo
+            Dim writer = Schema(Of ColumnAttribute).GetSchema(GetType(meminfo), explict:=True)
 
+            For Each [property] As BindProperty(Of ColumnAttribute) In writer.Fields
+
+            Next
+
+            Return mem
         End Function
 
     End Class

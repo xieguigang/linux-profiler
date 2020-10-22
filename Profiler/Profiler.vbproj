@@ -108,6 +108,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="proc\cpuinfo.vb" />
     <Compile Include="Rscript\Report.vb" />
     <Compile Include="Rscript\Rscript.vb" />
     <Compile Include="proc\meminfo.vb" />

@@ -89,7 +89,7 @@ Namespace proc
                 If prop.Identity = "flags" Then
                     Yield New NamedValue(Of String) With {
                         .Name = prop.Identity,
-                        .Value = flags.JoinBy("|")
+                        .Value = $"{flags.Length} flags, {Mid(flags.JoinBy("|"), 1, 32)}..."
                     }
                 Else
                     Yield New NamedValue(Of String) With {

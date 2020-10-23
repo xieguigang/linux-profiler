@@ -75,22 +75,38 @@
 
                 <h1>Linux system performance report</h1>
 
-                <h2>System Information</h2>
-
-                <div class="well-content intro">
-                    <p>
-                        version: {$version}
-                    </p>
-                    <p>
-                        release: {$release}
-                    </p>
-                    <p>
-                    <h5>details</h5>
-
-                    {$release_details}
-                    </p>
+                <div class="well-content intro">                   
 
                     <div class="panel-group" id="accordion">
+
+                        <div class="panel panel-warn" style="width:1024px;">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        System Information&nbsp;
+                                        <span class="glyphicons glyphicons-unchecked"></span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <p>
+                                        version: {$version}
+                                    </p>
+                                    <p>
+                                        release: {$release}
+                                    </p>
+                                    <p>
+                                    <h5>details</h5>
+                
+                                    {$release_details}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="panel panel-success" style="width:1024px;">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -105,20 +121,19 @@
 
                                     <div id="cputree"></div>
 
-                                    <script type="text/javascript"> 
-                                                                       
-                                    $('#cputree').jstree({
-		'core' : {
-			'data' : window["{$cpuinfo}"]()
-		}
-	});
+                                    <script type="text/javascript">
+                                        $('#cputree').jstree({
+                                            'core': {
+                                                'data': window["{$cpuinfo}"]()
+                                            }
+                                        });
                                     </script>
 
                                 </div>
                             </div>
                         </div>
 
-                        <div class="panel panel-normal" style="width:1024px;">
+                        <div class="panel panel-info" style="width:1024px;">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">

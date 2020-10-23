@@ -34,7 +34,7 @@ Namespace Report
 
         <Extension>
         Private Function cpuTree(cpuinfo As cpuinfo(), name As String) As String
-            Dim tree As New TreeNode With {.text = "CPU", .icon = "images/gparted.png"}
+            Dim tree As New TreeNode With {.text = "/proc/cpuinfo", .icon = "images/gparted.png"}
             Dim cpugroup = cpuinfo.GroupBy(Function(c) c.physical_id).ToArray
 
             tree.children = cpugroup _
@@ -52,7 +52,8 @@ Namespace Report
                                                         .EnumerateInfo _
                                                         .Select(Function(a)
                                                                     Return New TreeNode With {
-                                                                        .text = $"{a.Name}: {a.Value}"
+                                                                        .text = $"{a.Name}: {a.Value}",
+                                                                        .icon = "images/application-x-object.png"
                                                                     }
                                                                 End Function) _
                                                         .ToArray

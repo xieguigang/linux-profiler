@@ -1,4 +1,6 @@
-﻿Namespace Commands
+﻿Imports Microsoft.VisualBasic.Linq
+
+Namespace Commands
 
     Public Class uptime
 
@@ -39,7 +41,19 @@
         End Function
 
         Friend Shared Function Parse(stdout As String) As uptime
+            Dim tokens = stdout.StringSplit("(\s*,\s*)|(\s*up\s*)")
+            Dim uptime As TimeSpan
 
+            uptime = TimeSpan.FromDays(Integer.Parse(tokens(2).Match("\d+"))) + TimeSpan.Parse(tokens(4))
+
+            Return New uptime With {
+                .time = Strings.Trim(tokens(Scan0)),
+                .uptime = uptime,
+                .users = tokens(6).Match("\d+").DoCall(AddressOf Integer.Parse),
+                .load1 = tokens(8).Split(":"c).Last.DoCall(AddressOf Val),
+                .load5 = Val(tokens(10)),
+                .load15 = Val(tokens(12))
+            }
         End Function
 
     End Class

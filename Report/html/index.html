@@ -75,11 +75,44 @@
                     {$release_details}
                     </p>
 
-                    <h3>Hardware: CPU</h3>
-                    {$cpuinfo}
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-success" style="width:1024px;">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        Hardware: CPU&nbsp;
+                                        <span class="glyphicons glyphicons-unchecked"></span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
 
-                    <h3>Hardware: Memory</h3>
-                    {$meminfo}
+                                    {$cpuinfo}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-normal" style="width:1024px;">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        Hardware: Memory&nbsp;
+                                        <span class="glyphicons glyphicons-unchecked"></span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    {$meminfo}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -97,24 +130,41 @@
             <div class="col-lg-12">
                 <h2>System load overview</h2>
 
-                
+
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12">
                 <h2>System load overview</h2>
-              
+
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12">
-                
+
             </div>
         </div>
 
     </div>
 </body>
+
+<script type="text/javascript">
+    $(function () {
+        $('#collapseFour').collapse({
+            toggle: false
+        })
+    });
+    $(function () {
+        $('#collapseTwo').collapse('show')
+    });
+    $(function () {
+        $('#collapseThree').collapse('toggle')
+    });
+    $(function () {
+        $('#collapseOne').collapse('hide')
+    });
+</script>
 
 </html>

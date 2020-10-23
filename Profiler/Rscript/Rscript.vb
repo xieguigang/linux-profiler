@@ -35,7 +35,7 @@ Module Rscript
         Return New Rdataframe With {
             .columns = table,
             .rownames = list _
-                .Select(Function(p) p.PID.ToHexString) _
+                .Select(Function(p) p.PID.ToHexString.ToUpper) _
                 .ToArray
         }
     End Function

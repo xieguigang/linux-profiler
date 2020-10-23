@@ -35,7 +35,7 @@ Public Class Interaction
         If args.StringEmpty Then
             cmdl = command
         Else
-            cmdl = $"{command} ${args}"
+            cmdl = $"{command} {args}"
         End If
 
         If verbose Then

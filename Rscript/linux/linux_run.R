@@ -1,8 +1,10 @@
 imports "linux" from "Profiler";
 
+options(verbose = FALSE);
+
 iostat() :> str;
-free() :> str;
-uptime() :> str;
+free() :> as.list :> str;
+uptime() :> as.list :> str;
 meminfo() :> as.list :> str;
 
 cpuinfo() :> as.data.frame :> print;

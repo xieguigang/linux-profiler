@@ -1,8 +1,10 @@
 ﻿Imports System.Data.Linq.Mapping
+Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports SMRUCC.Rsharp.Runtime.Interop.CType
 
 Namespace Commands
 
-    Public Class free
+    Public Class free : Implements ICTypeList
 
         Public Property Mem As MemoryFree
         Public Property Swap As SwapFree
@@ -28,23 +30,51 @@ Namespace Commands
             Return New free With {.Mem = free1, .Swap = free2}
         End Function
 
+        Public Function toList() As list Implements ICTypeList.toList
+            Return New list With {
+                .slots = New Dictionary(Of String, Object) From {
+                    {"memory", Mem.toList},
+                    {"swap", Swap.toList}
+                }
+            }
+        End Function
     End Class
 
-    Public Class SwapFree
+    Public Class SwapFree : Implements ICTypeList
 
         Public Property total As Double
         Public Property used As Double
         Public Property free As Double
 
+        Public Overridable Function toList() As list Implements ICTypeList.toList
+            Return New list With {
+                .slots = New Dictionary(Of String, Object) From {
+                    {"total", total},
+                    {"used", used},
+                    {"free", free}
+                }
+            }
+        End Function
     End Class
 
     Public Class MemoryFree : Inherits SwapFree
+        Implements ICTypeList
 
         Public Property [shared] As Double
 
         <Column(Name:="buff/cache")>
         Public Property buff_cache As Double
         Public Property available As Double
+
+        Public Overrides Function toList() As list
+            Dim list As list = MyBase.toList
+
+            list.slots.Add("shared", [shared])
+            list.slots.Add("buff/cache", buff_cache)
+            list.slots.Add("available", available)
+
+            Return list
+        End Function
 
     End Class
 End Namespace

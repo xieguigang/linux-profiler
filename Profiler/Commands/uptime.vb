@@ -1,11 +1,13 @@
 ﻿Imports Microsoft.VisualBasic.Linq
+Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports SMRUCC.Rsharp.Runtime.Interop.CType
 
 Namespace Commands
 
     ''' <summary>
     ''' On Unix-like operating systems, the uptime command tells you how long the system has been running.
     ''' </summary>
-    Public Class uptime
+    Public Class uptime : Implements ICTypeList
 
         ''' <summary>
         ''' The current system time 
@@ -59,5 +61,17 @@ Namespace Commands
             }
         End Function
 
+        Public Function toList() As list Implements ICTypeList.toList
+            Return New list With {
+                .slots = New Dictionary(Of String, Object) From {
+                    {"time", time},
+                    {"uptime", uptime},
+                    {"users", users},
+                    {"load <1min", load1},
+                    {"load <5min", load5},
+                    {"load <15min", load15}
+                }
+            }
+        End Function
     End Class
 End Namespace

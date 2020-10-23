@@ -2,14 +2,19 @@
 Imports Microsoft.VisualBasic.FileIO
 Imports Microsoft.VisualBasic.Serialization.JSON
 Imports SMRUCC.genomics.GCModeller.Workbench.ReportBuilder.HTML
+Imports SMRUCC.WebCloud.JavaScript.highcharts
 
 Namespace Report
 
     <HideModuleName>
     Public Module RunReportHandler
 
+        Sub New()
+
+        End Sub
+
         Public Sub RunReport(template As String, output As String, summary As ProfilerReport, snapshots As Snapshot())
-            Dim overview = snapshots.SystemLoadOverloads
+            Dim overview As SynchronizedLines = snapshots.SystemLoadOverloads
             Dim overviewName = App.GetNextUniqueName("overviews_")
 
             Using html As HTMLReport = HTMLReport.CopyTemplate(template, output, SearchOption.SearchTopLevelOnly)

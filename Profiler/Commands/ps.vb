@@ -23,6 +23,10 @@ Namespace Commands
         Public Property TIME As TimeSpan
         Public Property COMMAND As String
 
+        Public Overrides Function ToString() As String
+            Return $"[{PID}] cpu: {CPU}%; {COMMAND}"
+        End Function
+
         Friend Shared Iterator Function Parse(stdout As String) As IEnumerable(Of ps)
             For Each line As String In stdout.LineTokens.Skip(1)
                 Dim data As String() = line.StringSplit("\s+")

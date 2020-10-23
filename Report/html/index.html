@@ -25,6 +25,11 @@
     <script type="text/javascript"
         src="https://cdn.biodeep.cn/vendor/highcharts.js/Highcharts-8.2.2/code/modules/data.js"></script>
 
+    <link rel="stylesheet"
+        href="https://cdn.biodeep.cn/vendor/vakata-jstree-c9d7c14/dist/themes/default/style.min.css" />
+    <script type="text/javascript"
+        src="https://cdn.biodeep.cn/vendor/vakata-jstree-c9d7c14/dist/jstree.min.js"></script>
+
     <!-- 引入layer框架 -->
     <link href="https://cdn.biodeep.cn/vendor/layer-v3.1.0/theme/default/layer.css" rel="stylesheet" />
     <script src="https://cdn.biodeep.cn/vendor/layer-v3.1.0/layer.js"></script>
@@ -32,7 +37,7 @@
     <script type="text/javascript" src="https://cdn.biodeep.cn/typescripts/build/linq.min.js"></script>
     <script type="text/javascript" src="javascript/app.js"></script>
 
-    <!-- imports js dataset --> 
+    <!-- imports js dataset -->
     <script type="text/javascript" src="data/overviews.js"></script>
 
     <script type="text/javascript">
@@ -216,7 +221,7 @@ mouse/touch event handler to bind the charts together.
                 }
 
                 // Get the data. The contents of the data file can be viewed at                      
-                var activity = {$overviews_js}();
+                var activity = window["{$overviews_js}"]();
                 activity.datasets.forEach(function (dataset, i) {
 
                     // Add X values

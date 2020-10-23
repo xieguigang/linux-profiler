@@ -18,6 +18,10 @@
         Public Property gnice As Double
         Public Property idle As Double
 
+        Public Overrides Function ToString() As String
+            Return $"[#{CPU}] {100 - idle}%"
+        End Function
+
         Friend Shared Iterator Function Parse(stdout As String) As IEnumerable(Of mpstat)
             For Each line As String In stdout.Trim.LineTokens.Skip(3)
                 Dim data As String() = line.StringSplit("\s+")

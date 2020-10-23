@@ -11,7 +11,12 @@ Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports Rdataframe = SMRUCC.Rsharp.Runtime.Internal.Object.dataframe
 
 ''' <summary>
-''' package module for get performance data from linux system. 
+''' package module for get performance data from linux system. you should install ``sysstat``
+''' toolkit at first via:
+''' 
+''' ```bash
+''' yum install sysstat -y
+''' ```
 ''' </summary>
 <Package("linux", Category:=APICategories.UtilityTools, Publisher:="xie.guigang@gcmodeller.org")>
 Module Rscript

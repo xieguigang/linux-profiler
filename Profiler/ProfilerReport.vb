@@ -1,6 +1,11 @@
 ﻿Imports Linux.Commands
 Imports Linux.proc
 
+''' <summary>
+''' run ``sysstat`` toolkit installation if the command is not found
+''' 
+''' ``yum install sysstat -y``
+''' </summary>
 Public Class ProfilerReport
 
     Public Property info As Summary

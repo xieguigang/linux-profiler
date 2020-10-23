@@ -1,10 +1,12 @@
 ﻿Imports System.Data.Linq.Mapping
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Text
+Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports SMRUCC.Rsharp.Runtime.Interop.CType
 
 Namespace Commands
 
-    Public Class iostat
+    Public Class iostat : Implements ICTypeList
 
         Public Property user As Double
         Public Property nice As Double
@@ -48,9 +50,30 @@ Namespace Commands
             }
         End Function
 
+        Public Function toList() As list Implements ICTypeList.toList
+            Dim devList As New list With {
+                .slots = devices _
+                    .ToDictionary(Function(dev) dev.Device,
+                                  Function(dev)
+                                      Return CObj(dev.toList)
+                                  End Function)
+            }
+
+            Return New list With {
+                .slots = New Dictionary(Of String, Object) From {
+                    {"%user", user},
+                    {"%nice", nice},
+                    {"%system", system},
+                    {"%iowait", iowait},
+                    {"%steal", steal},
+                    {"%idle", idle},
+                    {"devices", devList}
+                }
+            }
+        End Function
     End Class
 
-    Public Class iodev
+    Public Class iodev : Implements ICTypeList
 
         Public Property Device As String
         Public Property tps As Double
@@ -63,6 +86,18 @@ Namespace Commands
         Public Property kB_read As Double
         Public Property kB_wrtn As Double
 
+        Public Function toList() As list Implements ICTypeList.toList
+            Return New list With {
+                .slots = New Dictionary(Of String, Object) From {
+                    {"device", Device},
+                    {"tps", tps},
+                    {"kB_read/s", kB_read_sec},
+                    {"kB_wrtn/s", kB_wrtn_sec},
+                    {"kB_read", kB_read},
+                    {"kB_wrtn", kB_wrtn}
+                }
+            }
+        End Function
     End Class
 
 End Namespace

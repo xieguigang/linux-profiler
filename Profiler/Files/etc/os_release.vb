@@ -52,7 +52,8 @@ Namespace etc
         Friend Shared Function Parse(stdout As String) As os_release
             Dim lines As String()() = stdout _
                 .LineTokens _
-                .Split(Function(line) line.StringEmpty, includes:=False)
+                .Split(Function(line) line.StringEmpty, includes:=False) _
+                .ToArray
             Dim writer = Schema(Of ColumnAttribute).GetSchema(GetType(os_release), Function(c) c.Name, explict:=True)
             Dim info As New os_release
 

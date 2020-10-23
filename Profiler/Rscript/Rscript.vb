@@ -82,4 +82,13 @@ Module Rscript
             Return Commands.ps.Parse(stdout:=file.SolveStream).ToArray
         End If
     End Function
+
+    <ExportAPI("iostat")>
+    Public Function iostat(Optional file As String = Nothing) As iostat
+        If file.StringEmpty Then
+            Return iostat.Parse(Interaction.Shell("iostat", ""))
+        Else
+            Return iostat.Parse(stdout:=file.SolveStream)
+        End If
+    End Function
 End Module

@@ -1,9 +1,7 @@
 imports "report" from "Profiler";
 
-let session = new profiler(
+profiler(
 	save = `${!script$dir}/test.zip`,
 	seconds = 1
-)
+) :> start.session
 ;
-
-session :> start.session;

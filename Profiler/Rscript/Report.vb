@@ -7,6 +7,11 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 <RTypeExport("profiler", GetType(Profiler))>
 Module Report
 
+    <ExportAPI("profiler")>
+    Public Function create_profiler_session(save$, Optional seconds% = 15) As Profiler
+        Return New Profiler(save, seconds)
+    End Function
+
     <ExportAPI("start.session")>
     Public Function start_session(profiler As Profiler) As Profiler
         Call "Linux system performance profiler session is started, press Ctrl + C for stop.".__INFO_ECHO

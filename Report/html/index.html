@@ -79,7 +79,7 @@
                     <div class="col-lg-8">
                         <div style="padding: 24px 0px 24px 0px; margin-left: -25px;">
                             <p>
-                                Title: {$title}
+                                <strong style="font-size: 2em;">{$title}</strong>
                             </p>
                             <p>
                                 Sampling Time: {$time}
@@ -164,7 +164,7 @@
 
                 <div class="panel-group" id="accordion">
 
-                    <div class="panel panel-danger" style="width:1024px;">
+                    <div class="panel panel-info" style="width:1024px;">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -346,7 +346,7 @@
                 <h2>Process Snapshots</h2>
 
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-success" style="width:1024px;">
+                    <div class="panel panel-warning" style="width:1024px;">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -364,7 +364,7 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-info" style="width:1024px;">
+                    <div class="panel panel-primary" style="width:1024px;">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
@@ -403,5 +403,11 @@
         $('#collapseOne').collapse('hide')
     });
 </script>
+
+<style type="text/css">
+    .jstree-themeicon-custom {
+        background-size: contain !important;
+    }
+</style>
 
 </html>

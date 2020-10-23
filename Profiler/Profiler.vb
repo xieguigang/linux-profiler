@@ -47,7 +47,8 @@ Public Class Profiler : Implements ITaskDriver
             saveZip:=save,
             action:=ArchiveAction.Replace,
             fileOverwrite:=Overwrite.Always,
-            compression:=CompressionLevel.Fastest
+            compression:=CompressionLevel.Fastest,
+            flatDirectory:=True
         )
 
         Return 0

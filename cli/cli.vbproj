@@ -163,6 +163,10 @@
       <Project>{fecce1fd-e1d4-49e3-a668-60bb5e7aed99}</Project>
       <Name>47-dotnet_Microsoft.VisualBasic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\ReportBuilder\ReportBuilder.vbproj">
+      <Project>{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}</Project>
+      <Name>ReportBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Profiler\Profiler.vbproj">
       <Project>{c9d5f118-5632-448d-9337-43098c73ce7c}</Project>
       <Name>Profiler</Name>

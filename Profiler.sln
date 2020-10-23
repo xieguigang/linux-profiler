@@ -797,8 +797,8 @@ Global
 		{9128F045-5948-49A1-AA12-D287C8AB8474}.Biostack-Debug|x86.Build.0 = Debug|Any CPU
 		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|x64.Build.0 = Debug|Any CPU
+		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|x64.ActiveCfg = Debug|x64
+		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|x64.Build.0 = Debug|x64
 		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{9128F045-5948-49A1-AA12-D287C8AB8474}.Debug|x86.Build.0 = Debug|Any CPU
 		{9128F045-5948-49A1-AA12-D287C8AB8474}.DEMO|Any CPU.ActiveCfg = Debug|Any CPU
@@ -1001,8 +1001,8 @@ Global
 		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.installer_x64|x86.Build.0 = Debug|x86
 		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|Any CPU.ActiveCfg = Debug|Any CPU
 		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|Any CPU.Build.0 = Debug|Any CPU
-		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|x64.ActiveCfg = Debug|x64
-		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|x64.Build.0 = Debug|x64
+		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|x64.ActiveCfg = Release|x64
+		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|x64.Build.0 = Release|x64
 		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|x86.ActiveCfg = Debug|x86
 		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.linux-profiler|x86.Build.0 = Debug|x86
 		{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}.mysqli_X64_release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -1163,8 +1163,8 @@ Global
 		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.installer_x64|x86.Build.0 = installer_x64|x86
 		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|Any CPU.ActiveCfg = Debug|Any CPU
 		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|Any CPU.Build.0 = Debug|Any CPU
-		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|x64.ActiveCfg = Debug|x64
-		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|x64.Build.0 = Debug|x64
+		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|x64.ActiveCfg = Release|x64
+		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|x64.Build.0 = Release|x64
 		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|x86.ActiveCfg = Debug|x86
 		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.linux-profiler|x86.Build.0 = Debug|x86
 		{7283C179-F852-4EAD-8D8F-B82EF2CBD7DB}.mysqli_X64_release|Any CPU.ActiveCfg = mzkit|Any CPU
@@ -1325,8 +1325,8 @@ Global
 		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.installer_x64|x86.Build.0 = Debug|x86
 		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|Any CPU.ActiveCfg = Debug|Any CPU
 		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|Any CPU.Build.0 = Debug|Any CPU
-		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|x64.ActiveCfg = Debug|x64
-		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|x64.Build.0 = Debug|x64
+		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|x64.ActiveCfg = Release|x64
+		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|x64.Build.0 = Release|x64
 		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|x86.ActiveCfg = Debug|x86
 		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.linux-profiler|x86.Build.0 = Debug|x86
 		{021B5E01-F386-4C93-98B3-CD7F8383AE70}.mysqli_X64_release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -1487,8 +1487,8 @@ Global
 		{E3367B88-5D0C-495A-8273-331656D4B5AA}.installer_x64|x86.Build.0 = installer_x64|x86
 		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|Any CPU.Build.0 = Debug|Any CPU
-		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|x64.ActiveCfg = Debug|x64
-		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|x64.Build.0 = Debug|x64
+		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|x64.ActiveCfg = Release|x64
+		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|x64.Build.0 = Release|x64
 		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|x86.ActiveCfg = Debug|x86
 		{E3367B88-5D0C-495A-8273-331656D4B5AA}.linux-profiler|x86.Build.0 = Debug|x86
 		{E3367B88-5D0C-495A-8273-331656D4B5AA}.mysqli_X64_release|Any CPU.ActiveCfg = mzkit|Any CPU
@@ -1649,8 +1649,8 @@ Global
 		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.installer_x64|x86.Build.0 = installer_x64|x86
 		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|Any CPU.ActiveCfg = Debug|Any CPU
 		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|Any CPU.Build.0 = Debug|Any CPU
-		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|x64.ActiveCfg = Debug|x64
-		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|x64.Build.0 = Debug|x64
+		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|x64.ActiveCfg = Release|x64
+		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|x64.Build.0 = Release|x64
 		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|x86.ActiveCfg = Debug|x86
 		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.linux-profiler|x86.Build.0 = Debug|x86
 		{2DD4BE80-DDC3-4767-94A7-10F1C3395716}.mysqli_X64_release|Any CPU.ActiveCfg = mysqli_X64_release|Any CPU
@@ -1811,8 +1811,8 @@ Global
 		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.installer_x64|x86.Build.0 = installer_x64|x86
 		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|Any CPU.ActiveCfg = Debug|Any CPU
 		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|Any CPU.Build.0 = Debug|Any CPU
-		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|x64.ActiveCfg = Debug|x64
-		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|x64.Build.0 = Debug|x64
+		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|x64.ActiveCfg = Release|x64
+		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|x64.Build.0 = Release|x64
 		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|x86.ActiveCfg = Debug|x86
 		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.linux-profiler|x86.Build.0 = Debug|x86
 		{85E71B4B-9276-4EC8-AADC-C849205F1EA8}.mysqli_X64_release|Any CPU.ActiveCfg = mzkit|Any CPU

@@ -22,6 +22,8 @@ Module Rscript
         Internal.Object.Converts.makeDataframe.addHandler(GetType(cpuinfo()), AddressOf Rscript.cpuinfo)
     End Sub
 
+#Region "data frame"
+
     Private Function ps(list As ps(), args As list, env As Environment) As Rdataframe
         Dim table As New Dictionary(Of String, Array)
 
@@ -89,6 +91,13 @@ Module Rscript
         }
     End Function
 
+#End Region
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="file"></param>
+    ''' <returns></returns>
     <ExportAPI("uptime")>
     Public Function uptime(Optional file As String = Nothing) As uptime
         If file.StringEmpty Then

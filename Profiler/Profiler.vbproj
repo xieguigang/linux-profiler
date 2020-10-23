@@ -190,6 +190,10 @@
       <Project>{021b5e01-f386-4c93-98b3-cd7f8383ae70}</Project>
       <Name>highcharts.js</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\JavaScript\jsTree\jsTree.vbproj">
+      <Project>{4d460617-3970-4c59-987d-0a5a4bc6d30d}</Project>
+      <Name>jsTree</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\ReportBuilder\ReportBuilder.vbproj">
       <Project>{eeb2bb03-20b0-4381-8a9e-e2210eb568a5}</Project>
       <Name>ReportBuilder</Name>

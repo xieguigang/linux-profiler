@@ -39,6 +39,7 @@
 
     <!-- imports js dataset -->
     <script type="text/javascript" src="data/overviews.js"></script>
+    <script type="text/javascript" src="data/cpuinfo.js"></script>
 
     <script type="text/javascript">
         function successMsg(msg, after = null) {
@@ -102,7 +103,16 @@
                             <div id="collapseTwo" class="panel-collapse collapse">
                                 <div class="panel-body">
 
-                                    {$cpuinfo}
+                                    <div id="cputree"></div>
+
+                                    <script type="text/javascript"> 
+                                                                       
+                                    $('#cputree').jstree({
+		'core' : {
+			'data' : window["{$cpuinfo}"]()
+		}
+	});
+                                    </script>
 
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Linq.Mapping
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
 
 Namespace proc
@@ -78,6 +79,24 @@ Namespace proc
                 Next
 
                 Yield info
+            Next
+        End Function
+
+        Public Iterator Function EnumerateInfo() As IEnumerable(Of NamedValue(Of String))
+            Dim reader = Schema(Of ColumnAttribute).GetSchema(GetType(cpuinfo), Function(p) p.Name, explict:=True)
+
+            For Each prop In reader.Fields
+                If prop.Identity = "flags" Then
+                    Yield New NamedValue(Of String) With {
+                        .Name = prop.Identity,
+                        .Value = flags.JoinBy("|")
+                    }
+                Else
+                    Yield New NamedValue(Of String) With {
+                        .Name = prop.Identity,
+                        .Value = Scripting.ToString(prop.GetValue(Me))
+                    }
+                End If
             Next
         End Function
 

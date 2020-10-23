@@ -2,6 +2,26 @@
 
 Public Class Interaction
 
+    Public Shared ReadOnly Property version As String
+        Get
+            Return cat("/proc/version", verbose:=False)
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property release As String
+        Get
+            If "/etc/centos-release".FileExists Then
+                Return cat("/etc/centos-release", verbose:=False)
+            ElseIf "/etc/redhat-release".FileExists Then
+                Return cat("/etc/redhat-release", verbose:=False)
+            Else
+                Return Shell("lsb_release", "-d", verbose:=False) _
+                    .GetTagValue(":", trim:=True) _
+                    .Value
+            End If
+        End Get
+    End Property
+
     ' 20201023
     '
     ' ./linux_run.R --ignore-missing-startup-packages

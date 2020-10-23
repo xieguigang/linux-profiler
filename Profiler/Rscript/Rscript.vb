@@ -1,6 +1,7 @@
 ﻿Imports System.Data.Linq.Mapping
 Imports System.Runtime.CompilerServices
 Imports Linux.Commands
+Imports Linux.etc
 Imports Linux.proc
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
@@ -97,6 +98,15 @@ Module Rscript
     End Function
 
 #End Region
+
+    <ExportAPI("os_release")>
+    Public Function os_release(Optional file As String = Nothing, Optional env As Environment = Nothing) As os_release
+        If file.StringEmpty Then
+            Return os_release.Parse(Interaction.cat("/etc/os-release", verbose:=env.globalEnvironment.options.verbose))
+        Else
+            Return os_release.Parse(stdout:=file.SolveStream)
+        End If
+    End Function
 
     ''' <summary>
     ''' On Unix-like operating systems, the uptime command tells 

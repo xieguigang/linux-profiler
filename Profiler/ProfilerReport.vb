@@ -26,6 +26,9 @@ Public Class ProfilerReport
 
 End Class
 
+''' <summary>
+''' 一次性能采样数据帧
+''' </summary>
 Public Class Snapshot
 
     ''' <summary>
@@ -38,5 +41,9 @@ Public Class Snapshot
     Public Property free As free
     Public Property iostat As iostat
     Public Property ps As ps()
+
+    Public Function FindAllCPUUsage() As mpstat
+        Return mpstat.Where(Function(a) a.CPU = "all").FirstOrDefault
+    End Function
 
 End Class

@@ -50,6 +50,14 @@ Namespace Commands
             }
         End Function
 
+        Public Function GetTotalBytesRead() As Double
+            Return Aggregate dev As iodev In devices Into Sum(dev.kB_read_sec)
+        End Function
+
+        Public Function GetTotalBytesWrite() As Double
+            Return Aggregate dev As iodev In devices Into Sum(dev.kB_wrtn_sec)
+        End Function
+
         Public Function toList() As list Implements ICTypeList.toList
             Dim devList As New list With {
                 .slots = devices _

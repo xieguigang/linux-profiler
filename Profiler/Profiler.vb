@@ -12,7 +12,7 @@ Public Class Profiler : Implements ITaskDriver
     Dim cancel As Boolean = False
     Dim save As String
     Dim seconds As Integer
-    Dim tmp As String = App.GetAppSysTempFile("/", sessionID:=App.PID, prefix:="profiler_tools")
+    Dim tmp As String = App.GetAppSysTempFile("__", sessionID:=App.PID, prefix:="profiler_tools")
     Dim i As i32
 
     Sub New(save As String, Optional seconds As Integer = 15)
@@ -62,6 +62,7 @@ Public Class Profiler : Implements ITaskDriver
             .uptime = Commands.uptime.Parse(Interaction.Shell("uptime", "", verbose:=False))
         }
 
+        Call Console.WriteLine(snapshot.uptime.ToString)
         Call snapshot.GetJson.SaveTo($"{tmp}/profiles/snapshots_{++i}.json")
     End Sub
 End Class

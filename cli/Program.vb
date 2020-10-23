@@ -27,7 +27,7 @@ Module Program
 
     <ExportAPI("/report")>
     <Usage("/report /snapshots <samples.zip> [/template <template_directory> /out <report_directory>]")>
-    Public Function Report(args As CommandLine) As Integer
+    Public Function RunReport(args As CommandLine) As Integer
         Dim in$ = args <= "/snapshots"
         Dim out$ = args("/out") Or $"{[in].TrimSuffix}.profilers_report/"
         Dim tmp As String = App.GetAppSysTempFile("~", App.PID, "snapshots")
@@ -48,20 +48,7 @@ Module Program
             .OrderBy(Function(frame) frame.uptime.uptime) _
             .ToArray
 
-        Using html As HTMLReport = HTMLReport.CopyTemplate(template, out, SearchOption.SearchTopLevelOnly)
-            html("version") = summary.version
-            html("release") = summary.release
-            html("release_details") = summary.osinfo.toHtml
-
-            Dim overview = snapshots.SystemLoadOverloads
-            Dim overviewName = App.GetNextUniqueName("overviews_")
-
-            html("overviews_js") = overviewName
-
-            Call $"function {overviewName}() {{
-    return {overview.GetJson};
-}}".SaveTo($"{out}/data/overviews.js")
-        End Using
+        Call Report.RunReport(template, out, summary, snapshots)
 
         Return 0
     End Function

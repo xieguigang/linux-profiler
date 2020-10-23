@@ -118,6 +118,7 @@
     <Compile Include="Files\proc\cpuinfo.vb" />
     <Compile Include="Report\InformationHtml.vb" />
     <Compile Include="Report\Chartting.vb" />
+    <Compile Include="Report\RunReport.vb" />
     <Compile Include="Rscript\Reporter.vb" />
     <Compile Include="Rscript\Rscript.vb" />
     <Compile Include="Files\proc\meminfo.vb" />

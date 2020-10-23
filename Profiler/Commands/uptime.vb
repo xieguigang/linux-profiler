@@ -2,6 +2,9 @@
 
 Namespace Commands
 
+    ''' <summary>
+    ''' On Unix-like operating systems, the uptime command tells you how long the system has been running.
+    ''' </summary>
     Public Class uptime
 
         ''' <summary>

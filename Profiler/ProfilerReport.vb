@@ -1,4 +1,5 @@
 ﻿Imports Linux.Commands
+Imports Linux.etc
 Imports Linux.proc
 
 ''' <summary>
@@ -21,7 +22,7 @@ Public Class ProfilerReport
     ''' <returns></returns>
     Public Property cpuinfo As cpuinfo()
     Public Property meminfo As meminfo
-    Public Property profiles As Snapshot()
+    Public Property osinfo As os_release
 
 End Class
 

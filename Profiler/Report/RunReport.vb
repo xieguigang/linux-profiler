@@ -2,6 +2,7 @@
 Imports jsTree
 Imports Linux.proc
 Imports Microsoft.VisualBasic.FileIO
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Serialization.JSON
 Imports SMRUCC.genomics.GCModeller.Workbench.ReportBuilder.HTML
 Imports SMRUCC.WebCloud.JavaScript.highcharts
@@ -26,6 +27,9 @@ Namespace Report
                 html("release_details") = summary.osinfo.toHtml
                 html("overviews_js") = overviewName
                 html("cpuinfo") = cpuTreeName
+                html("title") = summary.title Or "No title".AsDefault
+                html("time") = summary.time.ToString
+                html("time_span") = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).FormatTime
 
                 Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
                 Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")

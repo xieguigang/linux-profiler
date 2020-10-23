@@ -9,7 +9,7 @@
     <meta content="Linux system performance report" name="description">
     <meta name="app" content="index" />
 
-    <title>Linux system performance report</title>
+    <title>{$title} | Linux system performance report</title>
 
     <link rel="stylesheet" href="https://cdn.biodeep.cn/styles/bootstrap-3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.biodeep.cn/styles/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -69,13 +69,31 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <img src="images/utilities-system-monitor-icon.png" style="margin-top:15px; height:100px;"></img>
-
-                <hr />
-
                 <h1>Linux system performance report</h1>
 
+                <div class="row">
+                    <div class="col-lg-2" style="text-align: center;">
+                        <img src="images/utilities-system-monitor-icon.png"
+                            style="margin-top:15px; height:100px;"></img>
+                    </div>
+                    <div class="col-lg-8">
+                        <div style="padding: 24px 0px 24px 0px; margin-left: -25px;">
+                            <p>
+                                Title: {$title}
+                            </p>
+                            <p>
+                                Sampling Time: {$time}
+                            </p>
+                            <p>
+                                Time Span: {$time_span}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="well-content intro">
+
+                    <h2>System Information</h2>
 
                     <div class="panel-group" id="accordion">
 
@@ -83,7 +101,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                        System Information&nbsp;
+                                        Software&nbsp;
                                         <span class="glyphicons glyphicons-unchecked"></span>
                                     </a>
                                 </h4>
@@ -325,14 +343,14 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h2>System load overview</h2>
+                <h2>Process Snapshots</h2>
 
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-success" style="width:1024px;">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    Hardware: CPU&nbsp;
+                                    Region Of Interesting&nbsp;
                                     <span class="glyphicons glyphicons-unchecked"></span>
                                 </a>
                             </h4>
@@ -350,7 +368,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-                                    Hardware: Memory&nbsp;
+                                    Processes&nbsp;
                                     <span class="glyphicons glyphicons-unchecked"></span>
                                 </a>
                             </h4>
@@ -366,20 +384,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h2>System load overview</h2>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12">
-
-            </div>
-        </div>
-
     </div>
 </body>
 

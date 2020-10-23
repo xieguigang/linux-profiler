@@ -49,7 +49,7 @@ Namespace Commands
             Dim tokens = stdout.StringSplit("(\s*,\s*)|(\s*up\s*)")
             Dim uptime As TimeSpan
 
-            uptime = TimeSpan.FromDays(Integer.Parse(tokens(2).Match("\d+"))) + TimeSpan.Parse(tokens(4))
+            uptime = TimeSpan.FromDays(Integer.Parse(tokens(2).Match("\d+"))) + ParseTimeSpan(tokens(4))
 
             Return New uptime With {
                 .time = Strings.Trim(tokens(Scan0)),

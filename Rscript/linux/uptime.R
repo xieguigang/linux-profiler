@@ -1,6 +1,12 @@
 imports "linux" from "Profiler";
 
-let summary = "D:\linux-profiler\Rscript\commands\uptime.txt"
+"D:\linux-profiler\Rscript\commands\uptime2.txt"
+:> readText
+:> uptime
+:> str
+;
+
+"D:\linux-profiler\Rscript\commands\uptime.txt"
 :> readText
 :> uptime
 :> str

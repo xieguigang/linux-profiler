@@ -1,7 +1,10 @@
-﻿Imports System.Runtime.CompilerServices
+﻿Imports System.Data.Linq.Mapping
+Imports System.Runtime.CompilerServices
 Imports Linux.Commands
 Imports Linux.proc
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
+Imports Microsoft.VisualBasic.Scripting
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
@@ -16,6 +19,7 @@ Module Rscript
     Sub New()
         Internal.Object.Converts.makeDataframe.addHandler(GetType(ps()), AddressOf Rscript.ps)
         Internal.Object.Converts.makeDataframe.addHandler(GetType(mpstat()), AddressOf Rscript.mpstat)
+        Internal.Object.Converts.makeDataframe.addHandler(GetType(cpuinfo()), AddressOf Rscript.cpuinfo)
     End Sub
 
     Private Function ps(list As ps(), args As list, env As Environment) As Rdataframe
@@ -61,6 +65,26 @@ Module Rscript
             .columns = table,
             .rownames = all _
                 .Select(Function(a) "#" & a.CPU) _
+                .ToArray
+        }
+    End Function
+
+    Private Function cpuinfo(list As cpuinfo(), args As list, env As Environment) As Rdataframe
+        Dim table As New Dictionary(Of String, Array)
+        Dim reader = Schema(Of ColumnAttribute).GetSchema(GetType(cpuinfo), Function(c) c.Name, explict:=True)
+
+        For Each column In reader.Fields
+            table(column.Identity) = list _
+                .Select(Function(a)
+                            Return column.GetValue(a)
+                        End Function) _
+                .DirectCast(type:=column.Type)
+        Next
+
+        Return New Rdataframe With {
+            .columns = table,
+            .rownames = list _
+                .Select(Function(cpu) $"#{cpu.processor}") _
                 .ToArray
         }
     End Function

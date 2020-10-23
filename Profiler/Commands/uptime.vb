@@ -38,5 +38,9 @@
             Return $" {time} up {uptime}, {users} users,  load average: {load1}, {load5}, {load15}"
         End Function
 
+        Friend Shared Function Parse(stdout As String) As uptime
+
+        End Function
+
     End Class
 End Namespace

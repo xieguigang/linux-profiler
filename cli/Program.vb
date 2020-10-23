@@ -38,11 +38,26 @@ Module Program
         Call UnZip.ImprovedExtractToDirectory(in$, tmp, Overwrite.Always, extractToFlat:=True)
 
         Dim summary As ProfilerReport = $"{tmp}/index.json".LoadJSON(Of ProfilerReport)
+        Dim snapshots As Snapshot() = tmp _
+            .EnumerateFiles("*.json") _
+            .Where(Function(file) Not file.FileName = "index.json") _
+            .Select(Function(file) file.LoadJSON(Of Snapshot)) _
+            .OrderBy(Function(frame) frame.uptime.uptime) _
+            .ToArray
 
         Using html As HTMLReport = HTMLReport.CopyTemplate(template, out, SearchOption.SearchTopLevelOnly)
             html("version") = summary.version
             html("release") = summary.release
             html("release_details") = summary.osinfo.toHtml
+
+            Dim overview = snapshots.SystemLoadOverloads
+            Dim overviewName = App.GetNextUniqueName("overviews_")
+
+            html("overviews_js") = overviewName
+
+            Call $"function {overviewName}() {{
+    return {overview.GetJson};
+}}".SaveTo($"{out}/data/overviews.js")
         End Using
 
         Return 0

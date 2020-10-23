@@ -1,9 +1,11 @@
-﻿Imports SMRUCC.WebCloud.JavaScript.highcharts
+﻿Imports System.Runtime.CompilerServices
+Imports SMRUCC.WebCloud.JavaScript.highcharts
 
 Namespace Report
 
     Public Module Chartting
 
+        <Extension>
         Public Function SystemLoadOverloads(snapshots As Snapshot()) As SynchronizedLines
             Dim cpu = snapshots.Select(Function(a) 100 - a.FindAllCPUUsage.idle).ToArray
             Dim memory = snapshots.Select(Function(a) a.free.Mem.used).ToArray

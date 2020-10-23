@@ -163,6 +163,10 @@
       <Project>{fecce1fd-e1d4-49e3-a668-60bb5e7aed99}</Project>
       <Name>47-dotnet_Microsoft.VisualBasic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\JavaScript\highcharts.js\highcharts.js.vbproj">
+      <Project>{021B5E01-F386-4C93-98B3-CD7F8383AE70}</Project>
+      <Name>highcharts.js</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\ReportBuilder\ReportBuilder.vbproj">
       <Project>{EEB2BB03-20B0-4381-8A9E-E2210EB568A5}</Project>
       <Name>ReportBuilder</Name>

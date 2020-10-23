@@ -46,4 +46,8 @@ Public Class Snapshot
         Return mpstat.Where(Function(a) a.CPU = "all").FirstOrDefault
     End Function
 
+    Public Overrides Function ToString() As String
+        Return uptime.ToString & ", top: " & ps.OrderByDescending(Function(a) a.CPU).First.COMMAND
+    End Function
+
 End Class

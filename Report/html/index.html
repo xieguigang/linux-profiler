@@ -32,6 +32,9 @@
     <script type="text/javascript" src="https://cdn.biodeep.cn/typescripts/build/linq.min.js"></script>
     <script type="text/javascript" src="javascript/app.js"></script>
 
+    <!-- imports js dataset --> 
+    <script type="text/javascript" src="data/overviews.js"></script>
+
     <script type="text/javascript">
         function successMsg(msg, after = null) {
             layer.msg(msg, { icon: 1, time: 2000 }, function () {
@@ -212,88 +215,81 @@ mouse/touch event handler to bind the charts together.
                     }
                 }
 
-                // Get the data. The contents of the data file can be viewed at
-                Highcharts.ajax({
-                    url: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/activity.json',
-                    dataType: 'text',
-                    success: function (activity) {
+                // Get the data. The contents of the data file can be viewed at                      
+                var activity = {$overviews_js}();
+                activity.datasets.forEach(function (dataset, i) {
 
-                        activity = JSON.parse(activity);
-                        activity.datasets.forEach(function (dataset, i) {
+                    // Add X values
+                    dataset.data = Highcharts.map(dataset.data, function (val, j) {
+                        return [activity.xData[j], val];
+                    });
 
-                            // Add X values
-                            dataset.data = Highcharts.map(dataset.data, function (val, j) {
-                                return [activity.xData[j], val];
-                            });
+                    var chartDiv = document.createElement('div');
+                    chartDiv.className = 'chart';
+                    document.getElementById('overviews').appendChild(chartDiv);
 
-                            var chartDiv = document.createElement('div');
-                            chartDiv.className = 'chart';
-                            document.getElementById('overviews').appendChild(chartDiv);
-
-                            Highcharts.chart(chartDiv, {
-                                chart: {
-                                    marginLeft: 40, // Keep all charts left aligned
-                                    spacingTop: 20,
-                                    spacingBottom: 20
-                                },
-                                title: {
-                                    text: dataset.name,
-                                    align: 'left',
-                                    margin: 0,
-                                    x: 30
-                                },
-                                credits: {
-                                    enabled: false
-                                },
-                                legend: {
-                                    enabled: false
-                                },
-                                xAxis: {
-                                    crosshair: true,
-                                    events: {
-                                        setExtremes: syncExtremes
-                                    },
-                                    labels: {
-                                        format: '{value} km'
-                                    }
-                                },
-                                yAxis: {
-                                    title: {
-                                        text: null
-                                    }
-                                },
-                                tooltip: {
-                                    positioner: function () {
-                                        return {
-                                            // right aligned
-                                            x: this.chart.chartWidth - this.label.width,
-                                            y: 10 // align to title
-                                        };
-                                    },
-                                    borderWidth: 0,
-                                    backgroundColor: 'none',
-                                    pointFormat: '{point.y}',
-                                    headerFormat: '',
-                                    shadow: false,
-                                    style: {
-                                        fontSize: '18px'
-                                    },
-                                    valueDecimals: dataset.valueDecimals
-                                },
-                                series: [{
-                                    data: dataset.data,
-                                    name: dataset.name,
-                                    type: dataset.type,
-                                    color: Highcharts.getOptions().colors[i],
-                                    fillOpacity: 0.3,
-                                    tooltip: {
-                                        valueSuffix: ' ' + dataset.unit
-                                    }
-                                }]
-                            });
-                        });
-                    }
-                });
+                    Highcharts.chart(chartDiv, {
+                        chart: {
+                            marginLeft: 40, // Keep all charts left aligned
+                            spacingTop: 20,
+                            spacingBottom: 20
+                        },
+                        title: {
+                            text: dataset.name,
+                            align: 'left',
+                            margin: 0,
+                            x: 30
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            crosshair: true,
+                            events: {
+                                setExtremes: syncExtremes
+                            },
+                            labels: {
+                                format: '{value} km'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: null
+                            }
+                        },
+                        tooltip: {
+                            positioner: function () {
+                                return {
+                                    // right aligned
+                                    x: this.chart.chartWidth - this.label.width,
+                                    y: 10 // align to title
+                                };
+                            },
+                            borderWidth: 0,
+                            backgroundColor: 'none',
+                            pointFormat: '{point.y}',
+                            headerFormat: '',
+                            shadow: false,
+                            style: {
+                                fontSize: '18px'
+                            },
+                            valueDecimals: dataset.valueDecimals
+                        },
+                        series: [{
+                            data: dataset.data,
+                            name: dataset.name,
+                            type: dataset.type,
+                            color: Highcharts.getOptions().colors[i],
+                            fillOpacity: 0.3,
+                            tooltip: {
+                                valueSuffix: ' ' + dataset.unit
+                            }
+                        }]
+                    });
+                });                               
             </script>
 
         </div>

@@ -1,0 +1,503 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name='renderer' content='webkit' />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+<meta name='description' content='' />
+<meta name="author" content="bionovogene" />
+<meta name="copyright" content="http://bionovogene.com Copyright(c) 2020" />
+<meta name="keywords" content="biodeep; metabonomics; metabolite" />
+<meta name="cdn" content="https://cdn.biodeep.cn" />
+<meta name="theme-color" content="#1A5A9B" />
+
+<title></title>
+
+<link rel="stylesheet" href="https://cdn.biodeep.cn/vendor/icheck-1.x/skins/all.css">
+<!-- <link rel="stylesheet" href="https://cdn.biodeep.cn/vendor/icheck-1.x/skins/custom.css">-->
+
+<!-- <link rel="stylesheet" href="https://cdn.biodeep.cn/styles/bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/font-awesome-4.7.0/css/font-awesome.min.css" /> -->
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/font-awesome-4.7.0/css/font-awesome.min.css" />
+
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/common.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/modal.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/header.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/footer.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/vendor/layer-v2.1/layer/skin/layer.css" />
+
+<link rel="stylesheet" href="https://cdn.biodeep.cn/vendor/jRange-master/jquery.range.css" />
+
+<link rel="icon" href="https://cdn.biodeep.cn/favicon.ico" type="image/x-icon" />
+<link rel="manifest" href="/manifest.json" />
+
+<script type="text/javascript" src="https://cdn.biodeep.cn/vendor/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.biodeep.cn/vendor/popper.min.js"></script>
+<script type="text/javascript" src="https://cdn.biodeep.cn/vendor/layer-v2.1/layer/layer.js"></script>
+<script type="text/javascript" src="https://cdn.biodeep.cn/typescripts/build/linq.js"></script>
+
+<!-- <script type="text/javascript" src="https://cdn.biodeep.cn/styles/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.biodeep.cn/styles/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.biodeep.cn/vendor/KanNotify/statics/jquery.kanNotify.js"></script>
+<script type="text/javascript" src="https://cdn.biodeep.cn/typescripts/build/biodeep.notify.worker.js"></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0d2a317e8e103d384c45498d19f60d79";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script type="text/javascript" src="https://cdn.biodeep.cn/vendor/jRange-master/jquery.range.js"></script>
+
+<link rel="stylesheet" href="https://cdn.biodeep.cn/vendor/KanNotify/build/kanNotify.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/metadiscovery/analysis/analysis.css">
+
+<script type="text/javascript">
+    var ROOT_PATH = '';
+
+    function successMsg(msg, after = null) {
+        layer.closeAll();
+        layer.msg(msg, { icon: 1, time: 2000 }, function () {
+            if (after) {
+                after();
+            }
+        });
+
+        return true;
+    }
+
+    function errorMsg(msg, after = null) {
+        layer.closeAll();
+        layer.msg(msg, { icon: 2, time: 2000 }, function () {
+            if (after) {
+                after();
+            }
+        });
+
+        return false;
+    }
+
+    function warningMsg(msg, after = null) {
+        layer.closeAll();
+        layer.msg(msg, { icon: 5, time: 2000 }, function () {
+            if (after) {
+                after();
+            }
+        });
+
+        return false;
+    }
+</script>
+    <script type="text/javascript" src="./javascript/app.js"></script>
+
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/discovery.css" />
+<link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/metadiscovery/common.css" />
+
+
+    <link rel="stylesheet" href="https://cdn.biodeep.cn/styles/biodeep/index.css" />
+
+</head>
+
+<body>
+
+    <div class="container-fluid header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top nav_top">
+        <div class="container-fluid">
+            <div class="logo_top">
+                <a class="navbar-brand" href="http://www.biodeep.cn"><img src="https://cdn.biodeep.cn/images/logo@2x.png" style="width: 100%;"></a>
+            </div>
+
+            <!-- 这个 div 加上 justify-content-end 样式即可 -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav" id="headerNav" style="margin-top: 27px;">
+                    <li class="nav-item" id="navIndexPage"><a class="nav-link" href="http://www.biodeep.cn/"> 首页 </a>
+                    </li>
+                        
+                                                <li class="nav-item" id="navHelpPage"><a class="nav-link" href="http://help.biodeep.cn/"> 帮助 </a></li>
+    
+                        <li class="nav-item dropdown" id="navCenterPage">
+                            <a class="nav-link" href="http://passport.biodeep.cn/login">登录</a>
+                        </li>
+                                        
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="h-box" style="width: 100%;height: 100px;"></div>
+<script>
+    $(function () {
+        $("#headerNav li a").each(function () {
+            if ($(this)[0].href == String(window.location)) {
+                $(this).addClass("one").siblings().removeClass("one");
+                $(this).parent('li').addClass("on").siblings().removeClass("on");
+            }
+        });
+    })
+</script>
+
+    <div id="index_banner" style="margin-top: -100px;">
+        <div class="container-fluid">
+            <img src="https://cdn.biodeep.cn/images/index_banner.jpg" class="img-fluid">
+            <div class="banner_container">
+                <h1>全球领先的代谢组学云分析平台</h1>
+                <h2 style="text-transform: none;">BioDeep Online 轻松分析代谢组学数据，零基础也能一秒出图</h2>
+                <h2 style="display: none;">BioDeep Online为每位代谢组用户提供生物信息数据的存储、分析</h2>
+
+                <br />
+                <br />
+                <br />
+                <br />
+
+                <div class="text_wrap">
+                    <p>
+                        <!-- <a href="/workspace" class="btn btn-primary btn-lg ghost">开始使用</a> -->
+                        <a href="/home" class="btn btn-primary btn-lg ghost">开始使用</a>
+                    </p> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="container-fluid" id="one_step_analysis">
+        <h2 style="text-align: center;">一键分析</h2>
+        <hr style="width: 70px;margin: 0 auto;border-bottom: 3px solid #99cc33;" />
+        <div class="row" style="width: 1241px;height: 450px;margin: 0 auto;margin-top: 50px;">
+            <img style="width: 100%;height: 100%;" src="https://cdn.biodeep.cn/images/index_analysis.png"/>
+        </div>
+    </div> -->
+
+    <div class="container-fluid main" id="multi_platforms">
+        <h3 style="text-align: center;padding-top: 50px;">多功能平台<p  style="text-transform: none; margin-top: 15px;">Platform</p></h3>
+        <!-- <hr style="width: 135px;margin: 35px auto;border-bottom: 3px solid #99cc33;" /> -->
+        <!-- 4.14修改 -->
+        <div class="multifunction">
+            <div class="features">
+                <div class="features_img">
+                    <img src="https://cdn.biodeep.cn/images/index_img01.jpg" alt="">
+                    <div class="features_logo">
+                        <div>
+                            <img src="https://cdn.biodeep.cn/images/metadis-logo.png" alt="">
+                            <p>MetaDiscovery</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="features_cont">
+                    <p>多元统计分析平台</p>
+                    <p><span></span></p>
+                    <p>
+                        实现代谢组学多元变量统计功能<br /> 从矩阵表格开始完成一键出报告的自动化分析过程，无需任何生物信息学基础，轻松制作美观图表。
+                    </p>
+                    
+                    <div>
+                        <!-- <a href="/home" class="btn btn-primary btn-lg ghost">免费试用→</a> -->
+                        <a href="/workspace/create" class="btn btn-primary btn-lg ghost">免费试用→</a>
+                    </div>
+                </div>
+            </div>
+            <div class="features">
+                <div class="features_img">
+                    <img src="https://cdn.biodeep.cn/images/index_img02.jpg" alt="">
+                    <div class="features_logo">
+                        <div>
+                            <img src="https://cdn.biodeep.cn/images/metadeco-logo.png" alt="">
+                            <p>MetAnno</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="features_cont">
+                    <p>代谢物鉴定平台</p>
+                    <p><span></span></p>
+                    <p>
+                        实现代谢物在线注释功能<br /> 基于完善的标准化物质信息模块，整合数据库，在线批量完成GC-MS及LC-MS/MS质谱数据全注释。
+                    </p>
+                    <div>
+                         <a href="javascript:;" class="btn btn-lg expect">敬请期待</a>
+                    </div>
+                </div>
+            </div>
+            <div class="features">
+                <div class="features_img">
+                    <img src="https://cdn.biodeep.cn/images/index_img03.jpg" alt="">
+                    <div class="features_logo">
+                        <div>
+                            <img src="https://cdn.biodeep.cn/images/metanno-logo.png" alt="">
+                            <p>BioDeepDB</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="features_cont">
+                    <p>代谢组数据库平台</p>
+                    <p><span></span></p>
+                    <p>
+                        实现个性化数据库建立功能<br /> 免费数据库、公司开发付费数据库与个人数据库融合的超大平台。
+                    </p>
+                    <div>
+                        <a href="https://query.biodeep.cn" class="btn btn-primary btn-lg ghost">开始查询→</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 修改前4.14 -->
+        <div class="row" style="width: 1241px;height: 300px;margin: 0 auto;margin-top: 50px; display: flex; justify-content: center; display: none;">
+            <div class="platforms">
+                <div class="platform_introduction" background="https://cdn.biodeep.cn/images/shutterstock-272458400.png">
+                    <div class="metadiscovery_logo">
+                        <p><img src="https://cdn.biodeep.cn/images/metadiscovery_logo.png" /></p>
+                    </div>
+                
+                    <div class="platform_description">
+                        &emsp;&emsp;实现代谢组学多元变量统计功能,从矩阵表格开始完成DIY及一键出报告的自动化分析过程，无需任何生物信息学基础，轻松制作美观图表（PCA、PLSDA、热图、箱式图等等）
+                    </div>
+                    
+                    <div class="free_use">
+                        <p>
+                            <a href="/home" class="btn btn-primary btn-lg ghost">免费试用→</a>
+                        </p>
+                    </div>
+                
+                </div>
+                <div class="platforms_logo" style="height: 100% !important;">
+                    <img src="https://cdn.biodeep.cn/images/index_features04.png" style="width: 100%; height: 100%;">
+                </div>
+            </div>
+            <div class="platforms">
+                <div class="platform_introduction" background="https://cdn.biodeep.cn/images/shutterstock-300344546.png">
+                    <div class="metadeco_logo">
+                        <p><img src="https://cdn.biodeep.cn/images/metadeco_logo.png" /></p>
+                    </div>
+                    
+                    <div class="platform_description">
+                        实现代谢组学分析中解卷积功能，提供从原始质谱数据到矩阵的自动化分析服务，采用阿里云技术，极速上传、安骑士加密、简单友好的界面助您轻松完成代谢组学分析关键的第一步。
+                    </div>
+                    
+                    <div class="free_use">
+                        <p>
+                            <a href="/home" class="btn btn-primary btn-lg ghost">免费试用→</a>
+                        </p>
+                    </div>
+                
+                </div>
+                
+                <div class="platforms_logo">
+                    <img src="https://cdn.biodeep.cn/images/index_features02.png" style="width: 100%; height: 100%;">
+                </div>
+                
+            </div>
+            <div class="platforms">
+                <div class="platform_introduction" background="https://cdn.biodeep.cn/images/shutterstock-321517772.png">
+                    <div class="metanno_logo">
+                        <p><img src="https://cdn.biodeep.cn/images/metanno_logo.png" /></p>    
+                    </div>
+
+                    <div class="platform_description">
+                        &emsp;&emsp;实现代谢物在线注释功能，基于完善的标准化物质信息模块，整合自建库、公共库及商业化数据库，在线批量完成GC-MS及LC-MS/MS质谱数据全注释，并未来与共享标准品及质谱数据无缝接轨，是代谢组学生态圈BioDeep的核心功能。
+                    </div>
+
+                    <div class="free_use">
+                        <p>
+                            <!-- <a href="http://msms.biodeep.cn/metanno/" class="btn btn-primary btn-lg ghost">免费试用→</a> -->
+                            <a href="javascript:;" class="btn btn-lg expect">敬请期待</a>
+                        </p>
+                    </div>
+
+                </div>
+            
+                <div class="platforms_logo">
+                    <img src="https://cdn.biodeep.cn/images/index_features03.png" style="width: 100%; height: 100%;">
+                    <!-- <p><img src="https://cdn.biodeep.cn/images/logo3.png"  class="logo3"/></p> -->
+                    <!-- <p><img src="https://cdn.biodeep.cn/images/anno.png"  class="anno"/></p> -->
+                </div>
+            </div>
+            <div class="platforms">
+                <div class="platform_introduction" background="https://cdn.biodeep.cn/images/shutterstock-523968604.png">
+                    <div class="metadb_logo">
+                        <p><img src="https://cdn.biodeep.cn/images/metanno_logo.png" /></p>
+                    </div>
+
+                    <div class="platform_description">
+                        &emsp;&emsp;实现代谢组学多元变量统计功能,从矩阵表格开始完成DIY及一键出报告的自动化分析过程，无需任何生物信息学基础，轻松制作美观图表（PCA、PLSDA、热图、箱式图等等）
+                    </div>
+
+                    <div class="free_use">
+                        <p>
+                            <!-- <a href="http://datastore.biodeep.cn/" class="btn btn-primary btn-lg ghost">免费试用→</a> -->
+                            <a href="javascript:;" class="btn btn-lg expect">敬请期待</a>
+                        </p>
+                    </div>
+                
+                </div>
+                
+                <div class="platforms_logo">
+                    <img src="https://cdn.biodeep.cn/images/index_features04.png" style="width: 100%; height: 100%;">
+                    <!-- <p><img src="https://cdn.biodeep.cn/images/logo3.png"  class="logo4"/></p> -->
+                    <!-- <p><img src="https://cdn.biodeep.cn/images/anno.png"  class="db"/></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 数据分析案例 -->
+    <div class="StudyCase">
+        <h3>数据分析案例<p>Case</p></h3>
+        
+        <div class="Study_cont">
+            <div class="case_top">
+                <div><img src="https://cdn.biodeep.cn/images/barplot_Ethanolamine.jpg" alt=""></div>
+                <div><img src="https://cdn.biodeep.cn/images/correlation.jpg" alt=""></div>
+                <div><img src="https://cdn.biodeep.cn/images/Dendrogram.jpg" alt=""></div>
+            </div>
+            <div class="case_fot">
+                <div><p>barplot_Ethanolamine</p></div>
+                <div><p>correlation</p></div>
+                <div><p>Dendrogram</p></div>
+            </div>
+            <div class="case_bom">
+                <div><img src="https://cdn.biodeep.cn/images/heatmap.jpg" alt=""></div>
+                <div><img src="https://cdn.biodeep.cn/images/PLS-DA.jpg" alt=""></div>
+                <div><img src="https://cdn.biodeep.cn/images/QA.jpg" alt=""></div>
+            </div>
+            <div class="case_fot">
+                <div><p>heatmap</p></div>
+                <div><p>PLS-DA</p></div>
+                <div><p>QA</p></div>
+            </div>
+        </div>
+    </div>
+    <!-- 部分合作伙伴 -->
+    <div class="Partner">
+        <h3>部分合作伙伴<p>Partner</p></h3>
+        
+        <div class="partner_cont">
+            <div class="partner_top">
+                <div><a target="_blank" href="http://www.pku.edu.cn/"><img src="https://cdn.biodeep.cn/images/bjdx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.bucm.edu.cn/"><img src="https://cdn.biodeep.cn/images/bjzyydx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.smmu.edu.cn/"><img src="https://cdn.biodeep.cn/images/dejydx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.seu.edu.cn/"><img src="https://cdn.biodeep.cn/images/dndx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.hit.edu.cn/"><img src="https://cdn.biodeep.cn/images/hebgydx.jpg" alt=""></a></div>
+                <div><a target="_blank" href="http://www.hust.edu.cn/" style="padding-top: 20px;"><img src="https://cdn.biodeep.cn/images/hzkjdx.png" alt=""></a></div>
+            </div>
+            <div class="partner_fot">
+                <div><p>北京大学</p></div>
+                <div><p>北京中医药大学</p></div>
+                <div><p>第二军医大学</p></div>
+                <div><p>东南大学</p></div>
+                <div><p>哈尔滨工业大学</p></div>
+                <div><p>华中科技大学</p></div>
+            </div>
+            <div class="partner_top">
+                <div><a target="_blank" href="http://www.zju.edu.cn/"><img src="https://cdn.biodeep.cn/images/zjdx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.xmu.edu.cn/"><img src="https://cdn.biodeep.cn/images/xmdx.jpg" alt=""></a></div>
+                <div><a target="_blank" href="http://www.sjtu.edu.cn/"><img src="https://cdn.biodeep.cn/images/shjtdx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.scu.edu.cn/"><img src="https://cdn.biodeep.cn/images/scdx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.tongji.edu.cn/"><img src="https://cdn.biodeep.cn/images/tjdx.png" alt=""></a></div>
+                <div><a target="_blank" href="http://www.whu.edu.cn/"><img src="https://cdn.biodeep.cn/images/whdx.jpg" alt=""></a></div>
+            </div>
+            <div class="partner_fot">
+                <div><p>浙江大学</p></div>
+                <div><p>厦门大学</p></div>
+                <div><p>上海交通大学</p></div>
+                <div><p>四川大学</p></div>
+                <div><p>同济大学</p></div>
+                <div><p>武汉大学</p></div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="footer_index">
+    <div class="footer_index_container">
+        <div class="footer_index_left">
+            <img src="https://cdn.biodeep.cn/images/bionovogene_logo.png" style="width: 290px;height: 90px;">
+            <div class="company_info">
+                <div>苏州帕诺米克生物医药科技有限公司</div>
+                <p>联系地址：苏州工业园区新平街388号腾飞苏州创新园塔楼B座2层</p>
+                <p>邮编：215215</p>
+                <p>电话：0512-62959105</p>
+                <p>邮箱：<a href="mailto://info@bionovogene.com">info@bionovogene.com</a></p>
+            </div>
+
+        </div>
+        <div class="footer_line"></div>
+        <div class="footer_index_right">
+            <div class="right_box">
+                <div class="help">
+                    <div>使用帮助</div>
+                    <!-- <p><a href="http://help.biodeep.cn/User_Guide/">用户指南</a></p> -->
+                    <p><a href="javaScript:;">用户指南</a></p>
+                    <p><a href="javascript:;">在线咨询</a></p>
+                </div>
+                <div class="documents">
+                    <div>其他文档</div>
+                    <!-- <p><a href="http://help.biodeep.cn/User_Guide/#platform/2.2_user_agreement.md">服务条款</a></p> -->
+                    <p><a href="javaScript:;">服务条款</a></p>
+                    <!-- <p><a href="http://help.biodeep.cn/User_Guide/#platform/2.3_policy.md">隐私条款</a></p> -->
+                    <p><a href="javaScript:;">隐私条款</a></p>
+                </div>
+                 <div class="links">
+                    <div>友情链接</div>
+                    <p><a href="http://www.bionovogene.com/" target="__blank">苏州帕诺米克生物</a></p>
+                    <p><a href="https://github.com/biodeep" target="__blank">BioDeep™ on Github</a></p>
+                    <p><a href="https://gcmodeller.org/" target="__blank">GCModeller合成生物计算平台</a></p>
+                </div>
+            </div>
+            
+            <div class="icon">
+                <a href="javascript:;"  class="icon_a1">
+                    <img src="https://cdn.biodeep.cn/images/weixing-icon.png">
+                    <span class="mosaic1">
+                        <img src="https://cdn.biodeep.cn/images/weixing.png" alt="">
+                    </span>
+                </a>
+                <a href="javascript:;" class="icon_a2">
+                    <img src="https://cdn.biodeep.cn/images/weibo-icon.png">
+                    <span class="mosaic2">
+                        <img src="https://cdn.biodeep.cn/images/weibo.png" alt="">
+                    </span>
+                </a>
+                <a href="javascript:;" class="icon_a3">
+                    <img src="https://cdn.biodeep.cn/images/dingxiangyuan-icon.png">
+                    <span class="mosaic3">
+                        <img src="https://cdn.biodeep.cn/images/dingxiangtong.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer_copyright">
+        <p style="color: #fff">Copyright © 2015 - 2020 苏州帕诺米克生物医药科技有限公司 | <a href="https://beian.miit.gov.cn/"
+                style="color:#fff">苏ICP备18032959号-3</a></p>
+    </div>
+</div>
+
+</body>
+
+</html>
+<script>
+    $(".platforms")
+    .mouseenter(function () {
+        let background = $(this).find(".platform_introduction").attr("background");
+
+        $(this).find(".platform_introduction").attr("style", "transform: translateY(-356px); transition: all .2s linear; background-image: url('" + background + "');");
+        $(this).find(".platforms_logo").attr("style", "transform: translateY(-356px); transition: all .2s linear;");
+    })
+    .mouseleave(function () {
+        let background = $(this).find(".platform_introduction").attr("background");
+
+        $(this).find(".platform_introduction").attr("style", "transform: translateY(0px); transition: all .2s linear; background-image: url('" + background + "');");
+        $(this).find(".platforms_logo").attr("style", "transform: translateY(0px); transition: all .2s linear;");
+    });
+</script>

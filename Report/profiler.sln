@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "profiler", "profiler\profiler.njsproj", "{B9E80973-EF37-4F6A-9287-05B666296254}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9E80973-EF37-4F6A-9287-05B666296254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9E80973-EF37-4F6A-9287-05B666296254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9E80973-EF37-4F6A-9287-05B666296254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9E80973-EF37-4F6A-9287-05B666296254}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70D3B31D-C5CC-4EFB-B57A-51128F7D2DB7}
+	EndGlobalSection
+EndGlobal

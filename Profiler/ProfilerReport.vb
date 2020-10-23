@@ -24,6 +24,11 @@ Public Class ProfilerReport
     Public Property meminfo As meminfo
     Public Property osinfo As os_release
 
+    Public Property time As DateTime = Now
+    Public Property sampling_intervals As Integer
+    Public Property title As String
+    Public Property note As String
+
 End Class
 
 ''' <summary>

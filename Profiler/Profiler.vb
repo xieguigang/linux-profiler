@@ -15,7 +15,7 @@ Public Class Profiler : Implements ITaskDriver
     Dim tmp As String = App.GetAppSysTempFile("__", sessionID:=App.PID, prefix:="profiler_tools")
     Dim i As i32 = 1
 
-    Sub New(save As String, Optional seconds As Integer = 15)
+    Sub New(save As String, Optional seconds As Integer = 15, Optional title$ = "benchmark")
         Me.save = save
         Me.cancel = False
         Me.seconds = seconds
@@ -25,7 +25,11 @@ Public Class Profiler : Implements ITaskDriver
             .meminfo = proc.meminfo.Parse(Interaction.cat("/proc/meminfo", verbose:=False)),
             .release = Interaction.release,
             .version = Interaction.version,
-            .osinfo = etc.os_release.Parse(Interaction.cat("/etc/os-release", verbose:=False))
+            .osinfo = etc.os_release.Parse(Interaction.cat("/etc/os-release", verbose:=False)),
+            .time = Now,
+            .sampling_intervals = seconds,
+            .note = App.Command,
+            .title = title
         }.GetJson _
          .SaveTo($"{tmp}/index.json")
     End Sub

@@ -1,4 +1,5 @@
-﻿Imports Linux
+﻿Imports System.ComponentModel
+Imports Linux
 Imports Linux.Report
 Imports Microsoft.VisualBasic.ApplicationServices.Zip
 Imports Microsoft.VisualBasic.CommandLine
@@ -14,12 +15,14 @@ Module Program
     End Function
 
     <ExportAPI("/run")>
-    <Usage("/run /save <samples.zip> [/interval <seconds, default=15>]")>
+    <Usage("/run /save <samples.zip> [/title <benchmark> /interval <seconds, default=15>]")>
+    <Description("Run benchmark test")>
     Public Function RunProfiler(args As CommandLine) As Integer
         Dim save$ = args <= "/save"
         Dim interval% = args("/interval") Or 15
+        Dim title$ = args("/title") Or "benchmark"
 
-        Return New Profiler(save, interval).Run
+        Return New Profiler(save, interval, title).Run
     End Function
 
     <ExportAPI("/report")>

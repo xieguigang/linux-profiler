@@ -5,7 +5,7 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 
 <Package("report")>
 <RTypeExport("profiler", GetType(Profiler))>
-Module Report
+Module Reporter
 
     <ExportAPI("profiler")>
     Public Function create_profiler_session(save$, Optional seconds% = 15) As Profiler

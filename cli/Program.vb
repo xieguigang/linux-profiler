@@ -1,4 +1,5 @@
 ﻿Imports Linux
+Imports Linux.Report
 Imports Microsoft.VisualBasic.ApplicationServices.Zip
 Imports Microsoft.VisualBasic.CommandLine
 Imports Microsoft.VisualBasic.CommandLine.Reflection

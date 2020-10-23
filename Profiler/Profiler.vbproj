@@ -108,15 +108,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Files\etc\os_release.vb" />
     <Compile Include="Profiler.vb" />
     <Compile Include="Commands\free.vb" />
     <Compile Include="Commands\ps.vb" />
     <Compile Include="Commands\mpstat.vb" />
     <Compile Include="Commands\iostat.vb" />
-    <Compile Include="proc\cpuinfo.vb" />
+    <Compile Include="Files\proc\cpuinfo.vb" />
     <Compile Include="Rscript\Report.vb" />
     <Compile Include="Rscript\Rscript.vb" />
-    <Compile Include="proc\meminfo.vb" />
+    <Compile Include="Files\proc\meminfo.vb" />
     <Compile Include="ProfilerReport.vb" />
     <Compile Include="Commands\uptime.vb" />
     <Compile Include="Interaction.vb" />

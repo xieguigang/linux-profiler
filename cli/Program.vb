@@ -39,7 +39,9 @@ Module Program
         Dim summary As ProfilerReport = $"{tmp}/index.json".LoadJSON(Of ProfilerReport)
 
         Using html As HTMLReport = HTMLReport.CopyTemplate(template, out, SearchOption.SearchTopLevelOnly)
-
+            html("version") = summary.version
+            html("release") = summary.release
+            html("release_details") = summary.osinfo.toHtml
         End Using
 
         Return 0

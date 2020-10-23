@@ -115,6 +115,7 @@
     <Compile Include="Commands\mpstat.vb" />
     <Compile Include="Commands\iostat.vb" />
     <Compile Include="Files\proc\cpuinfo.vb" />
+    <Compile Include="Report\InformationHtml.vb" />
     <Compile Include="Rscript\Report.vb" />
     <Compile Include="Rscript\Rscript.vb" />
     <Compile Include="Files\proc\meminfo.vb" />

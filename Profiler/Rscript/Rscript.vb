@@ -43,7 +43,7 @@ Module Rscript
     <ExportAPI("uptime")>
     Public Function uptime(Optional file As String = Nothing) As uptime
         If file.StringEmpty Then
-            Return uptime.Parse(Interaction.Shell("uptime"))
+            Return uptime.Parse(Interaction.Shell("uptime", ""))
         Else
             Return uptime.Parse(stdout:=file.SolveStream)
         End If
@@ -77,7 +77,7 @@ Module Rscript
     <ExportAPI("ps")>
     Public Function ps(Optional file As String = Nothing) As ps()
         If file.StringEmpty Then
-            Return Commands.ps.Parse(Interaction.Shell("ps u")).ToArray
+            Return Commands.ps.Parse(Interaction.Shell("ps", "u")).ToArray
         Else
             Return Commands.ps.Parse(stdout:=file.SolveStream).ToArray
         End If

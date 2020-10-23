@@ -8,23 +8,20 @@ Imports Linux.proc
 ''' </summary>
 Public Class ProfilerReport
 
-    Public Property info As Summary
-    Public Property profiles As Snapshot()
-
-End Class
-
-Public Class Summary
-
     ''' <summary>
     ''' the linux system version information
     ''' </summary>
     ''' <returns></returns>
     Public Property version As String
+    Public Property release As String
+
     ''' <summary>
     ''' the CPU information
     ''' </summary>
     ''' <returns></returns>
-    Public Property CPU As String
+    Public Property cpuinfo As cpuinfo()
+    Public Property meminfo As meminfo
+    Public Property profiles As Snapshot()
 
 End Class
 
@@ -35,6 +32,10 @@ Public Class Snapshot
     ''' </summary>
     ''' <returns></returns>
     Public Property uptime As uptime
-    Public Property meminfo As meminfo
+
+    Public Property mpstat As mpstat()
+    Public Property free As free
+    Public Property iostat As iostat
+    Public Property ps As ps()
 
 End Class

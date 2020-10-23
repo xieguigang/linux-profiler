@@ -105,9 +105,9 @@ Module Rscript
     ''' <param name="file"></param>
     ''' <returns></returns>
     <ExportAPI("uptime")>
-    Public Function uptime(Optional file As String = Nothing) As uptime
+    Public Function uptime(Optional file As String = Nothing, Optional env As Environment = Nothing) As uptime
         If file.StringEmpty Then
-            Return uptime.Parse(Interaction.Shell("uptime", ""))
+            Return uptime.Parse(Interaction.Shell("uptime", "", verbose:=env.globalEnvironment.options.verbose))
         Else
             Return uptime.Parse(stdout:=file.SolveStream)
         End If
@@ -121,9 +121,9 @@ Module Rscript
     ''' <returns></returns>
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     <ExportAPI("meminfo")>
-    Public Function meminfo(Optional file As String = Nothing) As meminfo
+    Public Function meminfo(Optional file As String = Nothing, Optional env As Environment = Nothing) As meminfo
         If file.StringEmpty Then
-            Return meminfo.Parse(Interaction.cat("/proc/meminfo"))
+            Return meminfo.Parse(Interaction.cat("/proc/meminfo", verbose:=env.globalEnvironment.options.verbose))
         Else
             Return meminfo.Parse(stdout:=file.SolveStream)
         End If
@@ -137,9 +137,9 @@ Module Rscript
     ''' <returns></returns>
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     <ExportAPI("cpuinfo")>
-    Public Function cpuinfo(Optional file As String = Nothing) As cpuinfo()
+    Public Function cpuinfo(Optional file As String = Nothing, Optional env As Environment = Nothing) As cpuinfo()
         If file.StringEmpty Then
-            Return proc.cpuinfo.Parse(Interaction.cat("/proc/cpuinfo")).ToArray
+            Return proc.cpuinfo.Parse(Interaction.cat("/proc/cpuinfo", verbose:=env.globalEnvironment.options.verbose)).ToArray
         Else
             Return proc.cpuinfo.Parse(stdout:=file.SolveStream).ToArray
         End If
@@ -153,9 +153,9 @@ Module Rscript
     ''' <param name="file"></param>
     ''' <returns></returns>
     <ExportAPI("ps")>
-    Public Function ps(Optional file As String = Nothing) As ps()
+    Public Function ps(Optional file As String = Nothing, Optional env As Environment = Nothing) As ps()
         If file.StringEmpty Then
-            Return Commands.ps.Parse(Interaction.Shell("ps", "u")).ToArray
+            Return Commands.ps.Parse(Interaction.Shell("ps", "u", verbose:=env.globalEnvironment.options.verbose)).ToArray
         Else
             Return Commands.ps.Parse(stdout:=file.SolveStream).ToArray
         End If
@@ -168,9 +168,9 @@ Module Rscript
     ''' <param name="file"></param>
     ''' <returns></returns>
     <ExportAPI("iostat")>
-    Public Function iostat(Optional file As String = Nothing) As iostat
+    Public Function iostat(Optional file As String = Nothing, Optional env As Environment = Nothing) As iostat
         If file.StringEmpty Then
-            Return iostat.Parse(Interaction.Shell("iostat", ""))
+            Return iostat.Parse(Interaction.Shell("iostat", "", verbose:=env.globalEnvironment.options.verbose))
         Else
             Return iostat.Parse(stdout:=file.SolveStream)
         End If
@@ -184,9 +184,9 @@ Module Rscript
     ''' <param name="file"></param>
     ''' <returns></returns>
     <ExportAPI("free")>
-    Public Function free(Optional file As String = Nothing) As free
+    Public Function free(Optional file As String = Nothing, Optional env As Environment = Nothing) As free
         If file.StringEmpty Then
-            Return free.Parse(Interaction.Shell("free", ""))
+            Return free.Parse(Interaction.Shell("free", "", verbose:=env.globalEnvironment.options.verbose))
         Else
             Return free.Parse(stdout:=file.SolveStream)
         End If
@@ -202,9 +202,9 @@ Module Rscript
     ''' <param name="file"></param>
     ''' <returns></returns>
     <ExportAPI("mpstat")>
-    Public Function mpstat(Optional file As String = Nothing) As mpstat()
+    Public Function mpstat(Optional file As String = Nothing, Optional env As Environment = Nothing) As mpstat()
         If file.StringEmpty Then
-            Return Commands.mpstat.Parse(Interaction.Shell("mpstat", "-P ALL")).ToArray
+            Return Commands.mpstat.Parse(Interaction.Shell("mpstat", "-P ALL", verbose:=env.globalEnvironment.options.verbose)).ToArray
         Else
             Return Commands.mpstat.Parse(stdout:=file.SolveStream).ToArray
         End If

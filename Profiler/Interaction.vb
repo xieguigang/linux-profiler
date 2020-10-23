@@ -29,15 +29,31 @@ Public Class Interaction
     ' SMRUCC/R#.global.<globalEnvironment> at <globalEnvironment>:line n/a
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Shared Function Shell(command As String, args As String) As String
+    Public Shared Function Shell(command As String, args As String, verbose As Boolean) As String
+        Dim cmdl As String
+
         If args.StringEmpty Then
-            Return CommandLine.Call("/bin/bash", $"-c ""{command}""")
+            cmdl = command
         Else
-            Return CommandLine.Call("/bin/bash", $"-c ""{command} ${args}""")
+            cmdl = $"{command} ${args}"
         End If
+
+        If verbose Then
+            Call Console.WriteLine("run commandline:")
+            Call Console.WriteLine($"/bin/bash -c ""{cmdl}""")
+        End If
+
+        Dim stdout As String = CommandLine.Call("/bin/bash", $"-c ""{cmdl}""")
+
+        If verbose Then
+            Call Console.WriteLine("std_output:")
+            Call Console.WriteLine(stdout)
+        End If
+
+        Return stdout
     End Function
 
-    Public Shared Function cat(file As String) As String
-        Return Shell("cat", args:=file)
+    Public Shared Function cat(file As String, verbose As Boolean) As String
+        Return Shell("cat", args:=file, verbose)
     End Function
 End Class

@@ -69,7 +69,15 @@ Namespace proc
                                       Return t.Value
                                   End Function)
 
+                For Each [property] As BindProperty(Of ColumnAttribute) In writer.Fields
+                    If [property].Identity = "flags" Then
+                        info.flags = data!flags.Split(" "c)
+                    Else
+                        Call [property].WriteScriptValue(info, data([property].Identity))
+                    End If
+                Next
 
+                Yield info
             Next
         End Function
 

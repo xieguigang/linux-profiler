@@ -7,7 +7,7 @@ Namespace Report
 
         <Extension>
         Public Function SystemLoadOverloads(snapshots As Snapshot()) As SynchronizedLines
-            Dim cpu = snapshots.Select(Function(a) 100 - a.FindAllCPUUsage.idle).ToArray
+            Dim cpu = snapshots.Select(Function(a) a.uptime.load1).ToArray
             Dim memory = snapshots.Select(Function(a) a.free.Mem.used).ToArray
             Dim ioread = snapshots.Select(Function(a) a.iostat.GetTotalBytesRead).ToArray
             Dim iowrite = snapshots.Select(Function(a) a.iostat.GetTotalBytesWrite).ToArray

@@ -26,6 +26,15 @@ Namespace Report
                               </tr>
                     Next
                 End Function
+            Dim metadata As XElement() = os_release _
+                .metadata _
+                .Select(Function(tag)
+                            Return <tr>
+                                       <td><%= tag.Key %></td>
+                                       <td><%= tag.Value %></td>
+                                   </tr>
+                        End Function) _
+                .ToArray
 
             html += <thead>
                         <tr>
@@ -34,10 +43,10 @@ Namespace Report
                         </tr>
                     </thead>
 
-            html.Wrap("tbody", getInfo().ToArray)
+            html.Wrap(<tbody/>, getInfo().ToArray)
             html = sprintf(<table class="table">%s</table>, html.ToString)
             html += <h3>Additional</h3>
-            html.Wrap("table", os_release.metadata.Select(Function(tag) <tr><td><%= tag.Key %></td><td><%= tag.Value %></td></tr>).ToArray)
+            html.Wrap(<table class="table"/>, metadata)
 
             Return html.ToString
         End Function

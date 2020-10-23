@@ -15,6 +15,7 @@ Module Rscript
 
     Sub New()
         Internal.Object.Converts.makeDataframe.addHandler(GetType(ps()), AddressOf Rscript.ps)
+        Internal.Object.Converts.makeDataframe.addHandler(GetType(mpstat()), AddressOf Rscript.mpstat)
     End Sub
 
     Private Function ps(list As ps(), args As list, env As Environment) As Rdataframe
@@ -36,6 +37,30 @@ Module Rscript
             .columns = table,
             .rownames = list _
                 .Select(Function(p) p.PID.ToHexString.ToUpper) _
+                .ToArray
+        }
+    End Function
+
+    Private Function mpstat(all As mpstat(), args As list, env As Environment) As Rdataframe
+        Dim table As New Dictionary(Of String, Array)
+
+        table("time") = all.Select(Function(c) c.time).ToArray
+        table("CPU") = all.Select(Function(c) c.CPU).ToArray
+        table("%usr") = all.Select(Function(c) c.usr).ToArray
+        table("%nice") = all.Select(Function(c) c.nice).ToArray
+        table("%sys") = all.Select(Function(c) c.sys).ToArray
+        table("%iowait") = all.Select(Function(c) c.iowait).ToArray
+        table("%irq") = all.Select(Function(c) c.irq).ToArray
+        table("%soft") = all.Select(Function(c) c.soft).ToArray
+        table("%steal") = all.Select(Function(c) c.steal).ToArray
+        table("%guest") = all.Select(Function(c) c.guest).ToArray
+        table("%gnice") = all.Select(Function(c) c.gnice).ToArray
+        table("%idle") = all.Select(Function(c) c.idle).ToArray
+
+        Return New Rdataframe With {
+            .columns = table,
+            .rownames = all _
+                .Select(Function(a) "#" & a.CPU) _
                 .ToArray
         }
     End Function
@@ -98,6 +123,15 @@ Module Rscript
             Return free.Parse(Interaction.Shell("free", ""))
         Else
             Return free.Parse(stdout:=file.SolveStream)
+        End If
+    End Function
+
+    <ExportAPI("mpstat")>
+    Public Function mpstat(Optional file As String = Nothing) As mpstat()
+        If file.StringEmpty Then
+            Return Commands.mpstat.Parse(Interaction.Shell("mpstat", "-P ALL")).ToArray
+        Else
+            Return Commands.mpstat.Parse(stdout:=file.SolveStream).ToArray
         End If
     End Function
 End Module

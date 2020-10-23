@@ -91,4 +91,13 @@ Module Rscript
             Return iostat.Parse(stdout:=file.SolveStream)
         End If
     End Function
+
+    <ExportAPI("free")>
+    Public Function free(Optional file As String = Nothing) As free
+        If file.StringEmpty Then
+            Return free.Parse(Interaction.Shell("free", ""))
+        Else
+            Return free.Parse(stdout:=file.SolveStream)
+        End If
+    End Function
 End Module

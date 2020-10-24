@@ -173,9 +173,35 @@ var apps;
 (function (apps) {
     var system_load = /** @class */ (function () {
         function system_load(data, id) {
-            if (id === void 0) { id = "container"; }
-            this.chart = Highcharts.chart(id, system_load.createPlotOptions(data));
+            if (id === void 0) { id = "#container"; }
+            var vm = this;
+            this.chart = Highcharts.chart(this.div = $ts(id), system_load.createPlotOptions(data));
+            /**
+             * In order to synchronize tooltips and crosshairs, override the
+             * built-in events with handlers defined on the parent element.
+            */
+            ['mousemove', 'touchmove', 'touchstart'].forEach(function (eventType) {
+                vm.div.addEventListener(eventType, function (e) { return vm.mouseEvent(e); });
+            });
         }
+        /**
+         * update piechart at here
+        */
+        system_load.prototype.mouseEvent = function (e) {
+            // Find coordinates within the chart
+            var event = this.chart.pointer.normalize(e);
+            // Get the hovered point
+            var point = this.chart.series[0].searchPoint(event, true);
+            if (point) {
+                point.highlight(e);
+                // update piechart at here
+                console.log(e);
+                console.log(point);
+                this.updatePie(point, e);
+            }
+        };
+        system_load.prototype.updatePie = function (point, e) {
+        };
         system_load.createPlotOptions = function (data) {
             return {
                 chart: {

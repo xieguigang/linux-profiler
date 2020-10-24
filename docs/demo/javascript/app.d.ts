@@ -22,10 +22,16 @@ declare namespace apps {
 declare namespace apps {
     class system_load {
         private chart;
+        private div;
         constructor(data: {
             name: string;
             data: number[];
         }, id?: string);
+        /**
+         * update piechart at here
+        */
+        private mouseEvent;
+        private updatePie;
         private static createPlotOptions;
     }
 }

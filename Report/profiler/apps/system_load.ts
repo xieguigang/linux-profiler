@@ -3,9 +3,44 @@ namespace apps {
     export class system_load {
 
         private chart: Highcharts.Chart;
+        private div: HTMLElement;
 
-        public constructor(data: { name: string, data: number[] }, id: string = "container") {
-            this.chart = Highcharts.chart(<any>id, <any>system_load.createPlotOptions(data));
+        public constructor(data: { name: string, data: number[] }, id: string = "#container") {
+            let vm = this;
+
+            this.chart = Highcharts.chart(this.div = <any>$ts(id), <any>system_load.createPlotOptions(data));
+
+            /**
+             * In order to synchronize tooltips and crosshairs, override the
+             * built-in events with handlers defined on the parent element.
+            */
+            ['mousemove', 'touchmove', 'touchstart'].forEach(function (eventType) {
+                vm.div.addEventListener(eventType, e => vm.mouseEvent(e));
+            });
+        }
+
+        /**
+         * update piechart at here
+        */
+        private mouseEvent(e) {
+            // Find coordinates within the chart
+            let event = this.chart.pointer.normalize(e);
+            // Get the hovered point
+            let point = (<any>this.chart.series[0]).searchPoint(event, true);
+
+            if (point) {
+                point.highlight(e);
+
+                // update piechart at here
+                console.log(e);
+                console.log(point);
+
+                this.updatePie(point, e);
+            }
+        }
+
+        private updatePie(point, e) {
+
         }
 
         private static createPlotOptions(data: { name: string, data: number[] }) {
@@ -19,7 +54,7 @@ namespace apps {
                 subtitle: {
                     text: 'Show system load during the profiler sampling progress.'
                 },
-                xAxis: {
+                xAxis: <any>{
                     allowDecimals: false,
                     labels: {
                         formatter: function () {
@@ -27,7 +62,7 @@ namespace apps {
                         }
                     }
                 },
-                yAxis: {
+                yAxis: <any>{
                     title: {
                         text: 'system load'
                     },

@@ -1,5 +1,4 @@
 ﻿Imports System.Runtime.CompilerServices
-Imports jsTree
 Imports Linux.Commands
 Imports Linux.proc
 Imports Microsoft.VisualBasic.FileIO
@@ -7,6 +6,7 @@ Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Serialization.JSON
 Imports SMRUCC.genomics.GCModeller.Workbench.ReportBuilder.HTML
 Imports SMRUCC.WebCloud.JavaScript.highcharts
+Imports SMRUCC.WebCloud.JavaScript.jsTree
 
 Namespace Report
 
@@ -128,6 +128,8 @@ Namespace Report
             Return $"
 /**
  * @data {GetType(T).FullName}
+ * @assembly {GetType(T).Assembly.FullName}
+ * @dll {GetType(T).Assembly.Location.FileName}
 */
 function {name}() {{
     return {data.GetJson(knownTypes:={GetType(String), GetType(Double())})};

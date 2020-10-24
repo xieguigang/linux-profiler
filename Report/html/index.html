@@ -132,6 +132,32 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="panel panel-primary" style="width:1024px;">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                                        DMI decode&nbsp;
+                                        <span class="glyphicons glyphicons-unchecked"></span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseEight" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <div id="dmitree"></div>
+
+                                    <script type="text/javascript">
+                                        $('#dmitree').jstree({
+                                            'core': {
+                                                'data': window["{$dmidecode}"]()
+                                            }
+                                        });
+                                    </script>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

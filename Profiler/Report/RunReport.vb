@@ -4,6 +4,7 @@ Imports Linux.proc
 Imports Microsoft.VisualBasic.FileIO
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Serialization.JSON
+Imports Microsoft.VisualBasic.ValueTypes
 Imports SMRUCC.genomics.GCModeller.Workbench.ReportBuilder.HTML
 Imports SMRUCC.WebCloud.JavaScript.highcharts
 Imports SMRUCC.WebCloud.JavaScript.jsTree
@@ -64,11 +65,15 @@ Namespace Report
 
         <Extension>
         Private Function psJs(snapshots As Snapshot(), name As String) As String
+            Dim base_time = DateTimeHelper.FromUnixTimeStamp(snapshots(Scan0).timestamp)
             Dim psdata = snapshots _
                 .Select(Function(a)
-                            Return a.ps _
+                            Dim ps = a.ps _
                                 .Where(Function(p) p.CPU > 0 OrElse p.MEM > 0) _
                                 .ToArray
+                            Dim stamp As Double = (DateTimeHelper.FromUnixTimeStamp(a.timestamp) - base_time).TotalSeconds
+
+                            Return New JsFrame(Of ps()) With {.data = ps, .timeframe = stamp}
                         End Function) _
                 .ToArray
 

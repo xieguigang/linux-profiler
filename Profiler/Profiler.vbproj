@@ -118,6 +118,7 @@
     <Compile Include="Commands\mpstat.vb" />
     <Compile Include="Commands\iostat.vb" />
     <Compile Include="Files\proc\cpuinfo.vb" />
+    <Compile Include="Report\JsFrame.vb" />
     <Compile Include="Report\InformationHtml.vb" />
     <Compile Include="Report\Chartting.vb" />
     <Compile Include="Report\RunReport.vb" />

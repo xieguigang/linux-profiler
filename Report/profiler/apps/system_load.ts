@@ -4,6 +4,7 @@ namespace apps {
 
         private chart: Highcharts.Chart;
         private div: HTMLElement;
+        private ps: any[];
 
         public constructor(data: {
             name: string,

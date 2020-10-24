@@ -208,6 +208,7 @@ var apps;
         };
         system_load.prototype.updatePie = function (ps) {
             var pi = $from(ps).Where(function (p) { return p.CPU > 0; }).Select(function (p) { return ({ name: p.COMMAND, y: p.CPU }); }).ToArray();
+            var total = $from(pi).Sum(function (p) { return p.y; });
             $ts("#cpu-pie").clear();
             Highcharts.chart('cpu-pie', {
                 chart: {
@@ -218,7 +219,7 @@ var apps;
                     animation: false
                 },
                 title: {
-                    text: 'CPU usage percentage'
+                    text: "CPU usage percentage (" + Strings.round(total, 1) + " %)"
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

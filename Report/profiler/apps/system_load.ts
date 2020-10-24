@@ -59,7 +59,8 @@ namespace apps {
 
 
         private updatePie(ps: models.ps[]) {
-            let pi = $from(ps).Where(p => p.CPU > 0).Select(p => <{}>{ name: p.COMMAND, y: p.CPU }).ToArray();
+            let pi = $from(ps).Where(p => p.CPU > 0).Select(p => <{ name: string, y: number }>{ name: p.COMMAND, y: p.CPU }).ToArray();
+            let total = $from(pi).Sum(p => p.y);
 
             $ts("#cpu-pie").clear();
 
@@ -72,7 +73,7 @@ namespace apps {
                     animation: false
                 },
                 title: {
-                    text: 'CPU usage percentage'
+                    text: `CPU usage percentage (${Strings.round(total, 1)} %)`
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

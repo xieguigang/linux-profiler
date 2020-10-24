@@ -4,13 +4,15 @@ namespace apps {
 
         private chart: Highcharts.Chart;
         private div: HTMLElement;
-        private ps: any[];
 
-        public constructor(data: {
-            name: string,
-            x: number[],
-            data: number[]
-        }, id: string = "#container") {
+        public constructor(
+            data: {
+                name: string,
+                x: number[],
+                data: number[]
+            },
+            private ps: models.jsFrame<models.ps[]>[],
+            private id: string = "#container") {
 
             let vm = this;
 
@@ -40,10 +42,11 @@ namespace apps {
                 point.highlight(e);
 
                 // update piechart at here
-                console.log(e);
-                console.log(point);
+                // console.log(e);
+                // console.log(point);
 
                 this.updatePie(point, e);
+                this.updatePsFrame(point.x);
                 this.lastIndex = point.index;
             }
         }
@@ -51,6 +54,31 @@ namespace apps {
 
         private updatePie(point, e) {
 
+        }
+
+        private findPsFrame(time: number): models.ps[] {
+            let mind = 999999;
+            let minFrame: models.ps[] = [];
+
+            for (let frame of this.ps) {
+                let delta = Math.abs(frame.timeframe - time);
+
+                if (delta <= 1) {
+                    return frame.data;
+                } else if (delta < mind) {
+                    mind = delta;
+                    minFrame = frame.data;
+                }
+            }
+
+            return minFrame;
+        }
+
+        private updatePsFrame(time: number) {
+            let ps: models.ps[] = this.findPsFrame(time);
+
+            $ts("#ps").clear();
+            $ts.appendTable(ps, "#ps", null, { class: "table" });
         }
 
         private static createPlotOptions(dataset: { name: string, data: number[], x: number[] }) {

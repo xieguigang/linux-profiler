@@ -21,20 +21,43 @@ declare namespace apps {
 }
 declare namespace apps {
     class system_load {
+        private ps;
+        private id;
         private chart;
         private div;
         constructor(data: {
             name: string;
             x: number[];
             data: number[];
-        }, id?: string);
+        }, ps: models.jsFrame<models.ps[]>[], id?: string);
         private lastIndex;
         /**
          * update piechart at here
         */
         private mouseEvent;
         private updatePie;
+        private findPsFrame;
+        private updatePsFrame;
         private static createPlotOptions;
+    }
+}
+declare namespace models {
+    interface jsFrame<T> {
+        timeframe: number;
+        data: T;
+    }
+    interface ps {
+        USER: string;
+        PID: number;
+        CPU: number;
+        MEM: number;
+        VSZ: string;
+        RSS: string;
+        TTY: string;
+        STAT: string;
+        START: string;
+        TIME: string;
+        COMMAND: string;
     }
 }
 declare namespace report {

@@ -172,8 +172,10 @@ var apps;
 var apps;
 (function (apps) {
     var system_load = /** @class */ (function () {
-        function system_load(data, id) {
+        function system_load(data, ps, id) {
             if (id === void 0) { id = "#container"; }
+            this.ps = ps;
+            this.id = id;
             var vm = this;
             this.chart = Highcharts.chart(this.div = $ts(id), system_load.createPlotOptions(data));
             /**
@@ -195,13 +197,35 @@ var apps;
             if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
                 point.highlight(e);
                 // update piechart at here
-                console.log(e);
-                console.log(point);
+                // console.log(e);
+                // console.log(point);
                 this.updatePie(point, e);
+                this.updatePsFrame(point.x);
                 this.lastIndex = point.index;
             }
         };
         system_load.prototype.updatePie = function (point, e) {
+        };
+        system_load.prototype.findPsFrame = function (time) {
+            var mind = 999999;
+            var minFrame = [];
+            for (var _i = 0, _a = this.ps; _i < _a.length; _i++) {
+                var frame = _a[_i];
+                var delta = Math.abs(frame.timeframe - time);
+                if (delta <= 1) {
+                    return frame.data;
+                }
+                else if (delta < mind) {
+                    mind = delta;
+                    minFrame = frame.data;
+                }
+            }
+            return minFrame;
+        };
+        system_load.prototype.updatePsFrame = function (time) {
+            var ps = this.findPsFrame(time);
+            $ts("#ps").clear();
+            $ts.appendTable(ps, "#ps", null, { class: "table" });
         };
         system_load.createPlotOptions = function (dataset) {
             var x = dataset.x;
@@ -280,7 +304,7 @@ var report;
         ;
         index.prototype.init = function () {
             this.overviews = new apps.overviews(window[$ts("@data:sysLoad")](), $ts("@canvas:overviews"));
-            this.system_load = new apps.system_load(window[$ts("@data:systemLoad")](), $ts("@canvas:system_load"));
+            this.system_load = new apps.system_load(window[$ts("@data:systemLoad")](), window[$ts("@data:ps")](), $ts("@canvas:system_load"));
         };
         return index;
     }(Bootstrap));

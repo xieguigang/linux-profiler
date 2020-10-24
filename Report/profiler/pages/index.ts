@@ -11,7 +11,11 @@ namespace report {
 
         protected init(): void {
             this.overviews = new apps.overviews((<any>window)[<any>$ts("@data:sysLoad")](), <any>$ts("@canvas:overviews"));
-            this.system_load = new apps.system_load((<any>window)[<any>$ts("@data:systemLoad")](), <any>$ts("@canvas:system_load"))
+            this.system_load = new apps.system_load(
+                (<any>window)[<any>$ts("@data:systemLoad")](),
+                (<any>window)[<any>$ts("@data:ps")](),
+                (<any>$ts("@canvas:system_load"))
+            );
         }
 
     }

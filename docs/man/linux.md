@@ -7,6 +7,7 @@ package module for get performance data from linux system. you should install ``
  yum install sysstat -y
  ```
 
++ [dmidecode](linux/dmidecode.1) 
 + [os_release](linux/os_release.1) 
 + [uptime](linux/uptime.1) On Unix-like operating systems, the uptime command tells 
 + [meminfo](linux/meminfo.1) This ``/proc/meminfo`` file contains information about 

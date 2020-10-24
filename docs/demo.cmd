@@ -2,4 +2,4 @@
 
 REM create demo report
 REM
-"../Apps/linux-profiler" /report /snapshots "../Apps/1.run_xcms.zip" /template "../Report/html" /out "./demo"
+"../Apps/linux-profiler" /report /snapshots "./biodeep_test.zip" /template "../Report/html" /out "./demo"

@@ -60,6 +60,8 @@ namespace apps {
                 return [x[j], val];
             });
 
+            console.log(dataset);
+
             return <Highcharts.Options>{
                 chart: {
                     type: 'area'

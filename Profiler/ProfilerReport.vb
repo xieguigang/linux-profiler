@@ -42,7 +42,7 @@ Public Class Snapshot
     ''' </summary>
     ''' <returns></returns>
     Public Property uptime As uptime
-
+    Public Property timestamp As Double
     Public Property mpstat As mpstat()
     Public Property free As free
     Public Property iostat As iostat

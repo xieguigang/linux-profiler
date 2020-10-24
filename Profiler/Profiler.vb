@@ -65,7 +65,8 @@ Public Class Profiler : Implements ITaskDriver
             .iostat = Commands.iostat.Parse(Interaction.Shell("iostat", "", verbose:=False)),
             .mpstat = Commands.mpstat.Parse(Interaction.Shell("mpstat", "-P ALL", verbose:=False)).ToArray,
             .ps = Commands.ps.Parse(Interaction.Shell("ps", "u", verbose:=False)).ToArray,
-            .uptime = Commands.uptime.Parse(Interaction.Shell("uptime", "", verbose:=False))
+            .uptime = Commands.uptime.Parse(Interaction.Shell("uptime", "", verbose:=False)),
+            .timestamp = App.UnixTimeStamp
         }
 
         Call Console.WriteLine(snapshot.uptime.ToString)

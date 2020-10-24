@@ -209,6 +209,7 @@ var apps;
             dataset.data = Highcharts.map(dataset.data, function (val, j) {
                 return [x[j], val];
             });
+            console.log(dataset);
             return {
                 chart: {
                     type: 'area'

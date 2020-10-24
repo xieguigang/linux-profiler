@@ -99,6 +99,15 @@ Module Rscript
 
 #End Region
 
+    <ExportAPI("dmidecode")>
+    Public Function dmidecode(Optional file As String = Nothing, Optional env As Environment = Nothing) As dmidecode
+        If file.StringEmpty Then
+            Return dmidecode.Parse(Interaction.Shell("dmidecode", "", verbose:=env.globalEnvironment.options.verbose))
+        Else
+            Return dmidecode.Parse(stdout:=file.SolveStream)
+        End If
+    End Function
+
     <ExportAPI("os_release")>
     Public Function os_release(Optional file As String = Nothing, Optional env As Environment = Nothing) As os_release
         If file.StringEmpty Then

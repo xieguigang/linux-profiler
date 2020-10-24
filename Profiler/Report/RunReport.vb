@@ -18,38 +18,45 @@ Namespace Report
         End Sub
 
         Public Sub RunReport(template As String, output As String, summary As ProfilerReport, snapshots As Snapshot())
-            Dim overview As SynchronizedLines = snapshots.SystemLoadOverloads(summary.meminfo)
-            Dim system_load = snapshots.system_load
-            Dim overviewName = App.GetNextUniqueName("overviews_")
-            Dim cpuTreeName = App.GetNextUniqueName("cpu_")
-            Dim dmitreeName = App.GetNextUniqueName("dmidecode_")
-            Dim system_loadjs = App.GetNextUniqueName("systemload_")
-
             Using html As HTMLReport = HTMLReport.CopyTemplate(
                 source:=template,
                 output:=output,
                 searchLevel:=SearchOption.SearchTopLevelOnly,
                 minify:=True
             )
-                html("version") = summary.version
-                html("release") = summary.release
-                html("release_details") = summary.osinfo.toHtml
-                html("overviews_js") = overviewName
-                html("cpuinfo") = cpuTreeName
-                html("title") = summary.title Or "No title".AsDefault
-                html("time") = summary.time.ToString
-                html("time_span") = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).FormatTime
-                html("dmidecode_version") = summary.dmidecode.version
-                html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
-                html("dmidecode") = dmitreeName
-                html("systemload_js") = system_loadjs
 
-                Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
-                Call system_load.dataJs(system_loadjs).SaveTo($"{output}/data/system_load.js")
-
-                Call summary.dmidecode.handles.dmidecodeTree(dmitreeName).SaveTo($"{output}/data/dmidecode.js")
-                Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
+                Call html.RunReport(summary, snapshots.OrderBy(Function(p) p.timestamp).ToArray)
             End Using
+        End Sub
+
+        <Extension>
+        Public Sub RunReport(html As HTMLReport, summary As ProfilerReport, snapshots As Snapshot())
+            Dim overview As SynchronizedLines = snapshots.SystemLoadOverloads(summary.meminfo)
+            Dim system_load = snapshots.system_load
+            Dim overviewName = App.GetNextUniqueName("overviews_")
+            Dim cpuTreeName = App.GetNextUniqueName("cpu_")
+            Dim dmitreeName = App.GetNextUniqueName("dmidecode_")
+            Dim system_loadjs = App.GetNextUniqueName("systemload_")
+            Dim output As String = html.directory
+
+            html("version") = summary.version
+            html("release") = summary.release
+            html("release_details") = summary.osinfo.toHtml
+            html("overviews_js") = overviewName
+            html("cpuinfo") = cpuTreeName
+            html("title") = summary.title Or "No title".AsDefault
+            html("time") = summary.time.ToString
+            html("time_span") = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).FormatTime
+            html("dmidecode_version") = summary.dmidecode.version
+            html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
+            html("dmidecode") = dmitreeName
+            html("systemload_js") = system_loadjs
+
+            Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
+            Call system_load.dataJs(system_loadjs).SaveTo($"{output}/data/system_load.js")
+
+            Call summary.dmidecode.handles.dmidecodeTree(dmitreeName).SaveTo($"{output}/data/dmidecode.js")
+            Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
         End Sub
 
         <Extension>

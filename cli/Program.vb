@@ -42,7 +42,6 @@ Module Program
             .EnumerateFiles("*.json") _
             .Where(Function(file) Not file.FileName = "index.json") _
             .Select(Function(file) file.LoadJSON(Of Snapshot)) _
-            .OrderBy(Function(frame) frame.uptime.uptime) _
             .ToArray
 
         Call Report.RunReport(template, out, summary, snapshots)

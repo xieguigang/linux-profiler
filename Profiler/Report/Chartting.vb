@@ -4,6 +4,7 @@ Imports Linux.proc
 Imports Microsoft.VisualBasic.Imaging.Drawing2D.Math2D
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.SignalProcessing
+Imports Microsoft.VisualBasic.ValueTypes
 Imports SMRUCC.WebCloud.JavaScript.highcharts
 Imports stdNum = System.Math
 
@@ -27,8 +28,8 @@ Namespace Report
 
         <Extension>
         Public Function SystemLoadOverloads(snapshots As Snapshot(), meminfo As meminfo) As SynchronizedLines
-            Dim base_time = snapshots(Scan0).uptime.uptime.TotalSeconds
-            Dim timeline As Double() = snapshots.Select(Function(a) a.uptime.uptime.TotalSeconds - base_time).ToArray
+            Dim base_time As Date = DateTimeHelper.FromUnixTimeStamp(snapshots(Scan0).timestamp)
+            Dim timeline As Double() = snapshots.Select(Function(a) (DateTimeHelper.FromUnixTimeStamp(a.timestamp) - base_time).TotalSeconds).ToArray
             Dim cpuRaw = snapshots.Select(Function(a) a.ps.Sum(Function(p) p.CPU)).ToArray
             Dim cpu = cpuRaw.CubicSpline(timeline).Data(timeline)
             Dim memory = snapshots.Select(Function(a) a.free.Mem.used / 1024 / 1024).CubicSpline(timeline).Data(timeline)
@@ -52,12 +53,12 @@ Namespace Report
 
         <Extension>
         Public Function system_load(snapshots As Snapshot()) As Dictionary(Of String, Object)
-            Dim base_time = snapshots(Scan0).uptime.uptime.TotalSeconds
+            Dim base_time As Date = DateTimeHelper.FromUnixTimeStamp(snapshots(Scan0).timestamp)
 
             Return New Dictionary(Of String, Object) From {
                 {"name", "system load"},
                 {"data", snapshots.Select(Function(a) a.uptime.load1).ToArray},
-                {"x", snapshots.Select(Function(a) a.uptime.uptime.TotalSeconds - base_time).ToArray}
+                {"x", snapshots.Select(Function(a) (DateTimeHelper.FromUnixTimeStamp(a.timestamp) - base_time).TotalSeconds).ToArray}
             }
         End Function
     End Module

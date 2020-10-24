@@ -35,11 +35,17 @@ Namespace Report
                 html("title") = summary.title Or "No title".AsDefault
                 html("time") = summary.time.ToString
                 html("time_span") = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).FormatTime
+                html("dmidecode_version") = summary.dmidecode.version
+                html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
 
                 Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
                 Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
             End Using
         End Sub
+
+        Private Function dmidecodeTree() As String
+
+        End Function
 
         <Extension>
         Private Function cpuTree(cpuinfo As cpuinfo(), name As String) As String

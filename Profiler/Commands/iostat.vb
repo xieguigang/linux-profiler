@@ -94,6 +94,10 @@ Namespace Commands
         Public Property kB_read As Double
         Public Property kB_wrtn As Double
 
+        Public Overrides Function ToString() As String
+            Return $"[{Device}] {kB_read_sec} kB_read/s | {kB_wrtn_sec} kB_wrtn/s"
+        End Function
+
         Public Function toList() As list Implements ICTypeList.toList
             Return New list With {
                 .slots = New Dictionary(Of String, Object) From {

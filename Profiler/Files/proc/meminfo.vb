@@ -71,9 +71,11 @@ Namespace proc
                               End Function)
             Dim mem As Object = New meminfo
             Dim writer = Schema(Of ColumnAttribute).GetSchema(GetType(meminfo), Function(c) c.Name, explict:=True)
+            Dim slotVal As Double
 
             For Each [property] As BindProperty(Of ColumnAttribute) In writer.Fields
-                [property].SetValue(mem, table([property].Identity))
+                slotVal = table.TryGetValue([property].Identity, [default]:=-99999)
+                [property].SetValue(mem, slotVal)
             Next
 
             Return mem

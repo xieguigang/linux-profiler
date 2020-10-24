@@ -29,7 +29,8 @@ Public Class Profiler : Implements ITaskDriver
             .time = Now,
             .sampling_intervals = seconds,
             .note = App.Command,
-            .title = title
+            .title = title,
+            .dmidecode = Commands.dmidecode.Parse(Interaction.Shell("dmidecode", "", verbose:=False))
         }.GetJson _
          .SaveTo($"{tmp}/index.json")
     End Sub

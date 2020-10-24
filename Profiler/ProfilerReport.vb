@@ -22,6 +22,7 @@ Public Class ProfilerReport
     ''' <returns></returns>
     Public Property cpuinfo As cpuinfo()
     Public Property meminfo As meminfo
+    Public Property dmidecode As dmidecode
     Public Property osinfo As os_release
 
     Public Property time As DateTime = Now

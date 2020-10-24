@@ -32,8 +32,8 @@ Namespace Report
             Dim cpu = cpuRaw.CubicSpline(timeline).Data(timeline)
             Dim memory = snapshots.Select(Function(a) a.free.Mem.used / 1024 / 1024).CubicSpline(timeline).Data(timeline)
             Dim swap = snapshots.Select(Function(a) a.free.Swap.used / 1024 / 1024).CubicSpline(timeline).Data(timeline)
-            Dim ioread = snapshots.Select(Function(a) a.iostat.GetTotalBytesRead).CubicSpline(timeline).Data(timeline)
-            Dim iowrite = snapshots.Select(Function(a) a.iostat.GetTotalBytesWrite).CubicSpline(timeline).Data(timeline)
+            Dim ioread = snapshots.Select(Function(a) stdNum.Round(a.iostat.GetTotalBytesRead, 1)).ToArray
+            Dim iowrite = snapshots.Select(Function(a) stdNum.Round(a.iostat.GetTotalBytesWrite, 1)).ToArray
 
             Return New SynchronizedLines With {
                 .xData = timeline,
@@ -41,8 +41,8 @@ Namespace Report
                     New LineDataSet With {.data = cpu, .name = "CPU", .type = "line", .unit = "%", .valueDecimals = 1},
                     New LineDataSet With {.data = memory, .name = "Memory", .type = "line", .unit = "GB", .valueDecimals = 1},
                     New LineDataSet With {.data = swap, .name = "Swap", .type = "line", .unit = "GB", .valueDecimals = 1},
-                    New LineDataSet With {.data = ioread, .name = "I/O read", .type = "line", .unit = "KB/s", .valueDecimals = 1},
-                    New LineDataSet With {.data = iowrite, .name = "I/O write", .type = "line", .unit = "KB/s", .valueDecimals = 1}
+                    New LineDataSet With {.data = ioread, .name = "I/O read per sec", .type = "line", .unit = "KB/s", .valueDecimals = 1},
+                    New LineDataSet With {.data = iowrite, .name = "I/O write per sec", .type = "line", .unit = "KB/s", .valueDecimals = 1}
                 }
             }
         End Function

@@ -58,6 +58,10 @@ Namespace Commands
             Return Aggregate dev As iodev In devices Into Sum(dev.kB_wrtn_sec)
         End Function
 
+        Public Function GetTotalTps() As Double
+            Return Aggregate dev As iodev In devices Into Sum(dev.tps)
+        End Function
+
         Public Function toList() As list Implements ICTypeList.toList
             Dim devList As New list With {
                 .slots = devices _

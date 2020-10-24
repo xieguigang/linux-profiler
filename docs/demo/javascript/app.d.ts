@@ -25,6 +25,7 @@ declare namespace apps {
         private div;
         constructor(data: {
             name: string;
+            x: number[];
             data: number[];
         }, id?: string);
         private lastIndex;

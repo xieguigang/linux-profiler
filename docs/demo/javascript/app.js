@@ -203,7 +203,12 @@ var apps;
         };
         system_load.prototype.updatePie = function (point, e) {
         };
-        system_load.createPlotOptions = function (data) {
+        system_load.createPlotOptions = function (dataset) {
+            var x = dataset.x;
+            // Add X values
+            dataset.data = Highcharts.map(dataset.data, function (val, j) {
+                return [x[j], val];
+            });
             return {
                 chart: {
                     type: 'area'
@@ -250,7 +255,7 @@ var apps;
                         }
                     }
                 },
-                series: [data]
+                series: [dataset]
             };
         };
         return system_load;

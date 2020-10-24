@@ -52,9 +52,12 @@ Namespace Report
 
         <Extension>
         Public Function system_load(snapshots As Snapshot()) As Dictionary(Of String, Object)
+            Dim base_time = snapshots(Scan0).uptime.uptime.TotalSeconds
+
             Return New Dictionary(Of String, Object) From {
                 {"name", "system load"},
-                {"data", snapshots.Select(Function(a) a.uptime.load1).ToArray}
+                {"data", snapshots.Select(Function(a) a.uptime.load1).ToArray},
+                {"x", snapshots.Select(Function(a) a.uptime.uptime.TotalSeconds - base_time).ToArray}
             }
         End Function
     End Module

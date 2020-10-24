@@ -5,7 +5,12 @@ namespace apps {
         private chart: Highcharts.Chart;
         private div: HTMLElement;
 
-        public constructor(data: { name: string, data: number[] }, id: string = "#container") {
+        public constructor(data: {
+            name: string,
+            x: number[],
+            data: number[]
+        }, id: string = "#container") {
+
             let vm = this;
 
             this.chart = Highcharts.chart(this.div = <any>$ts(id), <any>system_load.createPlotOptions(data));
@@ -47,7 +52,14 @@ namespace apps {
 
         }
 
-        private static createPlotOptions(data: { name: string, data: number[] }) {
+        private static createPlotOptions(dataset: { name: string, data: number[], x: number[] }) {
+            let x = dataset.x;
+
+            // Add X values
+            dataset.data = Highcharts.map(dataset.data, function (val, j) {
+                return [x[j], val];
+            });
+
             return <Highcharts.Options>{
                 chart: {
                     type: 'area'
@@ -94,7 +106,7 @@ namespace apps {
                         }
                     }
                 },
-                series: <any>[data]
+                series: <any>[dataset]
             }
         }
     }

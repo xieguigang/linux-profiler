@@ -17,7 +17,7 @@ Namespace Report
         End Sub
 
         Public Sub RunReport(template As String, output As String, summary As ProfilerReport, snapshots As Snapshot())
-            Dim overview As SynchronizedLines = snapshots.SystemLoadOverloads
+            Dim overview As SynchronizedLines = snapshots.SystemLoadOverloads(summary.meminfo)
             Dim overviewName = App.GetNextUniqueName("overviews_")
             Dim cpuTreeName = App.GetNextUniqueName("cpu_")
 

@@ -110,6 +110,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\dmidecode.vb" />
     <Compile Include="Files\etc\os_release.vb" />
     <Compile Include="Profiler.vb" />
     <Compile Include="Commands\free.vb" />

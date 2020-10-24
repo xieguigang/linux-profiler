@@ -130,7 +130,8 @@ namespace apps {
                 yAxis: {
                     title: {
                         text: null
-                    }
+                    },
+                    max: dataset.max || null
                 },
                 tooltip: {
                     positioner: function () {

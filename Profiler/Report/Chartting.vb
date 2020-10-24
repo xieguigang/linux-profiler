@@ -1,9 +1,10 @@
-﻿Imports System.Runtime.CompilerServices
-Imports SMRUCC.WebCloud.JavaScript.highcharts
-Imports Microsoft.VisualBasic.Linq
-Imports System.Drawing
+﻿Imports System.Drawing
+Imports System.Runtime.CompilerServices
+Imports Linux.proc
 Imports Microsoft.VisualBasic.Imaging.Drawing2D.Math2D
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.SignalProcessing
+Imports SMRUCC.WebCloud.JavaScript.highcharts
 Imports stdNum = System.Math
 
 Namespace Report
@@ -25,7 +26,7 @@ Namespace Report
         End Function
 
         <Extension>
-        Public Function SystemLoadOverloads(snapshots As Snapshot()) As SynchronizedLines
+        Public Function SystemLoadOverloads(snapshots As Snapshot(), meminfo As meminfo) As SynchronizedLines
             Dim base_time = snapshots(Scan0).uptime.uptime.TotalSeconds
             Dim timeline As Double() = snapshots.Select(Function(a) a.uptime.uptime.TotalSeconds - base_time).ToArray
             Dim cpuRaw = snapshots.Select(Function(a) a.ps.Sum(Function(p) p.CPU)).ToArray
@@ -34,13 +35,15 @@ Namespace Report
             Dim swap = snapshots.Select(Function(a) a.free.Swap.used / 1024 / 1024).CubicSpline(timeline).Data(timeline)
             Dim ioread = snapshots.Select(Function(a) stdNum.Round(a.iostat.GetTotalBytesRead, 1)).ToArray
             Dim iowrite = snapshots.Select(Function(a) stdNum.Round(a.iostat.GetTotalBytesWrite, 1)).ToArray
+            Dim maxMemory As Double = meminfo.MemTotal / 1024 / 1024
+            Dim maxSwap As Double = meminfo.SwapTotal / 1024 / 1024
 
             Return New SynchronizedLines With {
                 .xData = timeline,
                 .datasets = {
                     New LineDataSet With {.data = cpu, .name = "CPU", .type = "area", .unit = "%", .valueDecimals = 1},
-                    New LineDataSet With {.data = memory, .name = "Memory", .type = "area", .unit = "GB", .valueDecimals = 1},
-                    New LineDataSet With {.data = swap, .name = "Swap", .type = "area", .unit = "GB", .valueDecimals = 1},
+                    New LineDataSet With {.data = memory, .name = $"Memory ({stdNum.Round(maxMemory, 1)} GB)", .type = "area", .unit = "GB", .valueDecimals = 1, .max = maxMemory},
+                    New LineDataSet With {.data = swap, .name = $"Swap ({stdNum.Round(maxSwap, 1)} GB)", .type = "area", .unit = "GB", .valueDecimals = 1, .max = maxSwap},
                     New LineDataSet With {.data = ioread, .name = "I/O read per sec", .type = "line", .unit = "KB/s", .valueDecimals = 1},
                     New LineDataSet With {.data = iowrite, .name = "I/O write per sec", .type = "line", .unit = "KB/s", .valueDecimals = 1}
                 }

@@ -40,7 +40,7 @@
     <Folder Include="pages\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="apps\TypeScript1.ts">
+    <TypeScriptCompile Include="apps\overviews.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="pages\index.ts">

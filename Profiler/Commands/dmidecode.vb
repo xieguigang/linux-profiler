@@ -81,7 +81,8 @@ Namespace Commands
                 .handle = info(Scan0).Split().Last,
                 .DMItype = Integer.Parse(info(1).Split.Last),
                 .bytes = Integer.Parse(info(2).Split.First),
-                .name = block(1)
+                .name = block(1),
+                .info = data
             }
         End Function
 

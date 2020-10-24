@@ -38,9 +38,9 @@ Namespace Report
             Return New SynchronizedLines With {
                 .xData = timeline,
                 .datasets = {
-                    New LineDataSet With {.data = cpu, .name = "CPU", .type = "line", .unit = "%", .valueDecimals = 1},
-                    New LineDataSet With {.data = memory, .name = "Memory", .type = "line", .unit = "GB", .valueDecimals = 1},
-                    New LineDataSet With {.data = swap, .name = "Swap", .type = "line", .unit = "GB", .valueDecimals = 1},
+                    New LineDataSet With {.data = cpu, .name = "CPU", .type = "area", .unit = "%", .valueDecimals = 1},
+                    New LineDataSet With {.data = memory, .name = "Memory", .type = "area", .unit = "GB", .valueDecimals = 1},
+                    New LineDataSet With {.data = swap, .name = "Swap", .type = "area", .unit = "GB", .valueDecimals = 1},
                     New LineDataSet With {.data = ioread, .name = "I/O read per sec", .type = "line", .unit = "KB/s", .valueDecimals = 1},
                     New LineDataSet With {.data = iowrite, .name = "I/O write per sec", .type = "line", .unit = "KB/s", .valueDecimals = 1}
                 }

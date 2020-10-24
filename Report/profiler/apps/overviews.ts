@@ -4,7 +4,7 @@ namespace apps {
 
         private overview: HTMLElement;
 
-        public constructor(activity: { datasets: any[], xData: number[] }, private id: string = 'overviews') {
+        public constructor(activity: { datasets: any[], xData: number[] }, private id: string = '#overviews') {
             let x = activity.xData;
             let vm = this;
 

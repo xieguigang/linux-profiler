@@ -43,6 +43,9 @@
     <TypeScriptCompile Include="apps\overviews.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="apps\system_load.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="pages\index.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

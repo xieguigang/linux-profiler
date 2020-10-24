@@ -1,9 +1,6 @@
-﻿Imports System.Drawing
-Imports System.Runtime.CompilerServices
+﻿Imports System.Runtime.CompilerServices
 Imports Linux.proc
-Imports Microsoft.VisualBasic.Imaging.Drawing2D.Math2D
 Imports Microsoft.VisualBasic.Linq
-Imports Microsoft.VisualBasic.Math.SignalProcessing
 Imports Microsoft.VisualBasic.ValueTypes
 Imports SMRUCC.WebCloud.JavaScript.highcharts
 Imports stdNum = System.Math
@@ -13,27 +10,12 @@ Namespace Report
     Public Module Chartting
 
         <Extension>
-        Private Function CubicSpline(data As IEnumerable(Of Double), timeline As Double()) As Resampler
-            Dim points = data.Select(Function(a, i) New PointF(timeline(i), a)).CubicSpline.ToArray
-            Dim x = points.Select(Function(p) CDbl(p.X)).ToArray
-            Dim y = points.Select(Function(p) CDbl(p.Y)).ToArray
-
-            Return Resampler.CreateSampler(x, y)
-        End Function
-
-        <Extension>
-        Private Function Data(sample As Resampler, timeline As Double()) As Double()
-            Return sample(timeline).Select(Function(x) stdNum.Round(x, 1)).ToArray
-        End Function
-
-        <Extension>
         Public Function SystemLoadOverloads(snapshots As Snapshot(), meminfo As meminfo) As SynchronizedLines
             Dim base_time As Date = DateTimeHelper.FromUnixTimeStamp(snapshots(Scan0).timestamp)
             Dim timeline As Double() = snapshots.Select(Function(a) (DateTimeHelper.FromUnixTimeStamp(a.timestamp) - base_time).TotalSeconds).ToArray
-            Dim cpuRaw = snapshots.Select(Function(a) a.ps.Sum(Function(p) p.CPU)).ToArray
-            Dim cpu = cpuRaw.CubicSpline(timeline).Data(timeline)
-            Dim memory = snapshots.Select(Function(a) a.free.Mem.used / 1024 / 1024).CubicSpline(timeline).Data(timeline)
-            Dim swap = snapshots.Select(Function(a) a.free.Swap.used / 1024 / 1024).CubicSpline(timeline).Data(timeline)
+            Dim cpu = snapshots.Select(Function(a) a.ps.Sum(Function(p) p.CPU)).ToArray
+            Dim memory = snapshots.Select(Function(a) a.free.Mem.used / 1024 / 1024).ToArray
+            Dim swap = snapshots.Select(Function(a) a.free.Swap.used / 1024 / 1024).ToArray
             Dim ioread = snapshots.Select(Function(a) stdNum.Round(a.iostat.GetTotalBytesRead, 1)).ToArray
             Dim iowrite = snapshots.Select(Function(a) stdNum.Round(a.iostat.GetTotalBytesWrite, 1)).ToArray
             Dim maxMemory As Double = meminfo.MemTotal / 1024 / 1024

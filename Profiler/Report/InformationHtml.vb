@@ -25,16 +25,14 @@ Namespace Report
                                   <td><%= prop.GetValue(os_release) %></td>
                               </tr>
                     Next
+
+                    Yield <tr>
+                              <td>ADDITIONAL</td>
+                              <td>
+                                      %s
+                                  </td>
+                          </tr>
                 End Function
-            Dim metadata As XElement() = os_release _
-                .metadata _
-                .Select(Function(tag)
-                            Return <tr>
-                                       <td><%= tag.Key %></td>
-                                       <td><%= tag.Value %></td>
-                                   </tr>
-                        End Function) _
-                .ToArray
 
             html += <thead>
                         <tr>
@@ -44,11 +42,25 @@ Namespace Report
                     </thead>
 
             html.Wrap(<tbody/>, getInfo().ToArray)
-            html = sprintf(<table class="table">%s</table>, html.ToString)
-            html += <h4>Additional</h4>
-            html.Wrap(<table class="table"/>, metadata)
+            html = sprintf(<table class="table">%s</table>, html.Replace("%s", os_release.metadata.metaTable).ToString)
 
             Return html.ToString
+        End Function
+
+        <Extension>
+        Private Function metaTable(metadata As Dictionary(Of String, String)) As String
+            Dim meta As XElement() = metadata _
+                .Select(Function(tag)
+                            Return <tr>
+                                       <td><%= tag.Key %></td>
+                                       <td><%= tag.Value %></td>
+                                   </tr>
+                        End Function) _
+                .ToArray
+
+            Return sprintf(<table class="table">
+                               %s
+                           </table>, meta.Select(Function(xml) xml.ToString).JoinBy(""))
         End Function
     End Module
 End Namespace

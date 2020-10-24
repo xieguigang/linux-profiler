@@ -21,10 +21,10 @@ declare namespace apps {
 }
 declare namespace apps {
     class system_load {
-        private ps;
         private id;
         private chart;
         private div;
+        private psFrames;
         constructor(data: {
             name: string;
             x: number[];
@@ -67,4 +67,5 @@ declare namespace report {
         private system_load;
         protected init(): void;
     }
+    function orderFrames(ps: models.jsFrame<models.ps[]>[]): models.jsFrame<models.ps[]>[];
 }

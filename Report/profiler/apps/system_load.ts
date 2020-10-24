@@ -4,6 +4,7 @@ namespace apps {
 
         private chart: Highcharts.Chart;
         private div: HTMLElement;
+        private psFrames: models.jsFrame<models.ps[]>[];
 
         public constructor(
             data: {
@@ -11,11 +12,12 @@ namespace apps {
                 x: number[],
                 data: number[]
             },
-            private ps: models.jsFrame<models.ps[]>[],
+            ps: models.jsFrame<models.ps[]>[],
             private id: string = "#container") {
 
             let vm = this;
 
+            this.psFrames = report.orderFrames(ps);
             this.chart = Highcharts.chart(this.div = <any>$ts(id), <any>system_load.createPlotOptions(data));
 
             /**
@@ -60,7 +62,7 @@ namespace apps {
             let mind = 999999;
             let minFrame: models.ps[] = [];
 
-            for (let frame of this.ps) {
+            for (let frame of this.psFrames) {
                 let delta = Math.abs(frame.timeframe - time);
 
                 if (delta <= 1) {

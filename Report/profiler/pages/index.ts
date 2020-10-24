@@ -17,6 +17,18 @@ namespace report {
                 (<any>$ts("@canvas:system_load"))
             );
         }
+    }
 
+    export function orderFrames(ps: models.jsFrame<models.ps[]>[]): models.jsFrame<models.ps[]>[] {
+        let order: models.jsFrame<models.ps[]>[] = [];
+
+        for (let i: number = 0; i < ps.length; i++) {
+            order[i] = <models.jsFrame<models.ps[]>>{
+                timeframe: ps[i].timeframe,
+                data: $from(ps[i].data).OrderByDescending(p => p.CPU).ToArray(false)
+            }
+        }
+
+        return order;
     }
 }

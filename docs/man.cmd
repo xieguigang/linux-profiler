@@ -1,0 +1,1 @@
+"../Apps/R#" --man.1 --module "../Apps/Profiler.dll" --out "./man"

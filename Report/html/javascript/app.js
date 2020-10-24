@@ -192,12 +192,13 @@ var apps;
             var event = this.chart.pointer.normalize(e);
             // Get the hovered point
             var point = this.chart.series[0].searchPoint(event, true);
-            if (point) {
+            if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
                 point.highlight(e);
                 // update piechart at here
                 console.log(e);
                 console.log(point);
                 this.updatePie(point, e);
+                this.lastIndex = point.index;
             }
         };
         system_load.prototype.updatePie = function (point, e) {

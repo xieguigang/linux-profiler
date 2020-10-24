@@ -27,6 +27,7 @@ declare namespace apps {
             name: string;
             data: number[];
         }, id?: string);
+        private lastIndex;
         /**
          * update piechart at here
         */

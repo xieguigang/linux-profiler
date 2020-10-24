@@ -19,6 +19,8 @@ namespace apps {
             });
         }
 
+        private lastIndex: number;
+
         /**
          * update piechart at here
         */
@@ -28,7 +30,7 @@ namespace apps {
             // Get the hovered point
             let point = (<any>this.chart.series[0]).searchPoint(event, true);
 
-            if (point) {
+            if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
                 point.highlight(e);
 
                 // update piechart at here
@@ -36,8 +38,10 @@ namespace apps {
                 console.log(point);
 
                 this.updatePie(point, e);
+                this.lastIndex = point.index;
             }
         }
+
 
         private updatePie(point, e) {
 

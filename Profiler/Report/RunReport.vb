@@ -21,7 +21,12 @@ Namespace Report
             Dim overviewName = App.GetNextUniqueName("overviews_")
             Dim cpuTreeName = App.GetNextUniqueName("cpu_")
 
-            Using html As HTMLReport = HTMLReport.CopyTemplate(template, output, SearchOption.SearchTopLevelOnly)
+            Using html As HTMLReport = HTMLReport.CopyTemplate(
+                source:=template,
+                output:=output,
+                searchLevel:=SearchOption.SearchTopLevelOnly,
+                minify:=True
+            )
                 html("version") = summary.version
                 html("release") = summary.release
                 html("release_details") = summary.osinfo.toHtml

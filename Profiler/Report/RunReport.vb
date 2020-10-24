@@ -19,9 +19,11 @@ Namespace Report
 
         Public Sub RunReport(template As String, output As String, summary As ProfilerReport, snapshots As Snapshot())
             Dim overview As SynchronizedLines = snapshots.SystemLoadOverloads(summary.meminfo)
+            Dim system_load = snapshots.system_load
             Dim overviewName = App.GetNextUniqueName("overviews_")
             Dim cpuTreeName = App.GetNextUniqueName("cpu_")
             Dim dmitreeName = App.GetNextUniqueName("dmidecode_")
+            Dim system_loadjs = App.GetNextUniqueName("systemload_")
 
             Using html As HTMLReport = HTMLReport.CopyTemplate(
                 source:=template,
@@ -40,8 +42,10 @@ Namespace Report
                 html("dmidecode_version") = summary.dmidecode.version
                 html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
                 html("dmidecode") = dmitreeName
+                html("systemload_js") = system_loadjs
 
                 Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
+                Call system_load.dataJs(system_loadjs).SaveTo($"{output}/data/system_load.js")
 
                 Call summary.dmidecode.handles.dmidecodeTree(dmitreeName).SaveTo($"{output}/data/dmidecode.js")
                 Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
@@ -126,7 +130,7 @@ Namespace Report
  * @data {GetType(T).FullName}
 */
 function {name}() {{
-    return {data.GetJson};
+    return {data.GetJson(knownTypes:={GetType(String), GetType(Double())})};
 }}"
         End Function
     End Module

@@ -7,11 +7,11 @@ namespace report {
         };
 
         private overviews: apps.overviews;
+        private system_load: apps.system_load;
 
         protected init(): void {
-            let sysLoad: any = (<any>window)[<any>$ts("@data:sysLoad")]();
-
-            this.overviews = new apps.overviews(sysLoad, <any>$ts("@canvas:overviews"));
+            this.overviews = new apps.overviews((<any>window)[<any>$ts("@data:sysLoad")](), <any>$ts("@canvas:overviews"));
+            this.system_load = new apps.system_load((<any>window)[<any>$ts("@data:systemLoad")](), <any>$ts("@canvas:system_load"))
         }
 
     }

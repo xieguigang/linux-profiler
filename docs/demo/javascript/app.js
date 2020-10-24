@@ -27,7 +27,7 @@ var apps;
 (function (apps) {
     var overviews = /** @class */ (function () {
         function overviews(activity, id) {
-            if (id === void 0) { id = 'overviews'; }
+            if (id === void 0) { id = '#overviews'; }
             var _this = this;
             this.id = id;
             var x = activity.xData;
@@ -169,6 +169,67 @@ var apps;
     }());
     apps.overviews = overviews;
 })(apps || (apps = {}));
+var apps;
+(function (apps) {
+    var system_load = /** @class */ (function () {
+        function system_load(data, id) {
+            if (id === void 0) { id = "container"; }
+            this.chart = Highcharts.chart(id, system_load.createPlotOptions(data));
+        }
+        system_load.createPlotOptions = function (data) {
+            return {
+                chart: {
+                    type: 'area'
+                },
+                title: {
+                    text: 'System Load'
+                },
+                subtitle: {
+                    text: 'Show system load during the profiler sampling progress.'
+                },
+                xAxis: {
+                    allowDecimals: false,
+                    labels: {
+                        formatter: function () {
+                            return this.value; // clean, unformatted number for year
+                        }
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'system load'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y:,.0f}</b> at time point {point.x}'
+                },
+                plotOptions: {
+                    area: {
+                        pointStart: 0,
+                        marker: {
+                            enabled: false,
+                            symbol: 'circle',
+                            radius: 2,
+                            states: {
+                                hover: {
+                                    enabled: true
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [data]
+            };
+        };
+        return system_load;
+    }());
+    apps.system_load = system_load;
+})(apps || (apps = {}));
 var report;
 (function (report) {
     var index = /** @class */ (function (_super) {
@@ -185,8 +246,8 @@ var report;
         });
         ;
         index.prototype.init = function () {
-            var sysLoad = window[$ts("@data:sysLoad")]();
-            this.overviews = new apps.overviews(sysLoad, $ts("@canvas:overviews"));
+            this.overviews = new apps.overviews(window[$ts("@data:sysLoad")](), $ts("@canvas:overviews"));
+            this.system_load = new apps.system_load(window[$ts("@data:systemLoad")](), $ts("@canvas:system_load"));
         };
         return index;
     }(Bootstrap));

@@ -19,10 +19,21 @@ declare namespace apps {
         private loadLineData;
     }
 }
+declare namespace apps {
+    class system_load {
+        private chart;
+        constructor(data: {
+            name: string;
+            data: number[];
+        }, id?: string);
+        private static createPlotOptions;
+    }
+}
 declare namespace report {
     class index extends Bootstrap {
         readonly appName: string;
         private overviews;
+        private system_load;
         protected init(): void;
     }
 }

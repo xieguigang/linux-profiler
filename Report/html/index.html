@@ -12,7 +12,9 @@
     <meta name="app" content="index" />
 
     <meta name="canvas:overviews" content="#overviews" />
+    <meta name="canvas:system_load" content="system_load" />
     <meta name="data:sysLoad" content="{$overviews_js}" />
+    <meta name="data:systemLoad" content="{$systemload_js}" />
 
     <title>{$title} | Linux system performance diagnose report</title>
 
@@ -42,6 +44,7 @@
     <script type="text/javascript" src="data/overviews.js"></script>
     <script type="text/javascript" src="data/cpuinfo.js"></script>
     <script type="text/javascript" src="data/dmidecode.js"></script>
+    <script type="text/javascript" src="data/system_load.js"></script>
 
     <link href="styles/charts.css" rel="stylesheet" />
     <link href="styles/styles.css" rel="stylesheet" />
@@ -175,7 +178,7 @@
         <div class="row" id="login-form">
             <div class="col-lg-12">
 
-                <h2>System load overview</h2>
+                <h2>System Resource overview</h2>
 
                 <div class="panel-group" id="accordion">
 
@@ -183,7 +186,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                                    System Load&nbsp;
+                                    Resources&nbsp;
                                     <span class="glyphicons glyphicons-unchecked"></span>
                                 </a>
                             </h4>

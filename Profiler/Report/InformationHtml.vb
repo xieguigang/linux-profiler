@@ -45,7 +45,7 @@ Namespace Report
 
             html.Wrap(<tbody/>, getInfo().ToArray)
             html = sprintf(<table class="table">%s</table>, html.ToString)
-            html += <h3>Additional</h3>
+            html += <h4>Additional</h4>
             html.Wrap(<table class="table"/>, metadata)
 
             Return html.ToString

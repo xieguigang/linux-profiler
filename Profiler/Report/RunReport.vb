@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports jsTree
+Imports Linux.Commands
 Imports Linux.proc
 Imports Microsoft.VisualBasic.FileIO
 Imports Microsoft.VisualBasic.Language
@@ -20,6 +21,7 @@ Namespace Report
             Dim overview As SynchronizedLines = snapshots.SystemLoadOverloads(summary.meminfo)
             Dim overviewName = App.GetNextUniqueName("overviews_")
             Dim cpuTreeName = App.GetNextUniqueName("cpu_")
+            Dim dmitreeName = App.GetNextUniqueName("dmidecode_")
 
             Using html As HTMLReport = HTMLReport.CopyTemplate(
                 source:=template,
@@ -37,14 +39,49 @@ Namespace Report
                 html("time_span") = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).FormatTime
                 html("dmidecode_version") = summary.dmidecode.version
                 html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
+                html("dmidecode") = dmitreeName
 
-                Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
                 Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
+
+                Call summary.dmidecode.handles.dmidecodeTree(dmitreeName).SaveTo($"{output}/data/dmidecode.js")
+                Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
             End Using
         End Sub
 
-        Private Function dmidecodeTree() As String
+        <Extension>
+        Private Function dmidecodeTree([handles] As dmiHandle(), name$) As String
+            Dim tree As New TreeNode With {
+                .text = "# dmidecode",
+                .icon = "images/gparted.png"
+            }
 
+            tree.children = [handles] _
+                .Select(Function(handle)
+                            Return New TreeNode With {
+                                .text = handle.handle,
+                                .icon = "images/folder-documents.png",
+                                .children = {
+                                    New TreeNode With {.icon = "images/application-x-object.png", .text = $"name: {handle.name}"},
+                                    New TreeNode With {.icon = "images/application-x-object.png", .text = $"DMI type: {handle.DMItype}"},
+                                    New TreeNode With {.icon = "images/application-x-object.png", .text = $"bytes: {handle.bytes}"},
+                                    New TreeNode With {
+                                        .icon = "images/folder-documents.png",
+                                        .text = $"{handle.info.Count} attributes",
+                                        .children = handle.info _
+                                            .Select(Function(a)
+                                                        Return New TreeNode With {
+                                                            .icon = "images/application-x-object.png",
+                                                            .text = $"{a.Key} = {a.Value}"
+                                                        }
+                                                    End Function) _
+                                            .ToArray
+                                    }
+                                }
+                            }
+                        End Function) _
+                .ToArray
+
+            Return tree.dataJs(name)
         End Function
 
         <Extension>

@@ -1,36 +1,102 @@
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root        5751  0.0  0.0 274276  4100 pts/4    S    Mar05   3:43 php ./restarter.php
-root        7223  0.0  0.0 277040  6032 pts/4    S    Jun21   0:54 php ./restarter.php
-root        7231  0.0  0.0 113184   184 pts/4    S    Jun21   0:00 sh -c cd '/opt/biodeep/mz.biodeep.cn/biodeep/application/Biodeep/Task' ; php ./task_host.php 3 7
-root        7232  0.0  9.7 1884928 1593924 pts/4 S    Jun21   9:05 php ./task_host.php 3 7
-root        7301  0.0  0.0 113184   184 pts/4    S    Jun21   0:00 sh -c cd '/opt/biodeep/mz.biodeep.cn/biodeep/application/Biodeep/Task' ; php ./task_host.php 3 7
-root        7302  0.0  9.7 1884928 1594016 pts/4 S    Jun21   9:06 php ./task_host.php 3 7
-root       26336  0.0  0.0 115512  1176 pts/4    Ss+   2019   0:00 /bin/bash
-root       26615  0.0  0.0 115512   512 pts/3    Ss    2019   0:00 /bin/bash
-root      111698  0.0  0.0   9924   132 tty1     SNs+ Sep18   0:00 /sbin/agetty --noclear tty1 linux
-root      112414  0.0  0.0 115584   564 pts/0    SNs  Sep18   0:00 /bin/bash
-root      121539  0.0  0.0 673236  7204 pts/0    SNl+ Sep18   1:51 /usr/bin/docker-current exec -it biodeep_Rweb /bin/bash /var/FastRWeb/code/start
-root      125029  0.0  0.0  15264  2076 pts/17   SNs+ 15:59   0:00 /bin/bash
-root      155188  0.0  0.0 115640  2236 pts/1    SNs  18:58   0:00 -bash
-root      157204  0.0  0.0 115580  1112 pts/7    SN+  19:26   0:00 /bin/bash
-root      157205  0.0  0.0 113184  1444 pts/7    SN+  19:26   0:00 /bin/bash /usr/bin/Rweb --start --port 7452 --Rweb ../Rweb --show_error --n_threads 8
-root      157211  1.9  0.2 1041140 39012 pts/7   SNl+ 19:26   0:10 mono /usr/local/share/R_sharp/Rweb.exe --start --port 7452 --Rweb ../Rweb --show_error --n_threads 8
-root      157991  0.0  0.0 155372  1896 pts/1    RN+  19:35   0:00 ps u
-root      639882  0.0  0.0 276976  6480 pts/3    S+   Jul13  29:10 php svn.php
-root      679935  0.0  0.0 115580  1380 pts/7    SNs  Aug19   0:00 /bin/bash
-root      690534  0.0  0.0 115580  1528 pts/6    SNs+ Aug19   0:00 /bin/bash
-root     2913395  0.0  0.0  15240   424 pts/8    SNs+ Oct10   0:00 /bin/bash
-root     3516341  0.0  0.0 115580  1844 pts/10   SNs+ Oct15   0:00 /bin/bash
-root     3607753  0.0  0.0  12140  1176 pts/5    SNs+ Oct16   0:00 /bin/bash
-root     3607782  0.0  0.0  12136  1088 pts/0    SNs+ Oct16   0:00 /bin/sh
-root     3637252  0.0  0.0  12140  1176 pts/12   SNs  Oct16   0:00 /bin/bash
-root     3637313  0.0  0.0  24124   700 pts/12   SN+  Oct16   0:01 screen -r 646
-root     3641146  0.0  0.0  12136  1100 pts/1    SNs+ Oct16   0:00 /bin/sh
-root     3652134  0.0  0.0  12140  1180 pts/13   SNs+ Oct16   0:00 /bin/bash
-root     3652637  0.0  0.0  12140  1188 pts/9    SNs+ Oct16   0:00 /bin/bash
-root     3653316  0.0  0.0  12140  1184 pts/14   SNs+ Oct16   0:00 /bin/bash
-root     3653809  0.0  0.0  12140  1100 pts/11   SNs+ Oct16   0:00 /bin/bash
-root     3654042  0.0  0.1  28528 17588 pts/16   SNs+ Oct16   0:00 /bin/bash
-root     4168497  0.0  0.0 115580  2108 pts/19   SNs  Oct21   0:00 -bash
-root     4168528  0.0  0.0 664784 12052 pts/19   SNl+ Oct21   0:04 /usr/bin/docker-current exec -it pms /bin/bash
-root     4168558  0.0  0.0  12140  2268 pts/20   SNs+ Oct21   0:00 /bin/bash
+root           1  0.0  1.4 176964 10864 ?        Ss   Oct17   0:05 /usr/lib/systemd/systemd --switched-root --system --deserialize 17
+root           2  0.0  0.0      0     0 ?        S    Oct17   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        I<   Oct17   0:00 [rcu_gp]
+root           4  0.0  0.0      0     0 ?        I<   Oct17   0:00 [rcu_par_gp]
+root           6  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kworker/0:0H-kblockd]
+root           8  0.0  0.0      0     0 ?        I<   Oct17   0:00 [mm_percpu_wq]
+root           9  0.0  0.0      0     0 ?        S    Oct17   0:00 [ksoftirqd/0]
+root          10  0.0  0.0      0     0 ?        I    Oct17   0:23 [rcu_sched]
+root          11  0.0  0.0      0     0 ?        S    Oct17   0:00 [migration/0]
+root          12  0.0  0.0      0     0 ?        S    Oct17   0:00 [watchdog/0]
+root          13  0.0  0.0      0     0 ?        S    Oct17   0:00 [cpuhp/0]
+root          14  0.0  0.0      0     0 ?        S    Oct17   0:00 [cpuhp/1]
+root          15  0.0  0.0      0     0 ?        S    Oct17   0:00 [watchdog/1]
+root          16  0.0  0.0      0     0 ?        S    Oct17   0:00 [migration/1]
+root          17  0.0  0.0      0     0 ?        S    Oct17   0:00 [ksoftirqd/1]
+root          19  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kworker/1:0H-kblockd]
+root          21  0.0  0.0      0     0 ?        S    Oct17   0:00 [kdevtmpfs]
+root          22  0.0  0.0      0     0 ?        I<   Oct17   0:00 [netns]
+root          23  0.0  0.0      0     0 ?        S    Oct17   0:00 [kauditd]
+root          26  0.0  0.0      0     0 ?        S    Oct17   0:00 [khungtaskd]
+root          27  0.0  0.0      0     0 ?        S    Oct17   0:00 [oom_reaper]
+root          28  0.0  0.0      0     0 ?        I<   Oct17   0:00 [writeback]
+root          29  0.0  0.0      0     0 ?        S    Oct17   0:00 [kcompactd0]
+root          30  0.0  0.0      0     0 ?        SN   Oct17   0:00 [ksmd]
+root          31  0.0  0.0      0     0 ?        SN   Oct17   0:01 [khugepaged]
+root          32  0.0  0.0      0     0 ?        I<   Oct17   0:00 [crypto]
+root          33  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kintegrityd]
+root          34  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kblockd]
+root          35  0.0  0.0      0     0 ?        I<   Oct17   0:00 [tpm_dev_wq]
+root          36  0.0  0.0      0     0 ?        I<   Oct17   0:00 [md]
+root          37  0.0  0.0      0     0 ?        I<   Oct17   0:00 [edac-poller]
+root          38  0.0  0.0      0     0 ?        S    Oct17   0:00 [watchdogd]
+root          60  0.0  0.0      0     0 ?        S    Oct17   0:00 [kswapd0]
+root         153  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kthrotld]
+root         154  0.0  0.0      0     0 ?        I<   Oct17   0:00 [acpi_thermal_pm]
+root         155  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kmpath_rdacd]
+root         156  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kaluad]
+root         158  0.0  0.0      0     0 ?        I<   Oct17   0:00 [ipv6_addrconf]
+root         159  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kstrp]
+root         410  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kworker/0:1H-kblockd]
+root         423  0.0  0.0      0     0 ?        I<   Oct17   0:00 [ata_sff]
+root         425  0.0  0.0      0     0 ?        S    Oct17   0:00 [scsi_eh_0]
+root         426  0.0  0.0      0     0 ?        I<   Oct17   0:00 [scsi_tmf_0]
+root         427  0.0  0.0      0     0 ?        S    Oct17   0:00 [scsi_eh_1]
+root         428  0.0  0.0      0     0 ?        I<   Oct17   0:00 [scsi_tmf_1]
+root         450  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfsalloc]
+root         451  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfs_mru_cache]
+root         454  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfs-buf/vda1]
+root         455  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfs-conv/vda1]
+root         456  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfs-cil/vda1]
+root         457  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfs-reclaim/vda]
+root         458  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfs-log/vda1]
+root         459  0.0  0.0      0     0 ?        I<   Oct17   0:00 [xfs-eofblocks/v]
+root         460  0.0  0.0      0     0 ?        S    Oct17   0:08 [xfsaild/vda1]
+root         461  0.0  0.0      0     0 ?        I<   Oct17   0:00 [kworker/1:1H-kblockd]
+root         568  0.0  2.7 110360 21436 ?        Ss   Oct17   0:02 /usr/lib/systemd/systemd-journald
+root         596  0.0  1.2 102196  9400 ?        Ss   Oct17   0:00 /usr/lib/systemd/systemd-udevd
+root         665  0.0  0.0      0     0 ?        I<   Oct17   0:00 [nfit]
+root         696  0.0  0.3 143104  2700 ?        S<sl Oct17   0:00 /sbin/auditd
+root         698  0.0  0.2  48484  2212 ?        S<   Oct17   0:00 /usr/sbin/sedispatch
+dbus         721  0.0  0.6  56408  5396 ?        Ss   Oct17   0:01 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root         723  0.0  0.2   8680  1984 ?        Ss   Oct17   0:00 /usr/sbin/mcelog --ignorenodev --daemon --foreground
+root         724  0.0  0.5  26064  4132 ?        Ss   Oct17   0:00 /usr/sbin/smartd -n -q never
+libstor+     726  0.0  0.2  10660  1856 ?        Ss   Oct17   0:00 /usr/bin/lsmd -d
+polkitd      727  0.0  2.7 1607568 21612 ?       Ssl  Oct17   0:00 /usr/lib/polkit-1/polkitd --no-debug
+root         730  0.0  1.7 194040 13580 ?        Ss   Oct17   0:00 /usr/sbin/sssd -i --logger=files
+chrony       737  0.0  0.5 119968  3972 ?        S    Oct17   0:01 /usr/sbin/chronyd
+rngd         756  0.0  0.8 233964  6556 ?        Ssl  Oct17   0:09 /sbin/rngd -f --fill-watermark=0
+root         803  0.0  1.8 200688 14580 ?        S    Oct17   0:02 /usr/libexec/sssd/sssd_be --domain implicit_files --uid 0 --gid 0 --logger=files
+root         820  0.0  4.8 213144 37976 ?        S    Oct17   0:05 /usr/libexec/sssd/sssd_nss --uid 0 --gid 0 --logger=files
+root         828  0.0  0.9  96212  7608 ?        Ss   Oct17   0:00 /usr/lib/systemd/systemd-logind
+root         885  0.0  2.2 390400 17708 ?        Ssl  Oct17   0:05 /usr/sbin/NetworkManager --no-daemon
+root         890  0.0  3.9 425268 30708 ?        Ssl  Oct17   0:46 /usr/libexec/platform-python -Es /usr/sbin/tuned -l -P
+systemd+     942  0.0  1.1 112780  8900 ?        Ss   Oct17   0:01 /usr/lib/systemd/systemd-resolved
+root         983  0.0  0.6  42132  4936 ?        Ssl  Oct17   0:46 /usr/sbin/aliyun-service
+root         986  0.0  1.9 227904 15008 ?        Ssl  Oct17   0:14 /usr/sbin/rsyslogd -n
+root         988  0.0  1.0  86708  7768 ?        Ss   Oct17   0:00 /usr/sbin/sshd -D -oCiphers=aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes256-ctr,aes256-cbc,aes128-gcm@openssh.com,aes128-ctr,aes128-cbc -oMACs=hmac-sha2-256-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha1,umac-128@openssh.com,hmac-sha2-512 -oGSSAPIKexAlgorithms=gss-gex-sha1-,gss-group14-sha1- -oKexAlgorithms=curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1 -oHostKeyAlgorithms=rsa-sha2-256,rsa-sha2-256-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384,ecdsa-sha2-nistp384-cert-v01@openssh.com,rsa-sha2-512,rsa-sha2-512-cert-v01@openssh.com,ecdsa-sha2-nistp521,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,ssh-rsa,ssh-rsa-cert-v01@openssh.com -oPubkeyAcceptedKeyTypes=rsa-sha2-256,rsa-sha2-256-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384,ecdsa-sha2-nistp384-cert-v01@openssh.com,rsa-sha2-512,rsa-sha2-512-cert-v01@openssh.com,ecdsa-sha2-nistp521,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,ssh-rsa,ssh-rsa-cert-v01@openssh.com -oCASignatureAlgorithms=rsa-sha2-256,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,rsa-sha2-512,ecdsa-sha2-nistp521,ssh-ed25519,ssh-rsa
+root         990  0.0  0.3  42624  2380 ?        Ss   Oct17   0:00 /usr/sbin/atd -f
+root         992  0.0  0.4  36092  3580 ?        Ss   Oct17   0:00 /usr/sbin/crond -n
+root         995  0.0  0.2  15668  2044 ttyS0    Ss+  Oct17   0:00 /sbin/agetty -o -p -- \u --keep-baud 115200,38400,9600 ttyS0 vt220
+root         996  0.0  0.1  13100  1548 tty1     Ss+  Oct17   0:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+root        1240  0.0  5.8 4917012 45208 ?       Ssl  Oct17   3:58 /usr/bin/v2ray/v2ray -config /etc/v2ray/config.json
+root        6717  0.0  0.8  33784  6272 ?        S<sl Oct21   0:55 /usr/local/aegis/aegis_update/AliYunDunUpdate
+root        6764  0.2  2.6 151800 20524 ?        S<sl Oct21  11:17 /usr/local/aegis/aegis_client/aegis_10_89/AliYunDun
+root       12848  0.0  0.0      0     0 ?        I    14:14   0:00 [kworker/u4:2-events_unbound]
+root       13188  0.0  0.0      0     0 ?        I    19:14   0:00 [kworker/u4:1-events_unbound]
+root       13367  0.0  0.0      0     0 ?        I    21:50   0:00 [kworker/0:0-events]
+root       13386  0.0  0.0      0     0 ?        I    22:02   0:00 [kworker/1:2-xfs-cil/vda1]
+root       13393  0.0  0.0      0     0 ?        I    22:10   0:00 [kworker/0:2-memcg_kmem_cache]
+root       13394  0.0  0.0      0     0 ?        I    22:13   0:00 [kworker/1:0-cgroup_destroy]
+root       13396  0.0  0.0      0     0 ?        I    22:19   0:00 [kworker/1:1-cgroup_pidlist_destroy]
+root       13400  0.0  0.0      0     0 ?        I    22:20   0:00 [kworker/0:3-mm_percpu_wq]
+root       13408  0.0  0.0      0     0 ?        I    22:24   0:00 [kworker/1:3-cgroup_pidlist_destroy]
+root       13452  0.0  0.0      0     0 ?        I    22:25   0:00 [kworker/1:4-events]
+root       13457  0.0  1.3 161180 10584 ?        Ss   22:25   0:00 sshd: root [priv]
+root       13460  0.0  1.2  93616  9496 ?        Ss   22:25   0:00 /usr/lib/systemd/systemd --user
+root       13463  0.0  0.3 237644  2912 ?        S    22:25   0:00 (sd-pam)
+root       13469  0.0  0.6 154920  5380 ?        S    22:25   0:00 sshd: root@pts/0
+root       13470  0.0  0.6  26408  5060 pts/0    Ss   22:25   0:00 -bash
+root       13495  0.0  0.0      0     0 ?        I    22:26   0:00 [kworker/u4:0-events_unbound]
+root       13499  0.0  0.5  60732  4104 pts/0    R+   22:27   0:00 ps -aux

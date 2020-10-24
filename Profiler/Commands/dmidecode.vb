@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.VisualBasic.Language
+Imports Microsoft.VisualBasic.Linq
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop.CType
 
@@ -87,7 +88,7 @@ Namespace Commands
         Public Function toList() As list Implements ICTypeList.toList
             Dim info As New Dictionary(Of String, Object)
 
-            For Each item In Me.info
+            For Each item In Me.info.SafeQuery
                 info.Add(item.Key, item.Value)
             Next
 

@@ -21,11 +21,27 @@ namespace report {
 
     export function orderFrames(ps: models.jsFrame<models.ps[]>[]): models.jsFrame<models.ps[]>[] {
         let order: models.jsFrame<models.ps[]>[] = [];
+        let cmdl: string;
 
         for (let i: number = 0; i < ps.length; i++) {
+            let snapshots = $from(ps[i].data).OrderByDescending(p => p.CPU).ToArray(false);
+
+            for (let j: number = 0; j < snapshots.length; j++) {
+                cmdl = snapshots[j].COMMAND;
+
+                delete snapshots[j].COMMAND;
+                delete snapshots[j].RSS;
+                delete snapshots[j].STAT;
+                delete snapshots[j].START;
+                delete snapshots[j].TIME;
+                delete snapshots[j].VSZ;
+
+                snapshots[j].COMMAND = `<span style="font-size: 0.8em;"><strong>${cmdl}</strong></span>`;
+            }
+
             order[i] = <models.jsFrame<models.ps[]>>{
                 timeframe: ps[i].timeframe,
-                data: $from(ps[i].data).OrderByDescending(p => p.CPU).ToArray(false)
+                data: snapshots
             }
         }
 

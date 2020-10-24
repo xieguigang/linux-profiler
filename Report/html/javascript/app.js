@@ -312,10 +312,22 @@ var report;
     report.index = index;
     function orderFrames(ps) {
         var order = [];
+        var cmdl;
         for (var i = 0; i < ps.length; i++) {
+            var snapshots = $from(ps[i].data).OrderByDescending(function (p) { return p.CPU; }).ToArray(false);
+            for (var j = 0; j < snapshots.length; j++) {
+                cmdl = snapshots[j].COMMAND;
+                delete snapshots[j].COMMAND;
+                delete snapshots[j].RSS;
+                delete snapshots[j].STAT;
+                delete snapshots[j].START;
+                delete snapshots[j].TIME;
+                delete snapshots[j].VSZ;
+                snapshots[j].COMMAND = "<span style=\"font-size: 0.8em;\"><strong>" + cmdl + "</strong></span>";
+            }
             order[i] = {
                 timeframe: ps[i].timeframe,
-                data: $from(ps[i].data).OrderByDescending(function (p) { return p.CPU; }).ToArray(false)
+                data: snapshots
             };
         }
         return order;

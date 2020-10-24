@@ -47,8 +47,8 @@ Public Class Snapshot
     Public Property iostat As iostat
     Public Property ps As ps()
 
-    Public Function FindAllCPUUsage() As mpstat
-        Return mpstat.Where(Function(a) a.CPU = "all").FirstOrDefault
+    Public Function FindAllCPUUsage() As Double
+        Return mpstat.Where(Function(a) a.CPU <> "all").Sum(Function(cpu) cpu.gnice + cpu.guest + cpu.iowait + cpu.irq + cpu.nice + cpu.soft + cpu.steal + cpu.sys + cpu.usr)
     End Function
 
     Public Overrides Function ToString() As String

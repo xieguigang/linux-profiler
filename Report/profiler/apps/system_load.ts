@@ -68,7 +68,8 @@ namespace apps {
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
-                    type: 'pie'
+                    type: 'pie',
+                    animation: false
                 },
                 title: {
                     text: 'CPU usage percentage'

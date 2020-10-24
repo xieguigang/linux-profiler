@@ -10,6 +10,14 @@ namespace report {
         private system_load: apps.system_load;
 
         protected init(): void {
+            Highcharts.setOptions({
+                plotOptions: {
+                    series: {
+                        animation: false
+                    }
+                }
+            });
+
             this.overviews = new apps.overviews((<any>window)[<any>$ts("@data:sysLoad")](), <any>$ts("@canvas:overviews"));
             this.system_load = new apps.system_load(
                 (<any>window)[<any>$ts("@data:systemLoad")](),

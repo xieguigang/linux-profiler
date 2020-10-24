@@ -214,7 +214,8 @@ var apps;
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
-                    type: 'pie'
+                    type: 'pie',
+                    animation: false
                 },
                 title: {
                     text: 'CPU usage percentage'
@@ -340,6 +341,13 @@ var report;
         });
         ;
         index.prototype.init = function () {
+            Highcharts.setOptions({
+                plotOptions: {
+                    series: {
+                        animation: false
+                    }
+                }
+            });
             this.overviews = new apps.overviews(window[$ts("@data:sysLoad")](), $ts("@canvas:overviews"));
             this.system_load = new apps.system_load(window[$ts("@data:systemLoad")](), window[$ts("@data:ps")](), $ts("@canvas:system_load"));
         };

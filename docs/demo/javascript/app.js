@@ -196,16 +196,53 @@ var apps;
             // Get the hovered point
             var point = this.chart.series[0].searchPoint(event, true);
             if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
+                var ps = this.findPsFrame(point.x);
                 point.highlight(e);
                 // update piechart at here
                 // console.log(e);
                 // console.log(point);
-                this.updatePie(point, e);
-                this.updatePsFrame(point.x);
+                this.updatePie(ps);
+                this.updatePsFrame(ps);
                 this.lastIndex = point.index;
             }
         };
-        system_load.prototype.updatePie = function (point, e) {
+        system_load.prototype.updatePie = function (ps) {
+            var pi = $from(ps).Where(function (p) { return p.CPU > 0; }).Select(function (p) { return ({ name: p.COMMAND, y: p.CPU }); }).ToArray();
+            $ts("#cpu-pie").clear();
+            Highcharts.chart('cpu-pie', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'CPU usage percentage'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [{
+                        name: 'Process',
+                        colorByPoint: true,
+                        data: pi
+                    }]
+            });
         };
         system_load.prototype.findPsFrame = function (time) {
             var mind = 999999;
@@ -223,8 +260,7 @@ var apps;
             }
             return minFrame;
         };
-        system_load.prototype.updatePsFrame = function (time) {
-            var ps = this.findPsFrame(time);
+        system_load.prototype.updatePsFrame = function (ps) {
             $ts("#ps").clear();
             $ts.appendTable(ps, "#ps", null, { class: "table" });
         };

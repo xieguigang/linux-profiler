@@ -43,21 +43,60 @@ namespace apps {
             let point = (<any>this.chart.series[0]).searchPoint(event, true);
 
             if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
+                let ps: models.ps[] = this.findPsFrame(point.x);
+
                 point.highlight(e);
 
                 // update piechart at here
                 // console.log(e);
                 // console.log(point);
 
-                this.updatePie(point, e);
-                this.updatePsFrame(point.x);
+                this.updatePie(ps);
+                this.updatePsFrame(ps);
                 this.lastIndex = point.index;
             }
         }
 
 
-        private updatePie(point, e) {
+        private updatePie(ps: models.ps[]) {
+            let pi = $from(ps).Where(p => p.CPU > 0).Select(p => <{}>{ name: p.COMMAND, y: p.CPU }).ToArray();
 
+            $ts("#cpu-pie").clear();
+
+            Highcharts.chart('cpu-pie', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'CPU usage percentage'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: <any>[{
+                    name: 'Process',
+                    colorByPoint: true,
+                    data: pi
+                }]
+            });
         }
 
         private findPsFrame(time: number): models.ps[] {
@@ -78,9 +117,7 @@ namespace apps {
             return minFrame;
         }
 
-        private updatePsFrame(time: number) {
-            let ps: models.ps[] = this.findPsFrame(time);
-
+        private updatePsFrame(ps: models.ps[]) {
             $ts("#ps").clear();
             $ts.appendTable(ps, "#ps", null, { class: "table" });
         }

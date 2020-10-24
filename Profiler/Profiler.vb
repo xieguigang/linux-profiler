@@ -64,7 +64,7 @@ Public Class Profiler : Implements ITaskDriver
             .free = Commands.free.Parse(Interaction.Shell("free", "", verbose:=False)),
             .iostat = Commands.iostat.Parse(Interaction.Shell("iostat", "", verbose:=False)),
             .mpstat = Commands.mpstat.Parse(Interaction.Shell("mpstat", "-P ALL", verbose:=False)).ToArray,
-            .ps = Commands.ps.Parse(Interaction.Shell("ps", "u", verbose:=False)).ToArray,
+            .ps = Commands.ps.Parse(Interaction.Shell("ps", "-aux", verbose:=False)).ToArray,
             .uptime = Commands.uptime.Parse(Interaction.Shell("uptime", "", verbose:=False)),
             .timestamp = App.UnixTimeStamp
         }

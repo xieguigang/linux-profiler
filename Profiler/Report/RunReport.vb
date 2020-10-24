@@ -37,6 +37,7 @@ Namespace Report
             Dim cpuTreeName = App.GetNextUniqueName("cpu_")
             Dim dmitreeName = App.GetNextUniqueName("dmidecode_")
             Dim system_loadjs = App.GetNextUniqueName("systemload_")
+            Dim psName = App.GetNextUniqueName("process_snapshots_")
             Dim output As String = html.directory
 
             html("version") = summary.version
@@ -51,13 +52,28 @@ Namespace Report
             html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
             html("dmidecode") = dmitreeName
             html("systemload_js") = system_loadjs
+            html("ps_js") = psName
 
             Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
             Call system_load.dataJs(system_loadjs).SaveTo($"{output}/data/system_load.js")
+            Call snapshots.psJs(psName).SaveTo($"{output}/data/ps.js")
 
             Call summary.dmidecode.handles.dmidecodeTree(dmitreeName).SaveTo($"{output}/data/dmidecode.js")
             Call summary.cpuinfo.cpuTree(cpuTreeName).SaveTo($"{output}/data/cpuinfo.js")
         End Sub
+
+        <Extension>
+        Private Function psJs(snapshots As Snapshot(), name As String) As String
+            Dim psdata = snapshots _
+                .Select(Function(a)
+                            Return a.ps _
+                                .Where(Function(p) p.CPU > 0 OrElse p.MEM > 0) _
+                                .ToArray
+                        End Function) _
+                .ToArray
+
+            Return psdata.dataJs(name)
+        End Function
 
         <Extension>
         Private Function dmidecodeTree([handles] As dmiHandle(), name$) As String

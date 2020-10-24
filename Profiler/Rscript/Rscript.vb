@@ -174,7 +174,7 @@ Module Rscript
     <ExportAPI("ps")>
     Public Function ps(Optional file As String = Nothing, Optional env As Environment = Nothing) As ps()
         If file.StringEmpty Then
-            Return Commands.ps.Parse(Interaction.Shell("ps", "u", verbose:=env.globalEnvironment.options.verbose)).ToArray
+            Return Commands.ps.Parse(Interaction.Shell("ps", "-aux", verbose:=env.globalEnvironment.options.verbose)).ToArray
         Else
             Return Commands.ps.Parse(stdout:=file.SolveStream).ToArray
         End If

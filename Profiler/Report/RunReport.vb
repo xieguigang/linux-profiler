@@ -68,8 +68,9 @@ Namespace Report
             Dim base_time = DateTimeHelper.FromUnixTimeStamp(snapshots(Scan0).timestamp)
             Dim psdata = snapshots _
                 .Select(Function(a)
+                            ' 过滤掉一些轻量的进程，减少视图数据文件大小
                             Dim ps = a.ps _
-                                .Where(Function(p) p.CPU > 0 OrElse p.MEM > 0) _
+                                .Where(Function(p) p.CPU > 1 OrElse p.MEM > 1) _
                                 .ToArray
                             Dim stamp As Double = (DateTimeHelper.FromUnixTimeStamp(a.timestamp) - base_time).TotalSeconds
 

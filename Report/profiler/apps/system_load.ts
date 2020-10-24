@@ -20,6 +20,8 @@ namespace apps {
             this.psFrames = report.orderFrames(ps);
             this.chart = Highcharts.chart(this.div = <any>$ts(id), <any>system_load.createPlotOptions(data));
 
+            console.log(this.psFrames);
+
             /**
              * In order to synchronize tooltips and crosshairs, override the
              * built-in events with handlers defined on the parent element.

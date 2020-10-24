@@ -174,10 +174,11 @@ var apps;
     var system_load = /** @class */ (function () {
         function system_load(data, ps, id) {
             if (id === void 0) { id = "#container"; }
-            this.ps = ps;
             this.id = id;
             var vm = this;
+            this.psFrames = report.orderFrames(ps);
             this.chart = Highcharts.chart(this.div = $ts(id), system_load.createPlotOptions(data));
+            console.log(this.psFrames);
             /**
              * In order to synchronize tooltips and crosshairs, override the
              * built-in events with handlers defined on the parent element.
@@ -209,7 +210,7 @@ var apps;
         system_load.prototype.findPsFrame = function (time) {
             var mind = 999999;
             var minFrame = [];
-            for (var _i = 0, _a = this.ps; _i < _a.length; _i++) {
+            for (var _i = 0, _a = this.psFrames; _i < _a.length; _i++) {
                 var frame = _a[_i];
                 var delta = Math.abs(frame.timeframe - time);
                 if (delta <= 1) {
@@ -309,5 +310,16 @@ var report;
         return index;
     }(Bootstrap));
     report.index = index;
+    function orderFrames(ps) {
+        var order = [];
+        for (var i = 0; i < ps.length; i++) {
+            order[i] = {
+                timeframe: ps[i].timeframe,
+                data: $from(ps[i].data).OrderByDescending(function (p) { return p.CPU; }).ToArray(false)
+            };
+        }
+        return order;
+    }
+    report.orderFrames = orderFrames;
 })(report || (report = {}));
 //# sourceMappingURL=app.js.map

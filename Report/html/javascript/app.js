@@ -178,6 +178,7 @@ var apps;
             var vm = this;
             this.psFrames = report.orderFrames(ps);
             this.chart = Highcharts.chart(this.div = $ts(id), system_load.createPlotOptions(data));
+            console.log(this.psFrames);
             /**
              * In order to synchronize tooltips and crosshairs, override the
              * built-in events with handlers defined on the parent element.

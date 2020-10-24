@@ -36,9 +36,13 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="apps\" />
     <Folder Include="pages\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="apps\TypeScript1.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="pages\index.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

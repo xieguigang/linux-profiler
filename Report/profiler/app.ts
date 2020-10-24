@@ -1,4 +1,5 @@
-/// <reference path="../linq.d.ts" />
+/// <reference path="../dev/linq.d.ts" />
+/// <reference path="../dev/highcharts.d.ts" />
 
 namespace app {
 

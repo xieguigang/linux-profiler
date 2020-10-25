@@ -99,7 +99,22 @@ namespace apps {
         }
 
         private updatePie(ps: models.ps[]) {
-            let pi = $from(ps).Where(p => p.CPU > 0).Select(p => <{ name: string, y: number }>{ name: system_load.nameLabel(p), y: p.CPU }).ToArray();
+            let vm = this;
+            let pi = $from(ps)
+                .Where(p => p.CPU > 0)
+                .Select(function (p) {
+                    return {
+                        name: system_load.nameLabel(p),
+                        y: p.CPU,
+                        id: p.PID,
+                        events: {
+                            click: function () {
+                                vm.showByPID(p.PID.toString());
+                            }
+                        }
+                    }
+                })
+                .ToArray();
             let total = $from(pi).Sum(p => p.y);
 
             $ts("#cpu-pie").clear();
@@ -163,28 +178,28 @@ namespace apps {
             let vm = this;
 
             $ts("#ps").clear();
-            $ts.appendTable(ps, "#ps", null, { class: "table" });
-
+            $ts.appendTable(ps, "#ps", ["USER", "PID", "CPU", "MEM", "TTY", "COMMAND"], { class: "table" });
             // add click event handles
-            $ts.select(`.${report.click_process}`).onClick(function (sender, evt) {
-                let pid: string = sender.getAttribute("pid");
-                let line: { proc: models.ps, time: number }[] = vm.pidIndex[pid];
-                let proc: models.ps = line[0].proc;
-                let CPU = $from(line).Select(p => p.proc.CPU).ToArray(false);
-                let memory = $from(line).Select(p => p.proc.MEM).ToArray(false);
-                let timeline: number[] = $from(line).Select(p => p.time).ToArray(false);
+            $ts.select(`.${report.click_process}`).onClick((sender, evt) => vm.showByPID(sender.getAttribute("pid")));
+        }
 
-                $ts("#summary").display(`<p>PID: ${pid}</p><p>COMMAND: ${proc.COMMAND}</p>`);
-                $ts("#ps_view").clear();
+        private showByPID(pid: string) {
+            let line: { proc: models.ps, time: number }[] = this.pidIndex[pid];
+            let proc: models.ps = line[0].proc;
+            let CPU = $from(line).Select(p => p.proc.CPU).ToArray(false);
+            let memory = $from(line).Select(p => p.proc.MEM).ToArray(false);
+            let timeline: number[] = $from(line).Select(p => p.time).ToArray(false);
 
-                let plot = new apps.overviews(<models.synchronizePlots>{
-                    xData: timeline,
-                    datasets: [
-                        <models.synchronizePartition>{ name: "CPU Usage", valueDecimals: 1, type: "area", unit: "%", data: CPU },
-                        <models.synchronizePartition>{ name: "Memory Usage", valueDecimals: 1, type: "area", unit: "%", data: memory }
-                    ]
-                }, "#ps_view");
-            });
+            $ts("#summary").display(`<p>User: ${proc.USER}</p><p>TTY: ${proc.TTY}</p><p>PID: ${pid}</p><p>COMMAND: ${proc.COMMAND}</p>`);
+            $ts("#ps_view").clear();
+
+            let plot = new apps.overviews(<models.synchronizePlots>{
+                xData: timeline,
+                datasets: [
+                    <models.synchronizePartition>{ name: "CPU Usage", valueDecimals: 1, type: "area", unit: "%", data: CPU },
+                    <models.synchronizePartition>{ name: "Memory Usage", valueDecimals: 1, type: "area", unit: "%", data: memory }
+                ]
+            }, "#ps_view");
         }
 
         private static createPlotOptions(dataset: { name: string, data: number[], x: number[] }) {

@@ -39,6 +39,7 @@ declare namespace apps {
         private updatePie;
         private findPsFrame;
         private updatePsFrame;
+        private showByPID;
         private static createPlotOptions;
     }
 }

@@ -247,7 +247,22 @@ var apps;
             }
         };
         system_load.prototype.updatePie = function (ps) {
-            var pi = $from(ps).Where(function (p) { return p.CPU > 0; }).Select(function (p) { return ({ name: system_load.nameLabel(p), y: p.CPU }); }).ToArray();
+            var vm = this;
+            var pi = $from(ps)
+                .Where(function (p) { return p.CPU > 0; })
+                .Select(function (p) {
+                return {
+                    name: system_load.nameLabel(p),
+                    y: p.CPU,
+                    id: p.PID,
+                    events: {
+                        click: function () {
+                            vm.showByPID(p.PID.toString());
+                        }
+                    }
+                };
+            })
+                .ToArray();
             var total = $from(pi).Sum(function (p) { return p.y; });
             $ts("#cpu-pie").clear();
             Highcharts.chart('cpu-pie', {
@@ -305,25 +320,25 @@ var apps;
         system_load.prototype.updatePsFrame = function (ps) {
             var vm = this;
             $ts("#ps").clear();
-            $ts.appendTable(ps, "#ps", null, { class: "table" });
+            $ts.appendTable(ps, "#ps", ["USER", "PID", "CPU", "MEM", "TTY", "COMMAND"], { class: "table" });
             // add click event handles
-            $ts.select("." + report.click_process).onClick(function (sender, evt) {
-                var pid = sender.getAttribute("pid");
-                var line = vm.pidIndex[pid];
-                var proc = line[0].proc;
-                var CPU = $from(line).Select(function (p) { return p.proc.CPU; }).ToArray(false);
-                var memory = $from(line).Select(function (p) { return p.proc.MEM; }).ToArray(false);
-                var timeline = $from(line).Select(function (p) { return p.time; }).ToArray(false);
-                $ts("#summary").display("<p>PID: " + pid + "</p><p>COMMAND: " + proc.COMMAND + "</p>");
-                $ts("#ps_view").clear();
-                var plot = new apps.overviews({
-                    xData: timeline,
-                    datasets: [
-                        { name: "CPU Usage", valueDecimals: 1, type: "area", unit: "%", data: CPU },
-                        { name: "Memory Usage", valueDecimals: 1, type: "area", unit: "%", data: memory }
-                    ]
-                }, "#ps_view");
-            });
+            $ts.select("." + report.click_process).onClick(function (sender, evt) { return vm.showByPID(sender.getAttribute("pid")); });
+        };
+        system_load.prototype.showByPID = function (pid) {
+            var line = this.pidIndex[pid];
+            var proc = line[0].proc;
+            var CPU = $from(line).Select(function (p) { return p.proc.CPU; }).ToArray(false);
+            var memory = $from(line).Select(function (p) { return p.proc.MEM; }).ToArray(false);
+            var timeline = $from(line).Select(function (p) { return p.time; }).ToArray(false);
+            $ts("#summary").display("<p>User: " + proc.USER + "</p><p>TTY: " + proc.TTY + "</p><p>PID: " + pid + "</p><p>COMMAND: " + proc.COMMAND + "</p>");
+            $ts("#ps_view").clear();
+            var plot = new apps.overviews({
+                xData: timeline,
+                datasets: [
+                    { name: "CPU Usage", valueDecimals: 1, type: "area", unit: "%", data: CPU },
+                    { name: "Memory Usage", valueDecimals: 1, type: "area", unit: "%", data: memory }
+                ]
+            }, "#ps_view");
         };
         system_load.createPlotOptions = function (dataset) {
             var x = dataset.x;

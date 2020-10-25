@@ -8,12 +8,12 @@ Imports System.Runtime.InteropServices
 
 '查看程序集特性的值
 
-<Assembly: AssemblyTitle("cli")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("cli")>
-<Assembly: AssemblyCopyright("Copyright ©  2020")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyTitle("performance diagnose tool of LINUX system")>
+<Assembly: AssemblyDescription("performance diagnose tool of LINUX system")>
+<Assembly: AssemblyCompany("xieguigang")>
+<Assembly: AssemblyProduct("profiler-cli")>
+<Assembly: AssemblyCopyright("Copyright © I@xieguigang.me 2020")>
+<Assembly: AssemblyTrademark("Profiler")>
 
 <Assembly: ComVisible(False)>
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 '通过使用 "*"，如下所示:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: AssemblyVersion("1.122.*")>
+<Assembly: AssemblyFileVersion("1.258.*")>

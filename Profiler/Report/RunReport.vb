@@ -77,6 +77,10 @@ Namespace Report
                                 .ToArray
                             Dim stamp As Double = (DateTimeHelper.FromUnixTimeStamp(a.timestamp) - base_time).TotalSeconds
 
+                            For i As Integer = 0 To ps.Length - 1
+                                ps(i).COMMAND = ps(i).COMMAND.Replace("~+~", " ")
+                            Next
+
                             Return New JsFrame(Of ps()) With {.data = ps, .timeframe = stamp}
                         End Function) _
                 .ToArray

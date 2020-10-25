@@ -193,6 +193,8 @@ namespace apps {
             $ts("#summary").display(`<p>User: ${proc.USER}</p><p>TTY: ${proc.TTY}</p><p>PID: ${pid}</p><p>COMMAND: ${proc.COMMAND}</p>`);
             $ts("#ps_view").clear();
 
+            (<any>$('#collapseThree')).collapse('hide');
+
             let plot = new apps.overviews(<models.synchronizePlots>{
                 xData: timeline,
                 datasets: [

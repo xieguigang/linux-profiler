@@ -332,6 +332,7 @@ var apps;
             var timeline = $from(line).Select(function (p) { return p.time; }).ToArray(false);
             $ts("#summary").display("<p>User: " + proc.USER + "</p><p>TTY: " + proc.TTY + "</p><p>PID: " + pid + "</p><p>COMMAND: " + proc.COMMAND + "</p>");
             $ts("#ps_view").clear();
+            $('#collapseThree').collapse('hide');
             var plot = new apps.overviews({
                 xData: timeline,
                 datasets: [

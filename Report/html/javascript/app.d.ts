@@ -7,6 +7,7 @@ declare namespace apps {
     class overviews {
         private id;
         private overview;
+        private localCharts;
         constructor(activity: models.synchronizePlots, id?: string);
         private mouseEvent;
         /**

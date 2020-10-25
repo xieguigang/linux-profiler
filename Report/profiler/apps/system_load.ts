@@ -89,7 +89,7 @@ namespace apps {
         }
 
         private static nameLabel(command: models.ps): string {
-            let label: string = `[#${command.PID}] ${command.COMMAND}`;
+            let label: string = `[#${command.PID}] ${(<any>command).raw}`;
 
             if (label.length < 64) {
                 return label;

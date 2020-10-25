@@ -3,6 +3,7 @@ namespace apps {
     export class overviews {
 
         private overview: HTMLElement;
+        private localCharts: Highcharts.Chart[] = [];
 
         public constructor(activity: models.synchronizePlots, private id: string = '#overviews') {
             let x = activity.xData;
@@ -49,17 +50,13 @@ namespace apps {
         }
 
         private mouseEvent(e) {
-            let chart,
-                point,
-                i,
-                event;
+            let point, event;
 
-            for (i = 0; i < Highcharts.charts.length; i = i + 1) {
-                chart = Highcharts.charts[i];
+            for (let chart of this.localCharts) {
                 // Find coordinates within the chart
                 event = chart.pointer.normalize(e);
                 // Get the hovered point
-                point = chart.series[0].searchPoint(event, true);
+                point = (<any>chart.series[0]).searchPoint(event, true);
 
                 if (point) {
                     point.highlight(e);
@@ -73,7 +70,7 @@ namespace apps {
         private syncExtremes(e, thisChart: any) {
             if (e.trigger !== 'syncExtremes') {
                 // Prevent feedback loop
-                Highcharts.each(Highcharts.charts, function (chart) {
+                for (let chart of this.localCharts) {
                     if (chart !== thisChart) {
                         if (chart.xAxis[0].setExtremes) { // It is null while updating
                             chart.xAxis[0].setExtremes(
@@ -85,7 +82,7 @@ namespace apps {
                             );
                         }
                     }
-                });
+                }
             }
         }
 
@@ -162,6 +159,8 @@ namespace apps {
                     }
                 }]
             });
+
+            this.localCharts.push(chart);
         }
     }
 }

@@ -30,6 +30,7 @@ var apps;
             var _this = this;
             if (id === void 0) { id = '#overviews'; }
             this.id = id;
+            this.localCharts = [];
             var x = activity.xData;
             var vm = this;
             this.overview = $ts(id);
@@ -66,9 +67,9 @@ var apps;
             activity.datasets.forEach(function (dataset, i) { return _this.loadLineData(x, dataset, i); });
         }
         overviews.prototype.mouseEvent = function (e) {
-            var chart, point, i, event;
-            for (i = 0; i < Highcharts.charts.length; i = i + 1) {
-                chart = Highcharts.charts[i];
+            var point, event;
+            for (var _i = 0, _a = this.localCharts; _i < _a.length; _i++) {
+                var chart = _a[_i];
                 // Find coordinates within the chart
                 event = chart.pointer.normalize(e);
                 // Get the hovered point
@@ -84,13 +85,14 @@ var apps;
         overviews.prototype.syncExtremes = function (e, thisChart) {
             if (e.trigger !== 'syncExtremes') {
                 // Prevent feedback loop
-                Highcharts.each(Highcharts.charts, function (chart) {
+                for (var _i = 0, _a = this.localCharts; _i < _a.length; _i++) {
+                    var chart = _a[_i];
                     if (chart !== thisChart) {
                         if (chart.xAxis[0].setExtremes) { // It is null while updating
                             chart.xAxis[0].setExtremes(e.min, e.max, undefined, false, { trigger: 'syncExtremes' });
                         }
                     }
-                });
+                }
             }
         };
         overviews.prototype.loadLineData = function (x, dataset, i) {
@@ -164,6 +166,7 @@ var apps;
                         }
                     }]
             });
+            this.localCharts.push(chart);
         };
         return overviews;
     }());
@@ -235,7 +238,7 @@ var apps;
             }
         };
         system_load.nameLabel = function (command) {
-            var label = "[#" + command.PID + "] " + command.COMMAND;
+            var label = "[#" + command.PID + "] " + command.raw;
             if (label.length < 64) {
                 return label;
             }
@@ -426,6 +429,7 @@ var report;
                 delete snapshots[j].TIME;
                 delete snapshots[j].VSZ;
                 snapshots[j].COMMAND = "<span style=\"font-size: 0.8em;\"><strong><a class=\"" + report.click_process + "\" pid=\"" + snapshots[j].PID + "\" href=\"javascript:void(0);\">" + cmdl + "</a></strong></span>";
+                snapshots[j].raw = cmdl;
             }
             order[i] = {
                 timeframe: ps[i].timeframe,

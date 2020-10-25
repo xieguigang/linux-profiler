@@ -46,7 +46,8 @@ namespace report {
                 delete snapshots[j].TIME;
                 delete snapshots[j].VSZ;
 
-                snapshots[j].COMMAND = `<span style="font-size: 0.8em;"><strong><a class="${click_process}" pid="${snapshots[j].PID}" href="javascript:void(0);">${cmdl}</a></strong></span>`;
+                (<any>snapshots[j]).COMMAND = `<span style="font-size: 0.8em;"><strong><a class="${click_process}" pid="${snapshots[j].PID}" href="javascript:void(0);">${cmdl}</a></strong></span>`;
+                (<any>snapshots[j]).raw = cmdl;
             }
 
             order[i] = <models.jsFrame<models.ps[]>>{

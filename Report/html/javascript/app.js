@@ -234,8 +234,17 @@ var apps;
                 this.lastIndex = point.index;
             }
         };
+        system_load.nameLabel = function (command) {
+            var label = "[#" + command.PID + "] " + command.COMMAND;
+            if (label.length < 64) {
+                return label;
+            }
+            else {
+                return label.substr(0, 63) + "~";
+            }
+        };
         system_load.prototype.updatePie = function (ps) {
-            var pi = $from(ps).Where(function (p) { return p.CPU > 0; }).Select(function (p) { return ({ name: p.COMMAND, y: p.CPU }); }).ToArray();
+            var pi = $from(ps).Where(function (p) { return p.CPU > 0; }).Select(function (p) { return ({ name: system_load.nameLabel(p), y: p.CPU }); }).ToArray();
             var total = $from(pi).Sum(function (p) { return p.y; });
             $ts("#cpu-pie").clear();
             Highcharts.chart('cpu-pie', {

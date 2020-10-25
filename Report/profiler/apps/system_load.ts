@@ -88,8 +88,18 @@ namespace apps {
             }
         }
 
+        private static nameLabel(command: models.ps): string {
+            let label: string = `[#${command.PID}] ${command.COMMAND}`;
+
+            if (label.length < 64) {
+                return label;
+            } else {
+                return label.substr(0, 63) + "~";
+            }
+        }
+
         private updatePie(ps: models.ps[]) {
-            let pi = $from(ps).Where(p => p.CPU > 0).Select(p => <{ name: string, y: number }>{ name: p.COMMAND, y: p.CPU }).ToArray();
+            let pi = $from(ps).Where(p => p.CPU > 0).Select(p => <{ name: string, y: number }>{ name: system_load.nameLabel(p), y: p.CPU }).ToArray();
             let total = $from(pi).Sum(p => p.y);
 
             $ts("#cpu-pie").clear();

@@ -34,6 +34,7 @@ declare namespace apps {
          * update piechart at here
         */
         private mouseEvent;
+        private static nameLabel;
         private updatePie;
         private findPsFrame;
         private updatePsFrame;

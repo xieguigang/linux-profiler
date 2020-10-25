@@ -41,19 +41,21 @@ Namespace Report
             Dim psName = App.GetNextUniqueName("process_snapshots_")
             Dim output As String = html.directory
 
-            html("version") = summary.version
-            html("release") = summary.release
-            html("release_details") = summary.osinfo.toHtml
-            html("overviews_js") = overviewName
-            html("cpuinfo") = cpuTreeName
-            html("title") = summary.title Or "No title".AsDefault
-            html("time") = summary.time.ToString
-            html("time_span") = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).FormatTime
-            html("dmidecode_version") = summary.dmidecode.version
-            html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
-            html("dmidecode") = dmitreeName
-            html("systemload_js") = system_loadjs
-            html("ps_js") = psName
+            With html
+                !version = summary.version
+                !release = summary.release
+                !release_details = summary.osinfo.toHtml
+                !overviews_js = overviewName
+                !cpuinfo = cpuTreeName
+                !title = summary.title Or "No title".AsDefault
+                !time = summary.time.ToString
+                !time_span = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).Lanudry
+                !dmidecode_version = summary.dmidecode.version
+                !logs = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
+                !dmidecode = dmitreeName
+                !systemload_js = system_loadjs
+                !ps_js = psName
+            End With
 
             Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
             Call system_load.dataJs(system_loadjs).SaveTo($"{output}/data/system_load.js")

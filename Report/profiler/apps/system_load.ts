@@ -159,10 +159,12 @@ namespace apps {
             $ts.select(`.${report.click_process}`).onClick(function (sender, evt) {
                 let pid: string = sender.getAttribute("pid");
                 let line: { proc: models.ps, time: number }[] = vm.pidIndex[pid];
+                let proc: models.ps = line[0].proc;
                 let CPU = $from(line).Select(p => p.proc.CPU).ToArray(false);
                 let memory = $from(line).Select(p => p.proc.MEM).ToArray(false);
                 let timeline: number[] = $from(line).Select(p => p.time).ToArray(false);
 
+                $ts("#summary").display(`<p>PID: ${pid}</p><p>COMMAND: ${proc.COMMAND}</p>`);
                 $ts("#ps_view").clear();
 
                 let plot = new apps.overviews(<models.synchronizePlots>{

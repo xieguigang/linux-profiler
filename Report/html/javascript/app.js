@@ -298,9 +298,11 @@ var apps;
             $ts.select("." + report.click_process).onClick(function (sender, evt) {
                 var pid = sender.getAttribute("pid");
                 var line = vm.pidIndex[pid];
+                var proc = line[0].proc;
                 var CPU = $from(line).Select(function (p) { return p.proc.CPU; }).ToArray(false);
                 var memory = $from(line).Select(function (p) { return p.proc.MEM; }).ToArray(false);
                 var timeline = $from(line).Select(function (p) { return p.time; }).ToArray(false);
+                $ts("#summary").display("<p>PID: " + pid + "</p><p>COMMAND: " + proc.COMMAND + "</p>");
                 $ts("#ps_view").clear();
                 var plot = new apps.overviews({
                     xData: timeline,

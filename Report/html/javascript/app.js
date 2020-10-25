@@ -222,6 +222,9 @@ var apps;
             var point = this.chart.series[0].searchPoint(event, true);
             if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
                 var ps = this.findPsFrame(point.x);
+                if (isNullOrUndefined(ps)) {
+                    return;
+                }
                 point.highlight(e);
                 // update piechart at here
                 // console.log(e);

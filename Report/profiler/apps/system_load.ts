@@ -72,6 +72,10 @@ namespace apps {
             if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
                 let ps: models.ps[] = this.findPsFrame(point.x);
 
+                if (isNullOrUndefined(ps)) {
+                    return;
+                }
+
                 point.highlight(e);
 
                 // update piechart at here

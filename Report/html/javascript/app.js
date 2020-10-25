@@ -222,7 +222,7 @@ var apps;
             var point = this.chart.series[0].searchPoint(event, true);
             if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
                 var ps = this.findPsFrame(point.x);
-                if (isNullOrUndefined(ps)) {
+                if (isNullOrUndefined(ps) || ps.length == 0) {
                     return;
                 }
                 point.highlight(e);
@@ -298,8 +298,8 @@ var apps;
             $ts.select("." + report.click_process).onClick(function (sender, evt) {
                 var pid = sender.getAttribute("pid");
                 var line = vm.pidIndex[pid];
-                var CPU = $from(line).Select(function (p) { return [p.time, p.proc.CPU]; }).ToArray(false);
-                var memory = $from(line).Select(function (p) { return [p.time, p.proc.MEM]; }).ToArray(false);
+                var CPU = $from(line).Select(function (p) { return p.proc.CPU; }).ToArray(false);
+                var memory = $from(line).Select(function (p) { return p.proc.MEM; }).ToArray(false);
                 var timeline = $from(line).Select(function (p) { return p.time; }).ToArray(false);
                 $ts("#ps_view").clear();
                 var plot = new apps.overviews({

@@ -3,6 +3,7 @@ Imports Linux.Commands
 Imports Linux.proc
 Imports Microsoft.VisualBasic.FileIO
 Imports Microsoft.VisualBasic.Language
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Serialization.JSON
 Imports Microsoft.VisualBasic.ValueTypes
 Imports SMRUCC.genomics.GCModeller.Workbench.ReportBuilder.HTML
@@ -103,12 +104,15 @@ Namespace Report
                                         .icon = "images/folder-documents.png",
                                         .text = $"{handle.info.Count} attributes",
                                         .children = handle.info _
-                                            .Select(Function(a)
-                                                        Return New TreeNode With {
-                                                            .icon = "images/application-x-object.png",
-                                                            .text = $"{a.Key} = {a.Value}"
-                                                        }
+                                            .Select(Iterator Function(a) As IEnumerable(Of TreeNode)
+                                                        For Each value As String In Strings.Split(a.Value, "; ")
+                                                            Yield New TreeNode With {
+                                                                .icon = "images/application-x-object.png",
+                                                                .text = $"{a.Key} = {value}"
+                                                            }
+                                                        Next
                                                     End Function) _
+                                            .IteratesALL _
                                             .ToArray
                                     }
                                 }

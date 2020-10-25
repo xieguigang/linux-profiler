@@ -5,6 +5,7 @@ namespace apps {
         private chart: Highcharts.Chart;
         private div: HTMLElement;
         private psFrames: models.jsFrame<models.ps[]>[];
+        private pidIndex: {} = {};
 
         public constructor(
             data: {
@@ -18,6 +19,7 @@ namespace apps {
             let vm = this;
 
             this.psFrames = report.orderFrames(ps);
+            this.pidIndex = this.createPIDindex();
             this.chart = Highcharts.chart(this.div = <any>$ts(id), <any>system_load.createPlotOptions(data));
 
             console.log(this.psFrames);
@@ -29,6 +31,31 @@ namespace apps {
             ['mousemove', 'touchmove', 'touchstart'].forEach(function (eventType) {
                 vm.div.addEventListener(eventType, e => vm.mouseEvent(e));
             });
+        }
+
+        private createPIDindex(): any {
+            let index: {} = this.pidIndex;
+            let pidtemp: { proc: models.ps, time: number }[] = [];
+
+            for (let frame of this.psFrames) {
+                for (let process of frame.data) {
+                    pidtemp.push({
+                        proc: process,
+                        time: frame.timeframe
+                    });
+                }
+            }
+
+            let pid_groups = $from(pidtemp)
+                .GroupBy(p => p.proc.PID)
+                .Select(p => $from(p).OrderBy(p => p.time).ToArray(false))
+                .ToArray(false);
+
+            for (let group of pid_groups) {
+                index[group[0].proc.PID.toString()] = group;
+            }
+
+            return index;
         }
 
         private lastIndex: number;
@@ -56,7 +83,6 @@ namespace apps {
                 this.lastIndex = point.index;
             }
         }
-
 
         private updatePie(ps: models.ps[]) {
             let pi = $from(ps).Where(p => p.CPU > 0).Select(p => <{ name: string, y: number }>{ name: p.COMMAND, y: p.CPU }).ToArray();
@@ -120,8 +146,29 @@ namespace apps {
         }
 
         private updatePsFrame(ps: models.ps[]) {
+            let vm = this;
+
             $ts("#ps").clear();
             $ts.appendTable(ps, "#ps", null, { class: "table" });
+
+            // add click event handles
+            $ts.select(`.${report.click_process}`).onClick(function (sender, evt) {
+                let pid: string = sender.getAttribute("pid");
+                let line: { proc: models.ps, time: number }[] = vm.pidIndex[pid];
+                let CPU = $from(line).Select(p => [p.time, p.proc.CPU]).ToArray(false);
+                let memory = $from(line).Select(p => [p.time, p.proc.MEM]).ToArray(false);
+                let timeline: number[] = $from(line).Select(p => p.time).ToArray(false);
+
+                $ts("#ps_view").clear();
+
+                let plot = new apps.overviews(<models.synchronizePlots>{
+                    xData: timeline,
+                    datasets: [
+                        <models.synchronizePartition>{ name: "CPU Usage", valueDecimals: 1, type: "area", unit: "%", data: CPU },
+                        <models.synchronizePartition>{ name: "Memory Usage", valueDecimals: 1, type: "area", unit: "%", data: memory }
+                    ]
+                }, "#ps_view");
+            });
         }
 
         private static createPlotOptions(dataset: { name: string, data: number[], x: number[] }) {

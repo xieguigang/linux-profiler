@@ -4,7 +4,7 @@ namespace apps {
 
         private overview: HTMLElement;
 
-        public constructor(activity: { datasets: any[], xData: number[] }, private id: string = '#overviews') {
+        public constructor(activity: models.synchronizePlots, private id: string = '#overviews') {
             let x = activity.xData;
             let vm = this;
 
@@ -89,18 +89,18 @@ namespace apps {
             }
         }
 
-        private loadLineData(x: number[], dataset: any, i: number) {
+        private loadLineData(x: number[], dataset: models.synchronizePartition, i: number) {
             let chartDiv = $ts('<div>', { class: "chart" });
             let chart: Highcharts.Chart;
 
             // Add X values
-            dataset.data = Highcharts.map(dataset.data, function (val, j) {
+            dataset.data = <number[][]>Highcharts.map(dataset.data, function (val, j) {
                 return [x[j], val];
             });
 
             this.overview.appendChild(chartDiv);
 
-            chart = Highcharts.chart(chartDiv, {
+            chart = Highcharts.chart(<any>chartDiv, <any><Highcharts.Options>{
                 chart: {
                     marginLeft: 100, // Keep all charts left aligned
                     spacingTop: 20,

@@ -50,6 +50,9 @@
     <TypeScriptCompile Include="models\jsFrame.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="models\synchronizePlots.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="pages\index.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

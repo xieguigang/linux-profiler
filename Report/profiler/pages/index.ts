@@ -27,6 +27,8 @@ namespace report {
         }
     }
 
+    export const click_process: string = "click_process";
+
     export function orderFrames(ps: models.jsFrame<models.ps[]>[]): models.jsFrame<models.ps[]>[] {
         let order: models.jsFrame<models.ps[]>[] = [];
         let cmdl: string;
@@ -44,7 +46,7 @@ namespace report {
                 delete snapshots[j].TIME;
                 delete snapshots[j].VSZ;
 
-                snapshots[j].COMMAND = `<span style="font-size: 0.8em;"><strong>${cmdl}</strong></span>`;
+                snapshots[j].COMMAND = `<span style="font-size: 0.8em;"><strong><a class="${click_process}" pid="${snapshots[j].PID}" href="javascript:void(0);">${cmdl}</a></strong></span>`;
             }
 
             order[i] = <models.jsFrame<models.ps[]>>{

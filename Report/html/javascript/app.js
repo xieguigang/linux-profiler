@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -27,8 +27,8 @@ var apps;
 (function (apps) {
     var overviews = /** @class */ (function () {
         function overviews(activity, id) {
-            if (id === void 0) { id = '#overviews'; }
             var _this = this;
+            if (id === void 0) { id = '#overviews'; }
             this.id = id;
             var x = activity.xData;
             var vm = this;
@@ -175,8 +175,10 @@ var apps;
         function system_load(data, ps, id) {
             if (id === void 0) { id = "#container"; }
             this.id = id;
+            this.pidIndex = {};
             var vm = this;
             this.psFrames = report.orderFrames(ps);
+            this.pidIndex = this.createPIDindex();
             this.chart = Highcharts.chart(this.div = $ts(id), system_load.createPlotOptions(data));
             console.log(this.psFrames);
             /**
@@ -187,6 +189,29 @@ var apps;
                 vm.div.addEventListener(eventType, function (e) { return vm.mouseEvent(e); });
             });
         }
+        system_load.prototype.createPIDindex = function () {
+            var index = this.pidIndex;
+            var pidtemp = [];
+            for (var _i = 0, _a = this.psFrames; _i < _a.length; _i++) {
+                var frame = _a[_i];
+                for (var _b = 0, _c = frame.data; _b < _c.length; _b++) {
+                    var process = _c[_b];
+                    pidtemp.push({
+                        proc: process,
+                        time: frame.timeframe
+                    });
+                }
+            }
+            var pid_groups = $from(pidtemp)
+                .GroupBy(function (p) { return p.proc.PID; })
+                .Select(function (p) { return $from(p).OrderBy(function (p) { return p.time; }).ToArray(false); })
+                .ToArray(false);
+            for (var _d = 0, pid_groups_1 = pid_groups; _d < pid_groups_1.length; _d++) {
+                var group = pid_groups_1[_d];
+                index[group[0].proc.PID.toString()] = group;
+            }
+            return index;
+        };
         /**
          * update piechart at here
         */
@@ -263,8 +288,25 @@ var apps;
             return minFrame;
         };
         system_load.prototype.updatePsFrame = function (ps) {
+            var vm = this;
             $ts("#ps").clear();
             $ts.appendTable(ps, "#ps", null, { class: "table" });
+            // add click event handles
+            $ts.select("." + report.click_process).onClick(function (sender, evt) {
+                var pid = sender.getAttribute("pid");
+                var line = vm.pidIndex[pid];
+                var CPU = $from(line).Select(function (p) { return [p.time, p.proc.CPU]; }).ToArray(false);
+                var memory = $from(line).Select(function (p) { return [p.time, p.proc.MEM]; }).ToArray(false);
+                var timeline = $from(line).Select(function (p) { return p.time; }).ToArray(false);
+                $ts("#ps_view").clear();
+                var plot = new apps.overviews({
+                    xData: timeline,
+                    datasets: [
+                        { name: "CPU Usage", valueDecimals: 1, type: "area", unit: "%", data: CPU },
+                        { name: "Memory Usage", valueDecimals: 1, type: "area", unit: "%", data: memory }
+                    ]
+                }, "#ps_view");
+            });
         };
         system_load.createPlotOptions = function (dataset) {
             var x = dataset.x;
@@ -355,6 +397,7 @@ var report;
         return index;
     }(Bootstrap));
     report.index = index;
+    report.click_process = "click_process";
     function orderFrames(ps) {
         var order = [];
         var cmdl;
@@ -368,7 +411,7 @@ var report;
                 delete snapshots[j].START;
                 delete snapshots[j].TIME;
                 delete snapshots[j].VSZ;
-                snapshots[j].COMMAND = "<span style=\"font-size: 0.8em;\"><strong>" + cmdl + "</strong></span>";
+                snapshots[j].COMMAND = "<span style=\"font-size: 0.8em;\"><strong><a class=\"" + report.click_process + "\" pid=\"" + snapshots[j].PID + "\" href=\"javascript:void(0);\">" + cmdl + "</a></strong></span>";
             }
             order[i] = {
                 timeframe: ps[i].timeframe,

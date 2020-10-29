@@ -26,12 +26,14 @@ Namespace Report
                               </tr>
                     Next
 
-                    Yield <tr>
-                              <td>ADDITIONAL</td>
-                              <td>
+                    If Not os_release.metadata.IsNullOrEmpty Then
+                        Yield <tr>
+                                  <td>ADDITIONAL</td>
+                                  <td>
                                       %s
                                   </td>
-                          </tr>
+                              </tr>
+                    End If
                 End Function
 
             html += <thead>
@@ -42,7 +44,12 @@ Namespace Report
                     </thead>
 
             html.Wrap(<tbody/>, getInfo().ToArray)
-            html = sprintf(<table class="table">%s</table>, html.Replace("%s", os_release.metadata.metaTable).ToString)
+
+            If Not os_release.metadata.IsNullOrEmpty Then
+                html = sprintf(<table class="table">%s</table>, html.Replace("%s", os_release.metadata.metaTable).ToString)
+            Else
+                html = sprintf(<table class="table">%s</table>, html.ToString)
+            End If
 
             Return html.ToString
         End Function

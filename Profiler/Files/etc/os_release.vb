@@ -65,14 +65,17 @@ Namespace etc
                 Call writer.Write(tag.Name, info, tag.Value)
             Next
 
-            info.metadata = lines(1) _
-                .Select(Function(line)
-                            Return line.GetTagValue("=", trim:=""""c)
-                        End Function) _
-                .ToDictionary(Function(m) m.Name,
-                              Function(m)
-                                  Return m.Value
-                              End Function)
+            If lines.Length > 1 Then
+                ' centos
+                info.metadata = lines(1) _
+                    .Select(Function(line)
+                                Return line.GetTagValue("=", trim:=""""c)
+                            End Function) _
+                    .ToDictionary(Function(m) m.Name,
+                                  Function(m)
+                                      Return m.Value
+                                  End Function)
+            End If
 
             Return info
         End Function

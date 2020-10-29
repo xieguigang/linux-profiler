@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -27,9 +27,10 @@ var apps;
 (function (apps) {
     var overviews = /** @class */ (function () {
         function overviews(activity, id) {
-            if (id === void 0) { id = '#overviews'; }
             var _this = this;
+            if (id === void 0) { id = '#overviews'; }
             this.id = id;
+            this.localCharts = [];
             var x = activity.xData;
             var vm = this;
             this.overview = $ts(id);
@@ -66,9 +67,9 @@ var apps;
             activity.datasets.forEach(function (dataset, i) { return _this.loadLineData(x, dataset, i); });
         }
         overviews.prototype.mouseEvent = function (e) {
-            var chart, point, i, event;
-            for (i = 0; i < Highcharts.charts.length; i = i + 1) {
-                chart = Highcharts.charts[i];
+            var point, event;
+            for (var _i = 0, _a = this.localCharts; _i < _a.length; _i++) {
+                var chart = _a[_i];
                 // Find coordinates within the chart
                 event = chart.pointer.normalize(e);
                 // Get the hovered point
@@ -84,13 +85,14 @@ var apps;
         overviews.prototype.syncExtremes = function (e, thisChart) {
             if (e.trigger !== 'syncExtremes') {
                 // Prevent feedback loop
-                Highcharts.each(Highcharts.charts, function (chart) {
+                for (var _i = 0, _a = this.localCharts; _i < _a.length; _i++) {
+                    var chart = _a[_i];
                     if (chart !== thisChart) {
                         if (chart.xAxis[0].setExtremes) { // It is null while updating
                             chart.xAxis[0].setExtremes(e.min, e.max, undefined, false, { trigger: 'syncExtremes' });
                         }
                     }
-                });
+                }
             }
         };
         overviews.prototype.loadLineData = function (x, dataset, i) {
@@ -164,6 +166,7 @@ var apps;
                         }
                     }]
             });
+            this.localCharts.push(chart);
         };
         return overviews;
     }());
@@ -175,8 +178,10 @@ var apps;
         function system_load(data, ps, id) {
             if (id === void 0) { id = "#container"; }
             this.id = id;
+            this.pidIndex = {};
             var vm = this;
             this.psFrames = report.orderFrames(ps);
+            this.pidIndex = this.createPIDindex();
             this.chart = Highcharts.chart(this.div = $ts(id), system_load.createPlotOptions(data));
             console.log(this.psFrames);
             /**
@@ -187,6 +192,29 @@ var apps;
                 vm.div.addEventListener(eventType, function (e) { return vm.mouseEvent(e); });
             });
         }
+        system_load.prototype.createPIDindex = function () {
+            var index = this.pidIndex;
+            var pidtemp = [];
+            for (var _i = 0, _a = this.psFrames; _i < _a.length; _i++) {
+                var frame = _a[_i];
+                for (var _b = 0, _c = frame.data; _b < _c.length; _b++) {
+                    var process = _c[_b];
+                    pidtemp.push({
+                        proc: process,
+                        time: frame.timeframe
+                    });
+                }
+            }
+            var pid_groups = $from(pidtemp)
+                .GroupBy(function (p) { return p.proc.PID; })
+                .Select(function (p) { return $from(p).OrderBy(function (p) { return p.time; }).ToArray(false); })
+                .ToArray(false);
+            for (var _d = 0, pid_groups_1 = pid_groups; _d < pid_groups_1.length; _d++) {
+                var group = pid_groups_1[_d];
+                index[group[0].proc.PID.toString()] = group;
+            }
+            return index;
+        };
         /**
          * update piechart at here
         */
@@ -197,6 +225,9 @@ var apps;
             var point = this.chart.series[0].searchPoint(event, true);
             if ((!isNullOrUndefined(point)) && (point.index != this.lastIndex)) {
                 var ps = this.findPsFrame(point.x);
+                if (isNullOrUndefined(ps) || ps.length == 0) {
+                    return;
+                }
                 point.highlight(e);
                 // update piechart at here
                 // console.log(e);
@@ -206,8 +237,32 @@ var apps;
                 this.lastIndex = point.index;
             }
         };
+        system_load.nameLabel = function (command) {
+            var label = "[#" + command.PID + "] " + command.raw;
+            if (label.length < 64) {
+                return label;
+            }
+            else {
+                return label.substr(0, 63) + "~";
+            }
+        };
         system_load.prototype.updatePie = function (ps) {
-            var pi = $from(ps).Where(function (p) { return p.CPU > 0; }).Select(function (p) { return ({ name: p.COMMAND, y: p.CPU }); }).ToArray();
+            var vm = this;
+            var pi = $from(ps)
+                .Where(function (p) { return p.CPU > 0; })
+                .Select(function (p) {
+                return {
+                    name: system_load.nameLabel(p),
+                    y: p.CPU,
+                    id: p.PID,
+                    events: {
+                        click: function () {
+                            vm.showByPID(p.PID.toString());
+                        }
+                    }
+                };
+            })
+                .ToArray();
             var total = $from(pi).Sum(function (p) { return p.y; });
             $ts("#cpu-pie").clear();
             Highcharts.chart('cpu-pie', {
@@ -263,8 +318,28 @@ var apps;
             return minFrame;
         };
         system_load.prototype.updatePsFrame = function (ps) {
+            var vm = this;
             $ts("#ps").clear();
-            $ts.appendTable(ps, "#ps", null, { class: "table" });
+            $ts.appendTable(ps, "#ps", ["USER", "PID", "CPU", "MEM", "TTY", "COMMAND"], { class: "table" });
+            // add click event handles
+            $ts.select("." + report.click_process).onClick(function (sender, evt) { return vm.showByPID(sender.getAttribute("pid")); });
+        };
+        system_load.prototype.showByPID = function (pid) {
+            var line = this.pidIndex[pid];
+            var proc = line[0].proc;
+            var CPU = $from(line).Select(function (p) { return p.proc.CPU; }).ToArray(false);
+            var memory = $from(line).Select(function (p) { return p.proc.MEM; }).ToArray(false);
+            var timeline = $from(line).Select(function (p) { return p.time; }).ToArray(false);
+            $ts("#summary").display("<p>User: " + proc.USER + "</p><p>TTY: " + proc.TTY + "</p><p>PID: " + pid + "</p><p>COMMAND: " + proc.COMMAND + "</p>");
+            $ts("#ps_view").clear();
+            $('#collapseThree').collapse('hide');
+            var plot = new apps.overviews({
+                xData: timeline,
+                datasets: [
+                    { name: "CPU Usage", valueDecimals: 1, type: "area", unit: "%", data: CPU },
+                    { name: "Memory Usage", valueDecimals: 1, type: "area", unit: "%", data: memory }
+                ]
+            }, "#ps_view");
         };
         system_load.createPlotOptions = function (dataset) {
             var x = dataset.x;
@@ -355,6 +430,7 @@ var report;
         return index;
     }(Bootstrap));
     report.index = index;
+    report.click_process = "click_process";
     function orderFrames(ps) {
         var order = [];
         var cmdl;
@@ -368,7 +444,8 @@ var report;
                 delete snapshots[j].START;
                 delete snapshots[j].TIME;
                 delete snapshots[j].VSZ;
-                snapshots[j].COMMAND = "<span style=\"font-size: 0.8em;\"><strong>" + cmdl + "</strong></span>";
+                snapshots[j].COMMAND = "<span style=\"font-size: 0.8em;\"><strong><a class=\"" + report.click_process + "\" pid=\"" + snapshots[j].PID + "\" href=\"javascript:void(0);\">" + cmdl + "</a></strong></span>";
+                snapshots[j].raw = cmdl;
             }
             order[i] = {
                 timeframe: ps[i].timeframe,

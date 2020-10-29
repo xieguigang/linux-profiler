@@ -7,10 +7,8 @@ declare namespace apps {
     class overviews {
         private id;
         private overview;
-        constructor(activity: {
-            datasets: any[];
-            xData: number[];
-        }, id?: string);
+        private localCharts;
+        constructor(activity: models.synchronizePlots, id?: string);
         private mouseEvent;
         /**
          * Synchronize zooming through the setExtremes event handler.
@@ -25,19 +23,23 @@ declare namespace apps {
         private chart;
         private div;
         private psFrames;
+        private pidIndex;
         constructor(data: {
             name: string;
             x: number[];
             data: number[];
         }, ps: models.jsFrame<models.ps[]>[], id?: string);
+        private createPIDindex;
         private lastIndex;
         /**
          * update piechart at here
         */
         private mouseEvent;
+        private static nameLabel;
         private updatePie;
         private findPsFrame;
         private updatePsFrame;
+        private showByPID;
         private static createPlotOptions;
     }
 }
@@ -60,12 +62,27 @@ declare namespace models {
         COMMAND: string;
     }
 }
+declare namespace models {
+    interface synchronizePlots {
+        datasets: synchronizePartition[];
+        xData: number[];
+    }
+    interface synchronizePartition {
+        data: number[] | number[][];
+        name: string;
+        max?: number;
+        valueDecimals: number;
+        type: string;
+        unit: string;
+    }
+}
 declare namespace report {
     class index extends Bootstrap {
-        readonly appName: string;
+        get appName(): string;
         private overviews;
         private system_load;
         protected init(): void;
     }
+    const click_process: string;
     function orderFrames(ps: models.jsFrame<models.ps[]>[]): models.jsFrame<models.ps[]>[];
 }

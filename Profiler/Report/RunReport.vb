@@ -3,6 +3,7 @@ Imports Linux.Commands
 Imports Linux.proc
 Imports Microsoft.VisualBasic.FileIO
 Imports Microsoft.VisualBasic.Language
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Serialization.JSON
 Imports Microsoft.VisualBasic.ValueTypes
 Imports SMRUCC.genomics.GCModeller.Workbench.ReportBuilder.HTML
@@ -41,19 +42,21 @@ Namespace Report
             Dim psName = App.GetNextUniqueName("process_snapshots_")
             Dim output As String = html.directory
 
-            html("version") = summary.version
-            html("release") = summary.release
-            html("release_details") = summary.osinfo.toHtml
-            html("overviews_js") = overviewName
-            html("cpuinfo") = cpuTreeName
-            html("title") = summary.title Or "No title".AsDefault
-            html("time") = summary.time.ToString
-            html("time_span") = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).FormatTime
-            html("dmidecode_version") = summary.dmidecode.version
-            html("logs") = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
-            html("dmidecode") = dmitreeName
-            html("systemload_js") = system_loadjs
-            html("ps_js") = psName
+            With html
+                !version = summary.version
+                !release = summary.release
+                !release_details = summary.osinfo.toHtml
+                !overviews_js = overviewName
+                !cpuinfo = cpuTreeName
+                !title = summary.title Or "No title".AsDefault
+                !time = summary.time.ToString
+                !time_span = (snapshots.Last.uptime.uptime - snapshots.First.uptime.uptime).Lanudry
+                !dmidecode_version = summary.dmidecode.version
+                !logs = summary.dmidecode.info.Select(AddressOf Strings.Trim).JoinBy("<br />")
+                !dmidecode = dmitreeName
+                !systemload_js = system_loadjs
+                !ps_js = psName
+            End With
 
             Call overview.dataJs(overviewName).SaveTo($"{output}/data/overviews.js")
             Call system_load.dataJs(system_loadjs).SaveTo($"{output}/data/system_load.js")
@@ -73,6 +76,10 @@ Namespace Report
                                 .Where(Function(p) p.CPU > 1 OrElse p.MEM > 1) _
                                 .ToArray
                             Dim stamp As Double = (DateTimeHelper.FromUnixTimeStamp(a.timestamp) - base_time).TotalSeconds
+
+                            For i As Integer = 0 To ps.Length - 1
+                                ps(i).COMMAND = ps(i).COMMAND.Replace("~+~", " ")
+                            Next
 
                             Return New JsFrame(Of ps()) With {.data = ps, .timeframe = stamp}
                         End Function) _
@@ -101,12 +108,15 @@ Namespace Report
                                         .icon = "images/folder-documents.png",
                                         .text = $"{handle.info.Count} attributes",
                                         .children = handle.info _
-                                            .Select(Function(a)
-                                                        Return New TreeNode With {
-                                                            .icon = "images/application-x-object.png",
-                                                            .text = $"{a.Key} = {a.Value}"
-                                                        }
+                                            .Select(Iterator Function(a) As IEnumerable(Of TreeNode)
+                                                        For Each value As String In Strings.Split(a.Value, "; ")
+                                                            Yield New TreeNode With {
+                                                                .icon = "images/application-x-object.png",
+                                                                .text = $"{a.Key} = {value}"
+                                                            }
+                                                        Next
                                                     End Function) _
+                                            .IteratesALL _
                                             .ToArray
                                     }
                                 }

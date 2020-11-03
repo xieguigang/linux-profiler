@@ -1,5 +1,8 @@
 ﻿Imports System.Runtime.CompilerServices
 
+''' <summary>
+''' linux command interaction shell module
+''' </summary>
 Public Class Interaction
 
     Public Shared ReadOnly Property version As String
@@ -21,6 +24,16 @@ Public Class Interaction
             End If
         End Get
     End Property
+
+    ''' <summary>
+    ''' does the required command is installed in
+    ''' the centos system?
+    ''' </summary>
+    ''' <param name="command"></param>
+    ''' <returns></returns>
+    Public Function hasCommand(command As String) As Boolean
+        Return Not Interaction.Shell("command", $"-v {command}", verbose:=False).StringEmpty
+    End Function
 
     ' 20201023
     '
@@ -48,6 +61,15 @@ Public Class Interaction
     ' SMRUCC/R#.n/a.InitializeEnvironment at linux_run.R:line 0
     ' SMRUCC/R#.global.<globalEnvironment> at <globalEnvironment>:line n/a
 
+    ''' <summary>
+    ''' run a linux command
+    ''' </summary>
+    ''' <param name="command">the command name or its executative file path.</param>
+    ''' <param name="args">command line arguments</param>
+    ''' <param name="verbose">debug option</param>
+    ''' <returns>
+    ''' the std_output of the specific command.
+    ''' </returns>
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Shared Function Shell(command As String, args As String, verbose As Boolean) As String
         Dim cmdl As String
@@ -73,6 +95,12 @@ Public Class Interaction
         Return stdout
     End Function
 
+    ''' <summary>
+    ''' read the file content of a specific <paramref name="file"/>
+    ''' </summary>
+    ''' <param name="file">the file path of the target text file.</param>
+    ''' <param name="verbose"></param>
+    ''' <returns></returns>
     Public Shared Function cat(file As String, verbose As Boolean) As String
         Return Shell("cat", args:=file, verbose)
     End Function

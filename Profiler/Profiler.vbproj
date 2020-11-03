@@ -110,6 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\dmidecode.vb" />
+    <Compile Include="Commands\numactl\hardware.vb" />
+    <Compile Include="Commands\numactl\numastat.vb" />
     <Compile Include="Files\etc\os_release.vb" />
     <Compile Include="Profiler.vb" />
     <Compile Include="Commands\free.vb" />

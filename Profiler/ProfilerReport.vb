@@ -2,11 +2,6 @@
 Imports Linux.etc
 Imports Linux.proc
 
-''' <summary>
-''' run ``sysstat`` toolkit installation if the command is not found
-''' 
-''' ``yum install sysstat -y``
-''' </summary>
 Public Class ProfilerReport
 
     ''' <summary>

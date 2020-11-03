@@ -7,6 +7,15 @@ Imports Microsoft.VisualBasic.ComponentModel
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Serialization.JSON
 
+''' <summary>
+''' run ``sysstat`` toolkit installation if the command is not found
+''' 
+''' ``yum install sysstat -y``
+''' 
+''' optional modules:
+''' 
+''' ``yum install numactl -y``
+''' </summary>
 Public Class Profiler : Implements ITaskDriver
 
     Dim cancel As Boolean = False

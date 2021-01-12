@@ -5,6 +5,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
     <AssemblyName>linux-profiler</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <StartupObject>imaging_netcore5.Program</StartupObject>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

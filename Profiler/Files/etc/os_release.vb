@@ -1,4 +1,6 @@
-﻿Imports System.Data.Linq.Mapping
+﻿#If netcore5 = 0 Then
+Imports System.Data.Linq.Mapping
+#End If
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
 Imports SMRUCC.Rsharp.Runtime.Internal.Object

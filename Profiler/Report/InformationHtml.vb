@@ -1,4 +1,6 @@
-﻿Imports System.Data.Linq.Mapping
+﻿#If netcore5 = 0 Then
+Imports System.Data.Linq.Mapping
+#End If
 Imports System.Runtime.CompilerServices
 Imports Linux.etc
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps

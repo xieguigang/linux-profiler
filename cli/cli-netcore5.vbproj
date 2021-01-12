@@ -28,6 +28,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineConstants>netcore5=1,UNIX=1</DefineConstants>
+    <OutputPath>D:\linux-profiler\Apps\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

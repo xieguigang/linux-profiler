@@ -45,7 +45,7 @@ Namespace Commands
             Return $" {time} up {uptime}, {users} users,  load average: {load1}, {load5}, {load15}"
         End Function
 
-        Friend Shared Function Parse(stdout As String) As uptime
+        Public Shared Function Parse(stdout As String) As uptime
             Dim tokens = stdout.StringSplit("(\s*,\s*)|(\s*up\s*)")
             Dim uptime As TimeSpan
 

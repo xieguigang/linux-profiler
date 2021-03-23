@@ -19,6 +19,9 @@ Module Program
         Dim interval% = args("/interval") Or 15
         Dim title$ = args("/title") Or "benchmark"
 
+        Call Console.WriteLine(Interaction.release)
+        Call Console.WriteLine(Interaction.version)
+
         Return New Profiler(save, interval, title).Run
     End Function
 

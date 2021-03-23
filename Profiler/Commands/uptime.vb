@@ -48,16 +48,22 @@ Namespace Commands
         Public Shared Function Parse(stdout As String) As uptime
             Dim tokens = stdout.StringSplit("(\s*,\s*)|(\s*up\s*)")
             Dim uptime As TimeSpan
+            Dim offset As Integer = 0
 
-            uptime = TimeSpan.FromDays(Integer.Parse(tokens(2).Match("\d+"))) + ParseTimeSpan(tokens(4))
+            If tokens(2).IsPattern("\d+\s*min") Then
+                uptime = TimeSpan.FromMinutes(Integer.Parse(tokens(2).Match("\d+")))
+                offset = -2
+            Else
+                uptime = TimeSpan.FromDays(Integer.Parse(tokens(2).Match("\d+"))) + ParseTimeSpan(tokens(4))
+            End If
 
             Return New uptime With {
                 .time = Strings.Trim(tokens(Scan0)),
                 .uptime = uptime,
-                .users = tokens(6).Match("\d+").DoCall(AddressOf Integer.Parse),
-                .load1 = tokens(8).Split(":"c).Last.DoCall(AddressOf Val),
-                .load5 = Val(tokens(10)),
-                .load15 = Val(tokens(12))
+                .users = tokens(6 + offset).Match("\d+").DoCall(AddressOf Integer.Parse),
+                .load1 = tokens(8 + offset).Split(":"c).Last.DoCall(AddressOf Val),
+                .load5 = Val(tokens(10 + offset)),
+                .load15 = Val(tokens(12 + offset))
             }
         End Function
 

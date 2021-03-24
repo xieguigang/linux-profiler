@@ -50,7 +50,12 @@ Namespace Commands
             Dim uptime As TimeSpan
             Dim offset As Integer = 0
 
-            If tokens(2).IsPattern("\d+\s*min") Then
+            If tokens(2).IsPattern("\d+[:]\d+") Then
+                Dim hhmm As String() = tokens(2).Split(":"c)
+
+                uptime = TimeSpan.FromHours(Val(hhmm(0))) + TimeSpan.FromMinutes(Val(hhmm(1)))
+                offset = -2
+            ElseIf tokens(2).IsPattern("\d+\s*min") Then
                 uptime = TimeSpan.FromMinutes(Integer.Parse(tokens(2).Match("\d+")))
                 offset = -2
             Else

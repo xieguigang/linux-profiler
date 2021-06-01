@@ -12,7 +12,9 @@ Namespace Report
 
         <Extension>
         Private Function IoSpeed(time2 As Snapshot, time1 As Snapshot, isRead As Boolean) As Double
-            Dim dt As Double = (DateTimeHelper.FromUnixTimeStamp(time2.timestamp) - DateTimeHelper.FromUnixTimeStamp(time1.timestamp)).TotalSeconds
+            Dim t2 = DateTimeHelper.FromUnixTimeStamp(time2.timestamp)
+            Dim t1 = DateTimeHelper.FromUnixTimeStamp(time1.timestamp)
+            Dim dt As Double = (t2 - t1).TotalSeconds
             Dim data2, data1 As Double
 
             If isRead Then

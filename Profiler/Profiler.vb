@@ -21,7 +21,7 @@ Public Class Profiler : Implements ITaskDriver
     Dim cancel As Boolean = False
     Dim save As String
     Dim seconds As Integer
-    Dim tmp As String = App.GetAppSysTempFile("__", sessionID:=App.PID, prefix:="profiler_tools")
+    Dim tmp As String = TempFileSystem.GetAppSysTempFile("__", sessionID:=App.PID, prefix:="profiler_tools")
     Dim i As i32 = 1
 
     Sub New(save As String, Optional seconds As Integer = 15, Optional title$ = "benchmark")

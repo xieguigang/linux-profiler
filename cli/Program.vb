@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports Linux
+Imports Microsoft.VisualBasic.ApplicationServices
 Imports Microsoft.VisualBasic.ApplicationServices.Zip
 Imports Microsoft.VisualBasic.CommandLine
 Imports Microsoft.VisualBasic.CommandLine.Reflection
@@ -30,11 +31,11 @@ Module Program
     Public Function RunReport(args As CommandLine) As Integer
         Dim in$ = args <= "/snapshots"
         Dim out$ = args("/out") Or $"{[in].TrimSuffix}.profilers_report/"
-        Dim tmp As String = App.GetAppSysTempFile("~", App.PID, "snapshots")
+        Dim tmp As String = TempFileSystem.GetAppSysTempFile("~", App.PID, "snapshots")
         Dim template As String = args <= "/template"
 
         If Not template.DirectoryExists Then
-            template = App.GetAppSysTempFile("~", App.PID, "template")
+            template = TempFileSystem.GetAppSysTempFile("~", App.PID, "template")
             Throw New NotImplementedException
         End If
 

@@ -32,7 +32,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineConstants>netcore5=1,UNIX=1</DefineConstants>
-    <OutputPath>D:\linux-profiler\Apps\</OutputPath>
+    <OutputPath>../../assembly/</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rsharp_app_release|x64'">
@@ -42,7 +42,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineConstants>netcore5=1,UNIX=1</DefineConstants>
-    <OutputPath>D:\linux-profiler\Apps\</OutputPath>
+    <OutputPath>../../assembly/</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

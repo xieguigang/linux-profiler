@@ -1,0 +1,1 @@
+<html> folder is the template source for the profiler report template

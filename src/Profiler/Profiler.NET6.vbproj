@@ -1,13 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>imaging_netcore5</RootNamespace>
-    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Linux</RootNamespace>
+    <TargetFrameworks>net6.0-windows;net6.0;net5.0;net48</TargetFrameworks>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyName>linux-profiler</AssemblyName>
-    <OutputType>Exe</OutputType>
-    <StartupObject>imaging_netcore5.Program</StartupObject>
-    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <AssemblyName>LinuxProfiler</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,8 +28,11 @@
     <DebugType>full</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineConstants>netcore5=1,UNIX=1</DefineConstants>
-    <OutputPath>D:\linux-profiler\Apps\</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\GCModeller\src\R-sharp\R#\Rsharp-netcore5.vbproj" />
@@ -45,7 +45,6 @@
     <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\JavaScript\highcharts.js\highcharts.js-netcore5.vbproj" />
     <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\JavaScript\jsTree\jsTree-netcore5.vbproj" />
     <ProjectReference Include="..\..\GCModeller\src\workbench\markdown2pdf\ReportBuilder\reportBuilder-netcore5.vbproj" />
-    <ProjectReference Include="..\Profiler\profiler-netcore5.vbproj" />
   </ItemGroup>
 
 </Project>

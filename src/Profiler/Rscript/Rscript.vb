@@ -101,6 +101,48 @@ Module Rscript
 
 #End Region
 
+    ''' <summary>
+    ''' Dmidecode reports information about your system's hardware 
+    ''' as described in your system BIOS according to the SMBIOS/DMI 
+    ''' standard (see a sample output). This information typically 
+    ''' includes system manufacturer, model name, serial number, 
+    ''' BIOS version, asset tag as well as a lot of other details of 
+    ''' varying level of interest and reliability depending on the 
+    ''' manufacturer. This will often include usage status for the 
+    ''' CPU sockets, expansion slots (e.g. AGP, PCI, ISA) and memory
+    ''' module slots, and the list of I/O ports (e.g. serial, parallel,
+    ''' USB).
+    '''
+    ''' DMI data can be used to enable or disable specific portions 
+    ''' of kernel code depending on the specific hardware. Thus, one
+    ''' use of dmidecode is for kernel developers to detect system 
+    ''' "signatures" and add them to the kernel source code when 
+    ''' needed.
+    '''
+    ''' Beware that DMI data have proven to be too unreliable to be 
+    ''' blindly trusted. Dmidecode does not scan your hardware, it 
+    ''' only reports what the BIOS told it to.
+    '''
+    ''' Dmidecode was first written by Alan Cox, then was further 
+    ''' developed and is currently maintained again by Jean Delvare,
+    ''' after a 5-year interim by Anton Arapov. It is released under 
+    ''' the General Public License (GPL). For more details, you 
+    ''' should have a look at the AUTHORS and LICENSE files that 
+    ''' come with the source code.
+    '''
+    ''' Three additional tools come with dmidecode:
+    '''
+    ''' biosdecode prints all BIOS related information it can find
+    ''' (see a sample output);
+    ''' ownership retrieves the "ownership tag" that can be set on
+    ''' Compaq computers;
+    ''' vpddecode prints the "vital product data" information that 
+    ''' can be found in almost all IBM computers (see a sample 
+    ''' output).
+    ''' </summary>
+    ''' <param name="file"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("dmidecode")>
     Public Function dmidecode(Optional file As String = Nothing, Optional env As Environment = Nothing) As dmidecode
         If file.StringEmpty Then
@@ -110,6 +152,42 @@ Module Rscript
         End If
     End Function
 
+    ''' <summary>
+    ''' # os-release - Operating system identification
+    ''' 
+    ''' The /etc/os-release and /usr/lib/os-release files contain operating system identification data.
+    '''
+    ''' The basic file format of os-release is a newline-separated list of environment-like shell-compatible variable
+    ''' assignments. It is possible to source the configuration from shell scripts, however, beyond mere variable
+    ''' assignments, no shell features are supported (this means variable expansion is explicitly not supported),
+    ''' allowing applications to read the file without implementing a shell compatible execution engine. Variable
+    ''' assignment values must be enclosed in double or single quotes if they include spaces, semicolons or other
+    ''' special characters outside of A-Z, a-z, 0-9. Shell special characters ("$", quotes, backslash, backtick) must
+    ''' be escaped with backslashes, following shell style. All strings should be in UTF-8 format, and non-printable
+    ''' characters should not be used. It is not supported to concatenate multiple individually quoted strings. Lines
+    ''' beginning with "#" shall be ignored as comments.
+    '''
+    ''' The file /etc/os-release takes precedence over /usr/lib/os-release. Applications should check for the former,
+    ''' and exclusively use its data if it exists, and only fall back to /usr/lib/os-release if it is missing.
+    ''' Applications should not read data from both files at the same time.  /usr/lib/os-release is the recommended
+    ''' place to store OS release information as part of vendor trees.  /etc/os-release should be a relative symlink
+    ''' to /usr/lib/os-release, to provide compatibility with applications only looking at /etc. A relative symlink
+    ''' instead of an absolute symlink is necessary to avoid breaking the link in a chroot or initrd environment such
+    ''' as dracut.
+    '''
+    ''' os-release contains data that is defined by the operating system vendor and should generally not be changed by
+    ''' the administrator.
+    '''
+    ''' As this file only encodes names and identifiers it should not be localized.
+    '''
+    ''' The /etc/os-release and /usr/lib/os-release files might be symlinks to other files, but it is important that
+    ''' the file is available from earliest boot on, and hence must be located on the root file system.
+    '''
+    ''' For a longer rationale for os-release please refer to the Announcement of /etc/os-release.
+    ''' </summary>
+    ''' <param name="file"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("os_release")>
     Public Function os_release(Optional file As String = Nothing, Optional env As Environment = Nothing) As os_release
         If file.StringEmpty Then

@@ -21,8 +21,8 @@ Module Reporter
     ''' </param>
     ''' <returns></returns>
     <ExportAPI("profiler")>
-    Public Function create_profiler_session(save$, Optional seconds% = 15) As Profiler
-        Return New Profiler(save, seconds)
+    Public Function create_profiler_session(save$, Optional seconds% = 15, Optional title$ = "benchmark") As Profiler
+        Return New Profiler(save, seconds, title)
     End Function
 
     ''' <summary>

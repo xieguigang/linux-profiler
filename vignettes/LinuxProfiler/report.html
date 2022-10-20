@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="zh-CN">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>report</title>
+    <meta name="author" content="xie.guigang@gcmodeller.org" />
+    <meta name="copyright" content="SMRUCC genomics Copyright (c) 2020" />
+    <meta name="keywords" content="GCModeller; Xanthomonas; Artificial Life" />
+    <meta name="generator" content="https://github.com/xieguigang/xDoc" />
+    <meta name="theme-color" content="#333" />
+    <meta name="last-update" content="2022-10-20" />
+    <meta name="description" content="A software system aim at Artificial Life system design and analysis." />
+    <meta class="foundation-data-attribute-namespace" />
+    <meta class="foundation-mq-xxlarge" />
+    <meta class="foundation-mq-xlarge" />
+    <meta class="foundation-mq-large" />
+    <meta class="foundation-mq-medium" />
+    <meta class="foundation-mq-small" />
+    <meta class="foundation-mq-topbar" />
+  </head>
+  <body>
+    <table width="100%" summary="page for {report}">
+      <tbody>
+        <tr>
+          <td>{report}</td>
+          <td style="text-align: right;">R# Documentation</td>
+        </tr>
+      </tbody>
+    </table>
+    <h1>report</h1>
+    <hr />
+    <p></p>
+    <div id="main-wrapper">
+                           <div>
+  <h2 id="profiler">
+    <a href="./report/profiler.html">profiler</a>
+  </h2>
+  <hr />
+  <p>
+                      
+                
+                    <pre><p>let <code>profiler</code> as function(<code>save</code> as string, <code>seconds</code> as integer = 15) -> <code>&lt;generic&gt; Profiler</code> {
+    #
+    # .NET API information
+    #
+    # module: Linux.Reporter
+    # LibPath: D:/linux-profiler/assembly/net6.0
+    # library: LinuxProfiler.dll
+    # package: "report"
+    #
+    return call <code>R&#35;.interop_[Reporter::create_profiler_session]</code>(...);
+}</p></pre>
+
+                    
+                       
+                    
+
+                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
+</div><br /><div>
+  <h2 id="start.session">
+    <a href="./report/start.session.html">start.session</a>
+  </h2>
+  <hr />
+  <p>
+                      
+                
+                    <pre><p>let <code>start.session</code> as function(<code>profiler</code> as <generic> Profiler) -> <code>&lt;generic&gt; Profiler</code> {
+    #
+    # .NET API information
+    #
+    # module: Linux.Reporter
+    # LibPath: D:/linux-profiler/assembly/net6.0
+    # library: LinuxProfiler.dll
+    # package: "report"
+    #
+    return call <code>R&#35;.interop_[Reporter::start_session]</code>(...);
+}</p></pre>
+
+                    
+                       
+                    
+
+                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
+</div>
+                       </div>
+  </body>
+</html>

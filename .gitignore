@@ -353,3 +353,4 @@ MigrationBackup/
 .ionide/
 *.map
 docs/biodeep_test.zip
+.pkg/Profiler.zip

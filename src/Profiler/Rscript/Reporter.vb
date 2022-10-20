@@ -1,6 +1,9 @@
 ﻿
+Imports Microsoft.VisualBasic.ApplicationServices
+Imports Microsoft.VisualBasic.ApplicationServices.Zip
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports Microsoft.VisualBasic.Serialization.JSON
 Imports SMRUCC.Rsharp.Runtime.Interop
 
 ''' <summary>
@@ -35,5 +38,28 @@ Module Reporter
         Call "Linux system performance profiler session is started, press Ctrl + C for stop.".__INFO_ECHO
         Call profiler.Run()
         Return profiler
+    End Function
+
+    <ExportAPI("create_report")>
+    Public Function doReport(snapshotsZip As String, out As String, template As String)
+        Dim tmp As String = TempFileSystem.GetAppSysTempFile("~", App.PID, "snapshots")
+
+        If Not template.DirectoryExists Then
+            template = TempFileSystem.GetAppSysTempFile("~", App.PID, "template")
+            Throw New NotImplementedException
+        End If
+
+        Call UnZip.ImprovedExtractToDirectory(snapshotsZip, tmp, Overwrite.Always, extractToFlat:=True)
+
+        Dim summary As ProfilerReport = $"{tmp}/index.json".LoadJSON(Of ProfilerReport)
+        Dim snapshots As Snapshot() = tmp _
+            .EnumerateFiles("*.json") _
+            .Where(Function(file) Not file.FileName = "index.json") _
+            .Select(Function(file) file.LoadJSON(Of Snapshot)) _
+            .ToArray
+
+        Call Report.RunReport(template, out, summary, snapshots)
+
+        Return 0
     End Function
 End Module

@@ -1,7 +1,5 @@
-﻿#If netcore5 = 0 Then
-Imports System.Data.Linq.Mapping
-#End If
-Imports System.Runtime.CompilerServices
+﻿Imports System.Runtime.CompilerServices
+Imports Darwinism.Centos
 Imports Linux.Commands
 Imports Linux.etc
 Imports Linux.proc

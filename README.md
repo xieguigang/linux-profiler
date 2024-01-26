@@ -1,5 +1,9 @@
 # linux-profiler
+
 Linux system performance profiler tool
+
++ View [help document](vignettes/index.html) pages
++ [Demo](docs/) 
 
 # Usage
 

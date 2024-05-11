@@ -53,6 +53,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\GCModeller\src\R-sharp\R#\Rsharp-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\Darwinism\src\CloudKit\Centos\Centos.NET5.vbproj" />
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\markdown2pdf\src\JavaScript\highcharts.js\highcharts.js-netcore5.vbproj" />
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\markdown2pdf\src\JavaScript\jsTree\jsTree-netcore5.vbproj" />
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\markdown2pdf\src\ReportBuilder\reportBuilder-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data\DataFrame\dataframework-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data_science\Mathematica\Math\Math\Math.NET5.vbproj" />
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\gr\Microsoft.VisualBasic.Imaging\imaging.NET5.vbproj" />
@@ -60,9 +63,6 @@
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\mime\application%json\JSON-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\mime\text%html\html_netcore5.vbproj" />
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\mime\text%markdown\markdown.NET5.vbproj" />
-    <ProjectReference Include="..\..\..\GCModeller\src\workbench\markdown2pdf\src\JavaScript\highcharts.js\highcharts.js-netcore5.vbproj" />
-    <ProjectReference Include="..\..\..\GCModeller\src\workbench\markdown2pdf\src\JavaScript\jsTree\jsTree-netcore5.vbproj" />
-    <ProjectReference Include="..\..\..\GCModeller\src\workbench\markdown2pdf\src\ReportBuilder\reportBuilder-netcore5.vbproj" />
   </ItemGroup>
 
 </Project>

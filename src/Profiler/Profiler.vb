@@ -69,6 +69,13 @@ Public Class Profiler : Implements ITaskDriver
         Return 0
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <remarks>
+    ''' bash: iostat: command not found...
+    ''' Install package 'sysstat' to provide command 'iostat'? [N/y]
+    ''' </remarks>
     Private Sub sampling()
         Dim snapshot As New Snapshot With {
             .free = Commands.free.Parse(Interaction.Shell("free", "", verbose:=False)),

@@ -20,6 +20,10 @@ Namespace etc
         Public Property CPE_NAME As String
         Public Property HOME_URL As String
         Public Property BUG_REPORT_URL As String
+        Public Property PLATFORM_ID As String
+        Public Property LOGO As String
+        Public Property REDHAT_SUPPORT_PRODUCT As String
+        Public Property REDHAT_SUPPORT_PRODUCT_VERSION As String
 
         Public Property metadata As Dictionary(Of String, String)
 
@@ -43,7 +47,11 @@ Namespace etc
                                               Return CObj(t.Value)
                                           End Function)
                         }
-                    }
+                    },
+                    {"PLATFORM_ID", PLATFORM_ID},
+                    {"LOGO", LOGO},
+                    {"REDHAT_SUPPORT_PRODUCT", REDHAT_SUPPORT_PRODUCT},
+                    {"REDHAT_SUPPORT_PRODUCT_VERSION", REDHAT_SUPPORT_PRODUCT_VERSION}
                 }
             }
         End Function

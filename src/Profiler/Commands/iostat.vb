@@ -1,8 +1,4 @@
-﻿#If netcore5 = 0 Then
-Imports System.Data.Linq.Mapping
-#Else
-Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
-#End If
+﻿Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Text
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
@@ -23,6 +19,11 @@ Namespace Commands
 
         Friend Shared Function Parse(stdout As String) As iostat
             Dim lines As String() = stdout.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF).LineTokens
+
+            If lines.IsNullOrEmpty Then
+                Call "'iostat' command was not found, try install 'sysstat' at first.".Warning
+            End If
+
             Dim avg As Double() = lines(3) _
                 .Trim _
                 .StringSplit("\s+") _

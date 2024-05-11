@@ -1,7 +1,4 @@
-﻿#If netcore5 = 0 Then
-Imports System.Data.Linq.Mapping
-#End If
-Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
+﻿Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel.SchemaMaps
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop.CType
@@ -58,13 +55,17 @@ Namespace etc
                 .ToArray
             Dim writer = Schema(Of ColumnAttribute).GetSchema(GetType(os_release), Function(c) c.Name, explict:=True)
             Dim info As New os_release
+            Dim onError As Boolean = False
 
             For Each tag As NamedValue(Of String) In lines(Scan0) _
                 .Select(Function(line)
                             Return line.GetTagValue("=", trim:=""""c)
                         End Function)
 
-                Call writer.Write(tag.Name, info, tag.Value)
+                If Not writer.Write(tag.Name, info, tag.Value) Then
+                    onError = True
+                    VBDebugger.Echo($"error while set value to: {tag.Name}={tag.Value}")
+                End If
             Next
 
             If lines.Length > 1 Then
@@ -77,6 +78,10 @@ Namespace etc
                                   Function(m)
                                       Return m.Value
                                   End Function)
+            End If
+
+            If onError Then
+                Call $"set value error for os_release:{vbCrLf}{vbCrLf}{stdout}".Warning
             End If
 
             Return info

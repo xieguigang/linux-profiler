@@ -30,31 +30,31 @@
             <code id="clr_ts">
 # namespace Linux.proc
 export class cpuinfo {
-   processor: integer;
-   vendor_id: string;
-   cpu_family: string;
-   model: string;
-   model_name: string;
-   stepping: string;
-   microcode: string;
-   cpu_MHz: double;
+   address_sizes: string;
+   apicid: integer;
+   bogomips: double;
+   cache_alignment: integer;
    cache_size: string;
-   physical_id: integer;
-   siblings: integer;
+   clflush_size: integer;
    core_id: integer;
    cpu_cores: integer;
-   apicid: integer;
-   initial_apicid: integer;
+   cpu_family: string;
+   cpu_MHz: double;
+   cpuid_level: integer;
+   flags: string;
    fpu: string;
    fpu_exception: string;
-   cpuid_level: integer;
-   wp: string;
-   flags: string;
-   bogomips: double;
-   clflush_size: integer;
-   cache_alignment: integer;
-   address_sizes: string;
+   initial_apicid: integer;
+   microcode: string;
+   model: string;
+   model_name: string;
+   physical_id: integer;
    power_management: string;
+   processor: integer;
+   siblings: integer;
+   stepping: string;
+   vendor_id: string;
+   wp: string;
 }
 </code>
         </pre>

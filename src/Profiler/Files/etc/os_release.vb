@@ -64,7 +64,7 @@ Namespace etc
 
                 If Not writer.Write(tag.Name, info, tag.Value) Then
                     onError = True
-                    VBDebugger.Echo($"error while set value to: {tag.Name}={tag.Value}")
+                    VBDebugger.EchoLine($"error while set value to: {tag.Name}={tag.Value}")
                 End If
             Next
 
@@ -81,6 +81,7 @@ Namespace etc
             End If
 
             If onError Then
+                Call VBDebugger.EchoLine("")
                 Call $"set value error for os_release:{vbCrLf}{vbCrLf}{stdout}".Warning
             End If
 
